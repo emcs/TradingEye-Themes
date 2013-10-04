@@ -1,0 +1,1178 @@
+<script language="JavaScript" type="text/javascript">
+	function loadvalues()
+	{
+		stateName =  Array();
+		stateVal = Array();
+		stateName[-1] = Array();
+		stateVal[-1] = Array();
+		stateName[0] = Array();
+		stateVal[0] = Array();
+		<!-- BEGIN countryblk -->
+		stateName[{k}] = Array();
+		stateVal[{k}] = Array();
+		stateName[{k}][-1] = "Select below";
+		stateVal[{k}][-1] = "-1";
+		stateName[{k}][-1] = "Select below";
+		stateName[{k}][0] = "Others";
+		stateVal[{k}][0] = "0";
+		<!-- END countryblk -->
+		stateName[0][0] = "Others";
+		stateVal[0][0] = "0";
+		<!-- BEGIN stateblk -->
+		stateName[{i}][{j}] = "{stateName}"
+		stateVal[{i}][{j}] = "{stateVal}"
+		<!-- END stateblk -->
+	}
+	function setbillstate(index,fstatus)
+	{
+		loadvalues();
+		document.ThisForm.bill_state_id.length=1;
+
+		if(index>-1)
+		{
+		for(i=-1;i<stateName[index].length;i++)
+		{
+			document.ThisForm.bill_state_id.options[i+1]=new Option(stateName[index][i],stateVal[index][i]);
+		}		
+
+		if(stateName[index].length==1)
+		{
+			document.ThisForm.bill_state_id.options[1].selected=true;
+		}
+		if(stateName[index].length>1)
+		{
+			document.getElementById("bill_state").style.background="#E8E8E8";
+			document.ThisForm.bill_state.value="";
+			document.ThisForm.bill_state.disabled=true;
+			document.getElementById("bill_state_id").style.background="#FFFFFF";
+			document.ThisForm.bill_state_id.disabled=false;
+			if(fstatus==2)
+			{
+				document.ThisForm.bill_state_id.focus();
+			}
+		}
+		else
+		{
+			document.getElementById("bill_state").style.background="#FFFFFF";
+			document.ThisForm.bill_state.disabled=false;
+			document.getElementById("bill_state_id").style.background="#E8E8E8";
+			document.ThisForm.bill_state_id.disabled=true;
+			if(fstatus==2)
+			{
+				document.ThisForm.bill_state.focus();
+			}
+		}
+		}
+	}
+function setshipstate(index,fstatus)
+	{
+		loadvalues();
+		document.ThisForm.ship_state_id.length=1;
+		for(i=-1;i<stateName[index].length;i++)
+		{
+			document.ThisForm.ship_state_id.options[i+1]=new Option(stateName[index][i],stateVal[index][i]);
+		}
+		if(stateName[index].length==1)
+		{
+		document.ThisForm.ship_state_id.options[1].selected=true;
+		}
+		if(stateName[index].length>1)
+		{
+			document.getElementById("ship_state").style.background="#E8E8E8";
+			document.ThisForm.ship_state.value="";
+			document.ThisForm.ship_state.disabled=true;
+			document.getElementById("ship_state_id").style.background="#FFFFFF";
+			document.ThisForm.ship_state_id.disabled=false;
+			if(fstatus==2)
+			{
+				document.ThisForm.ship_state_id.focus();
+			}
+		}
+		else
+		{
+			document.getElementById("ship_state").style.background="#ffffff";
+			document.ThisForm.ship_state.disabled=false;
+			document.getElementById("ship_state_id").style.background="#E8E8E8";
+			document.ThisForm.ship_state_id.disabled=true;
+			if(fstatus==2)
+			{
+				document.ThisForm.ship_state.focus();
+			}
+		}
+
+	}
+		function disableField(field,stat) {
+			field.disabled = stat;
+		}		
+		function isEmail(s){
+			var i = 1;
+			var sLength = s.length;
+			while ((i < sLength) && (s.charAt(i) != "@")){ i++ }
+			if ((i >= sLength) || (s.charAt(i) != "@")) return false;
+				else i += 2;
+			while ((i < sLength) && (s.charAt(i) != ".")){ i++ }
+			if ((i >= sLength - 1) || (s.charAt(i) != ".")) return false;
+				else return true;
+		}
+		function validateForm(form)
+		{
+			if(isNull(form.first_name.value) || form.first_name.value=='first name'){
+				alert("Please enter your First Name...");
+				form.first_name.focus();
+				return false;
+			}
+			if(isNull(form.last_name.value) || form.last_name.value=='last name'){
+				alert("Please enter your Last Name...");
+				form.last_name.focus();
+				return false;
+			}
+			if(!checkEmail(form.email.value)){
+				alert("Please enter a valid Email Address...");
+				form.email.focus();
+				return false;
+			}
+			if(isNull(form.address1.value) || form.address1.value=='address 1'){
+				alert("Please enter your Address 1...");
+				form.address1.focus();
+				return false;
+			}
+			if(isNull(form.city.value) || form.city.value=='city'){
+				alert("Please enter your City...");
+				form.city.focus();
+				return false;
+			}
+			index = form.bill_country_id.value;
+			if(stateName[index].length > 1){
+				if(isNull(form.bill_state_id.value) || form.bill_state_id.value == -1){
+				alert("Please select your County/State...");
+				form.bill_state_id.focus();
+				return false;
+				}
+			}else{
+					if(isNull(form.bill_state.value) || form.bill_state.value==''){
+					alert("Please enter your County/State...");
+					form.bill_state.focus();
+					return false;
+				  }
+				}
+			if(isNull(form.zip.value) || form.zip.value=='postcode/zip'){
+				alert("Please enter Postcode/Zip...");
+				form.zip.focus();
+				return false;
+			}
+			if(isNull(form.phone.value) || form.phone.value=='telephone'){
+				alert("Please enter your Telephone...");
+				form.phone.focus();
+				return false;
+			}
+			if(isdefined(form.alt_fname))
+			{
+				// Alternative address validations.
+				if(isNull(form.alt_fname.value) || form.alt_fname.value=='full name'){
+					alert("Please enter your Full Name...");
+					form.alt_name.focus();
+					return false;
+				}
+				if(isNull(form.alt_address1.value) || form.alt_address1.value=='address 1'){
+					alert("Please enter your Delivery Address 1...");
+					form.alt_address1.focus();
+					return false;
+				}
+				if(isNull(form.alt_city.value) || form.alt_city.value=='city'){
+					alert("Please enter your Delivery City...");
+					form.alt_city.focus();
+					return false;
+				}
+				index = form.ship_country_id.value;
+				if(stateName[index].length > 1){
+					if(isNull(form.ship_state_id.value) || form.ship_state_id.value == -1){
+					alert("Please select your shipping County/State...");
+					form.ship_state_id.focus();
+					return false;
+					}
+				}else{
+						if(isNull(form.ship_state.value) || form.ship_state.value==''){
+						alert("Please enter your shipping County/State...");
+						form.ship_state.focus();
+						return false;
+					  }
+					}
+				if(isNull(form.alt_zip.value) || form.alt_zip.value=='postcode/zip'){
+					alert("Please enter your Delivery Postcode/Zip...");
+					form.alt_zip.focus();
+					return false;
+				}
+				if(isNull(form.alt_phone.value) || form.alt_phone.value=='telephone'){
+					alert("Please enter your Delivery Telephone...");
+					form.alt_phone.focus();
+					return false;
+				}
+			}	
+			if(!document.ThisForm.terms_agree.checked){
+				alert("You must agree to the terms and conditions...");
+				form.terms_agree.focus();
+				return false;
+			}
+			if(checkPAY(form)) return true;
+            else return false;
+          
+            return true;
+		}
+	function getValue(frm, fieldname){
+		var field = eval("document." + frm + "."+fieldname);
+		if(isdefined(field)){
+			return field.value;
+		}else{
+			return false;
+		}
+	}
+	function trimchar(pstr)
+	{
+		var lenstr = pstr.length;
+		for(var i = 0 ; pstr.charAt(i) == " "; i++);
+		for(var j = pstr.length - 1; pstr.charAt(j)== " "; j--);
+		j++;
+		if (i > j)
+			pstr = "";
+		else
+			pstr = pstr.substring(i,j);
+		return pstr;
+	}
+	function mod10 (strNum) {
+	   var nCheck = 0;
+	   var nDigit = 0;
+	   var bEven = false;
+	   
+	   for (n = strNum.length - 1; n >= 0; n--)
+	   {
+		  var cDigit = strNum.charAt (n);
+		  if (isDigit (cDigit))
+		  {
+			 var nDigit = parseInt(cDigit, 10);
+			 if (bEven)
+			 {
+				if ((nDigit *= 2) > 9)
+				   nDigit -= 9;
+			 }
+			 nCheck += nDigit;
+			 bEven = ! bEven;
+		  }
+		  else if (cDigit != ' ' && cDigit != '.' && cDigit != '-')
+		  {
+			 return false;
+		  }
+	   }
+	   return (nCheck % 10) == 0;
+	}
+	function expired( month, year )
+	{
+		var now = new Date();
+		var expiresIn = new Date(year,month,0,0,0);
+		expiresIn.setMonth(expiresIn.getMonth()+1);
+		if( now.getTime() < expiresIn.getTime() ) return false;
+		return true;								
+	}
+	//29-05-06:RUS added this function to validate start date
+	function isBeforeNow(cardStartMonth, cardStartYear)
+	{
+		var now = new Date();
+		var startsIn = new Date(cardStartYear,cardStartMonth,0,0,0);
+		startsIn.setMonth(startsIn.getMonth()-1);
+		if(startsIn.getTime() < now.getTime() ) 
+		{
+			return false;
+		}
+		return true;
+	}
+	function validatefields(pstCardStartMonth,pstCardStartYear,pstIssuenumber) {
+		if (pstIssuenumber !="") { // filled in, so we need to verify
+			if(isNaN(parseInt(pstIssuenumber)))	{
+				alert("Sorry! Please enter a valid issue number.");
+				return false;
+			}else if(pstIssuenumber.length!=2) {
+				alert("Sorry! Please enter a valid issue number.");
+				return false;
+			}
+		}
+		if (pstCardStartMonth!="" && pstCardStartYear !="")
+		{ // filled in, so we need to verify
+				if (isBeforeNow(pstCardStartMonth, pstCardStartYear))
+				{	
+					alert("Sorry! The start date you have entered would make this card invalid.");
+					return false;
+				}
+		}
+		return true;	
+	}
+	//29-05-06:RUS updated this function to add parameters for start date and issue number
+	function validateCard(cc_number,cardType,cardMonth,cardYear,cardStartMonth, cardStartYear, issuenumber, pstCardType, cv2) {
+		if( cc_number.length == 0 ) {				
+			alert("Please enter a valid card number.");
+			return false;				
+		}
+		for( var i = 0; i < cc_number.length; ++i ) {	
+			var c = cc_number.charAt(i);
+			if( c < '0' || c > '9' ) {
+				alert("Please enter a valid card number. Use only digits. Do not use spaces or hyphens.");
+				return false;
+			}
+		}
+		var length = cc_number.length;
+			switch( cardType ) {
+			case 'm':
+			case 'MC':
+			case 'Mastercard':
+				if( length != 16 ) {
+					alert("Please enter a valid MasterCard number.");
+					return;
+				}
+				var prefix = parseInt( cc_number.substring(0,2));
+				if( prefix < 51 || prefix > 55) {
+					alert("Please enter a valid MasterCard Card number.");
+					return;
+				}
+			break;
+			case 'v':
+			case 'VISA':
+				if(length != 16 && length != 13) {
+					alert("Please enter a valid Visa Card number.");
+					return;
+				}
+				var prefix = parseInt( cc_number.substring(0,1));											
+				if( prefix != 4 ) {
+					alert("Please enter a valid Visa Card number.");
+					return;
+				}
+				// 26-06-06: DPI:GSM added validation for cv2
+				if(isNull(cv2) || !isNumeric(cv2)){
+					alert("Please enter a valid security code.");
+					return false;
+				}
+			break;
+			case 'a':											
+			case 'AMEX':
+				if( length != 15 ) {
+					alert("Please enter a valid American Express Card number.");
+					return;
+				}
+				var prefix = parseInt( cc_number.substring(0,2));											
+				if(prefix != 34 && prefix != 37 ) {
+					alert("Please enter a valid American Express Card number.");
+					return;
+				}
+				break;
+			case 'd':
+			case 'DISCOVER':
+				if( length != 16 ) {
+					alert("Please enter a valid Discover Card number.");
+					return;
+				}
+				var prefix = parseInt( cc_number.substring(0,4));											
+				if( prefix != 6011 ) {
+					alert("Please enter a valid Discover Card number.");
+					return;
+				}
+				break;
+			case 'DinnersClub':
+			if( length != 14 ) {
+				alert("Please enter a valid Dinners Club Card number.");
+				return;
+			}
+			var prefix = parseInt( cc_number.substring(0,3));											
+			if((prefix < 300 || prefix > 305) || (prefix != 36 && prefix != 38 )) {
+				alert("Please enter a valid Discover Card number.");
+				return;
+			}
+			break;
+		
+		}
+		if( !mod10( cc_number ) ) { 	
+			alert("Sorry! this is not a valid credit card number.");
+			return false;
+		}
+		// 26-06-06: DPI:GSM added validation for cv2
+		if(isNull(cv2) || !isNumeric(cv2)){
+			alert("Please enter a valid security code.");
+			return false;
+		}
+		//29-05-06:RUS added this code to check the expiry date is not empty
+		if(cardMonth == "" || cardYear == "")
+		{
+			alert("Please enter the expiry date for this card.");
+			return false;
+		}
+		else
+		{
+			if( expired( cardMonth, cardYear ) ) {	
+				alert("Sorry! The expiry date you have entered would make this card invalid.");
+				return false;
+			}
+		}
+		//END	
+		/*29-05-06:RUS added this code to check start date and/or issue number depending upon card type
+		if  card type is maestro/switch/solo*/
+		if (pstCardType == "SWITCH" || pstCardType == "Maestro" || pstCardType == "SOLO") 
+		{
+			if ((cardStartMonth !="" && cardStartYear !="") || issuenumber !="") 
+			{ 
+				if( validatefields(cardStartMonth,cardStartYear,issuenumber)){
+				 return true;
+				}
+				else {
+					return false;
+				}	
+			}
+			else
+			{
+				alert("Please enter an issue number or start date for this card.");
+				return false;
+			}
+		return true;			
+		}
+		else
+		{
+				if( validatefields(cardStartMonth,cardStartYear,issuenumber)){
+				 return true;
+				}
+				else {
+					return false;
+				}
+		}
+		return true;
+	}
+function getCKDRadio(radio) {
+	var selected = false;
+	var ckVal = "none";
+	if(radio.length)
+	{
+		for (var i = 0; i < radio.length; i++) 
+		{
+			if (radio[i].checked) 
+			{
+				selected = true;
+				ckVal = radio[i].value;
+				break;
+			}
+		}
+	}
+	else
+	{
+		selected = true;
+	}
+	<!-- BEGIN TPL_NOMETHOD_BLK1 -->
+	if(radio.paymethods.value=='no')
+	{
+		selected = true;
+		ckVal='notpay';
+	}
+	<!-- END TPL_NOMETHOD_BLK1 -->
+	if (selected == false)
+	{
+		alert("Please select a payment option.");
+	}
+	return ckVal;
+}
+function checkPAY(form){
+	if(getCKDRadio(form)!="none"){
+		var ckVal = getCKDRadio(form);
+		if(ckVal == "cc"){
+			if(form.cc_number.value != ""){
+
+			if(!isdefined(form.cc_type)){
+				cardType='norequired';
+			}else{
+				var cardType = form.cc_type[form.cc_type.selectedIndex].value;
+				}
+			if(cardType != "")
+			{
+				if(!isdefined(form.cc_start_month))
+				{
+					ccstartmonth="";
+					ccstartyear="";
+					issuenumber="";
+				}
+				else
+				{
+						ccstartmonth=form.cc_start_month.value;
+						ccstartyear=form.cc_start_year.value
+						issuenumber=trimchar(form.issuenumber.value);
+				}
+				if (validateCard(
+					form.cc_number.value,
+					cardType,
+					form.cc_month.options[form.cc_month.selectedIndex].value,
+					form.cc_year.options[form.cc_year.selectedIndex].value,
+					ccstartmonth,
+					ccstartyear,
+					issuenumber,cardType,
+					form.cv2.value
+					)) {
+						return true;
+					} else {
+						return false;
+					}
+		
+			} else {
+					alert("Please select a credit card type.");
+					form.cc_type.focus();
+					return false;
+				}
+			} else {
+				alert("Please enter a Credit Card Number");
+				form.cc_number.focus();
+				return false;
+			}
+		} 
+		else if(ckVal == "eft")
+		{
+			if(form.acct.value != "")
+			{
+				if(form.aba.value != "")
+				{
+					return true;
+				}
+				else 
+				{
+					alert("Please enter your ABA Account number.");
+					form.aba.focus();
+					return false;
+				}
+			}
+			else 
+			{
+				alert("Please enter Checking Account number.");
+				form.acct.focus();
+				return false;
+			}
+		} else return true;
+	} else return false;
+}
+ 
+//END
+//-->
+
+	function ToggleVisibility(id)
+	{
+		if(id == '1')
+		{
+		if(document.getElementById("inp1")!='null'){var objInp = document.getElementById("inp1");}
+		var objForm = document.getElementById("div1");
+		}
+		if(objInp!=null){	
+			if (objInp.checked)
+			{ 
+				objForm.style.display = "none";
+			}else
+			{
+			objForm.style.display = "block";
+			}
+		}
+	}	
+	
+	window.onload = function() 
+	{
+	ToggleVisibility(1);
+	}
+	
+	var http = false;
+	if(navigator.appName == "Microsoft Internet Explorer") {
+	  http = new ActiveXObject("Microsoft.XMLHTTP");
+	} else {
+	  http = new XMLHttpRequest();
+	}
+	function sndReq(countryid) {
+		http.open('GET','{TPL_VAR_SITEURL}ecom/index.php?action=ecom.changepostage&countryid='+countryid);
+		http.onreadystatechange = changepostage;
+		http.send(null);
+	}
+
+	function changepostage(){
+		if(http.readyState == 4){
+	        var response = http.responseText;
+	        var update = new Array();
+			if(response.indexOf('*' != -1)) { 
+				update = response.split('*');
+				document.getElementById(update[1]).innerHTML= update[0];
+				document.getElementById('postagepricedefault').innerHTML= update[0];
+				document.getElementById('specialdelivery').innerHTML= update[8];
+				document.getElementByName('ship_total[0]').value= update[0];
+				
+			}
+		}		
+	}
+
+	function sndReq2(stateid){
+		var countryid = document.ThisForm.ship_country_id.value;
+		http.open('GET','{TPL_VAR_SITEURL}ecom/index.php?action=ecom.changepostage&countryid='+countryid+'&stateid='+stateid);
+	  	http.onreadystatechange = changepostage2;
+		http.send(null);
+	}
+
+	function changepostage2(){
+		if(http.readyState == 4){
+	        var response = http.responseText;
+	        var update = new Array();
+			if(response.indexOf('*' != -1)) { 
+				update = response.split('*');
+				document.getElementById(update[1]).innerHTML= update[0];
+				document.getElementById('postagepricedefault').innerHTML= update[0];
+				document.getElementById('specialdelivery').innerHTML= update[8];
+				document.getElementByName('ship_total[0]').value= update[0];
+			}
+		}		
+	}
+</script>
+<h2 id="pageTitle">Checkout <span>- Step 1 of 3</span></h2> 
+<div>
+	<!-- BEGIN TPL_VAT_WELCOMEMSG -->
+	<p>{LANG_VAR_IFYOUARENOT} {TPL_VAR_NAME}, <a href="{TPL_VAR_LOGOUTURL}">{LANG_VAR_SIGNINREGMESS}</a></p>
+	<!-- END TPL_VAT_WELCOMEMSG -->
+	<!-- BEGIN new customer -->
+	<form action="{TPL_VAR_SITEURL}ecom/index.php?action=checkout.addBillShipInfo" method="post" name="ThisForm" onsubmit="if(validateForm(this)){return true}else{return false}" class="global-form">
+		<fieldset>
+			<!-- BEGIN TPL_PASSWORD_BLK -->
+			<legend>New Customer</legend>
+			<p>If you wish to register on our site then please enter an account password. Registration enables you to access the My Account section of  our site to update your details, view your invoice history and status, setup a wish list or signup to our mailing list.</p>
+			<p id="customerReg"><a href="{TPL_VAR_SITEURL}ecom/index.php?action=checkout.loginForm">Existing Customer?</a></p>
+			<h3>Create a Login</h3>
+			<p>Registering with this site is optional - you can complete your purchase without registering with us. However, should you wish to register, just enter a Password and your account will automatically be created for you.</p>
+			<table class="user">
+				<tr>
+					<td>
+						<label>Password</label>
+						<input class="formField" type="password" name="txtpassword" id="txtpassword" value="{TPL_VAR_PASS}" />
+					</td>
+					<td>
+						<label>Confirm Password</label>
+						<input class="formField" type="password" name="verify_pw" id="verify_pw" value="" />
+					</td>
+				</tr>
+			</table>
+			<!-- END TPL_PASSWORD_BLK -->
+			<h2>Billing and Delivery Details</h2>
+			<h3>{LANG_VAR_BILLINGADDRESS}</h3>
+			<p>{LANG_VAR_ALLFIELDS} (<span>*</span>) {LANG_VAR_REQUIRED}</p>
+			<p class="err">{TPL_VAR_MSG}</p>
+			<table class="user">
+				<tr>
+					<td>
+						<label>{LANG_VAR_EMAILADDRESS} <span>*</span></label>
+						<input class="formField" type="text" name="email" id="email" value="{TPL_VAR_EMAIL}" maxlength="50" {TPL_VAR_READONLY} />
+					</td>
+					<td>
+						<label for="{LANG_VAR_COMPANY}">{LANG_VAR_COMPANY}</label>
+						<input class="formField" type="text" name="company" id="company" value="{TPL_VAR_COMPANY}"  maxlength="30" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>{LANG_VAR_FIRSTNAME} <span>*</span></label>
+						<input class="formField" type="text" name="first_name" id="first_name" value="{TPL_VAR_FNAME}" maxlength="30" />
+					</td>
+					<td>
+						<label>{LANG_VAR_LASTNAME}<span>*</span></label>
+						<input class="formField" type="text" name="last_name" id="last_name" value="{TPL_VAR_LNAME}" maxlength="30" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>{LANG_VAR_ADDRESS1} <span>*</span></label>
+						<input class="formField" type="text" name="address1" id="address1" value="{TPL_VAR_ADDRESS1}" maxlength="60" />
+					</td>
+					<td>
+						<label>{LANG_VAR_ADDRESS2}</label>
+						<input class="formField" type="text" name="address2" id="address2" value="{TPL_VAR_ADDRESS2}" maxlength="60" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>{LANG_VAR_CITY}<span>*</span></label>
+						<input class="formField" type="text" name="city" id="city" value="{TPL_VAR_CITY}" maxlength="30" />
+					</td>
+					<td>
+						<label>{LANG_VAR_COUNTRY} <span>*</span></label>
+						<select class="formSelect" id="country" name="bill_country_id" onchange="javascript:setbillstate(this.options[this.selectedIndex].value,2);sameShipping();">
+							<!-- BEGIN BillCountry -->
+							<option value="{TPL_COUNTRY_VALUE}" {BILL_COUNTRY_SELECT}>{TPL_COUNTRY_NAME}</option>
+							<!-- END BillCountry -->
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>{LANG_VAR_COUNTY}</label>
+						<select class="formSelect" id="bill_state_id" name="bill_state_id"  onchange="javascript:sameShipping2();">
+							<option></option>
+						</select>
+					</td>
+					<td>
+						<label>{LANG_VAR_COUNTYOTHER}</label>
+						<input class="formField" type="text" name="bill_state" value="{BILL_STATE}" maxlength="50" size="12" id="bill_state" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>{LANG_VAR_POSTCODE}<span>*</span></label>
+						<input class="formField" type="text" name="zip" id="zip" value="{TPL_VAR_ZIP}" maxlength="20" />
+					</td>
+					<td>
+						<label>{LANG_VAR_TELEPHONE}<span>*</span></label>
+						<input class="formField" type="text" name="phone" id="phone" value="{TPL_VAR_PHONE}" maxlength="20" />
+					</td>
+				</tr>
+			</table>
+			
+			<!-- BEGIN TPL_ALTSHIP_BLK -->
+			<script type="text/javascript">
+				//	DOCUMENT.FORMNAME.FIELDNAME.VALUE = DOCUMENT.FORMNAME.FIELDNAME.VALUE (text fields)
+				function transfer_acct(form,ck) {
+				if(ck.checked){
+					setshipstate(form.bill_country_id.value,2);
+									
+					form.alt_fName.value= form.first_name.value;
+					form.alt_company.value= form.company.value;
+					form.alt_lName.value = form.last_name.value;
+					form.alt_address1.value = form.address1.value;
+					form.alt_address2.value = form.address2.value;
+					form.alt_city.value = form.city.value;
+					form.ship_state.value = form.bill_state.value;
+					form.ship_state_id.value = form.bill_state_id.value;
+					form.ship_country_id.value = form.bill_country_id.value;
+					form.alt_zip.value = form.zip.value;
+					form.alt_phone.value = form.phone.value;
+				} else {
+					form.alt_company.value=''
+					form.alt_fName.value=''
+					form.alt_lName.value = ''
+					form.alt_address1.value = ''
+					form.alt_address2.value = ''
+					form.alt_city.value = ''
+					form.ship_state.value = ''
+					form.ship_state_id.value='-1';
+					form.ship_country_id.value ='{BILL_COUNTRY_SELECT}';
+					form.alt_zip.value = ''
+					form.alt_phone.value = ''
+				}
+			}
+			function sameShipping()
+            {
+               if(document.getElementById('inp1').checked)
+                   {
+                   sndReq(document.ThisForm.bill_country_id.value);
+                   }
+            }
+			function sameShipping2()
+            { 
+               if(document.getElementById('inp1').checked)
+                   {
+                   sndReq2(document.ThisForm.bill_state_id.value);
+                   }
+            }
+			</script>
+			
+			<h3>{LANG_VAR_DELIVERYADDRESS}</h3>
+				<p><input type="checkbox" name="alt_ship" id="inp1" value="1" checked onclick="ToggleVisibility(1);transfer_acct(this.form,this);" class="formCheckbox" >{LANG_VAR_SAMEASBILL}</p>
+				<div id="div1">
+				<label for="{LANG_VAR_COMPANY}">{LANG_VAR_COMPANY}</label>
+				<input class="formField" type="text" name="alt_company" id="alt_company" value="{TPL_VAR_COMPANY}"  maxlength="30" />
+			<table class="user">
+				<tr>
+					<td>
+						<label>{LANG_VAR_FIRSTNAME}<span>*</span></label>
+						<input class="formField" type="text" name="alt_fName" id="alt_fName" value=" {TPL_VAR_ALTFNAME}" />
+					</td>
+					<td>
+						<label>{LANG_VAR_LASTNAME}<span>*</span></label>
+						<input class="formField" type="text" name="alt_lName" id="alt_lName" value=" {TPL_VAR_ALTLNAME}" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>{LANG_VAR_ADDRESS1}<span>*</span></label>
+						<input class="formField" type="text" name="alt_address1" id="alt_address1" value="{TPL_VAR_ALTADDR1}" />
+					</td>
+					<td>
+						<label>{LANG_VAR_ADDRESS2}</label>
+						<input class="formField" type="text" name="alt_address2" id="alt_address2" value="{TPL_VAR_ALTADDR2}" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>{LANG_VAR_CITY}<span>*</span></label>
+						<input class="formField" type="text" name="alt_city" id="alt_city" value="{TPL_VAR_ALTCITY}" />
+					</td>
+					<td>
+						<label>{LANG_VAR_COUNTRY}<span>*</span></label>
+						<select class="formSelect" name="ship_country_id"  onchange="javascript:setshipstate(this.options[this.selectedIndex].value,2); sndReq(this.value);">
+							<!-- BEGIN ShipCountry -->
+							<option value="{TPL_COUNTRY_VALUE}" {SHIP_COUNTRY_SELECT}>{TPL_COUNTRY_NAME}</option>
+							<!-- END ShipCountry -->
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>{LANG_VAR_COUNTY}</label>
+						<select class="formSelect" id="ship_state_id" name="ship_state_id" onchange="javascript:sndReq2(this.value);">
+							<option></option>
+						</select>
+					</td>
+					<td>
+						<label>{LANG_VAR_COUNTYOTHER}</label>
+						<input class="formField" type="text" name="ship_state" value="{SHIP_STATE}" maxlength="50" size="12" id="ship_state" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>{LANG_VAR_POSTCODE} <span>*</span></label>
+						<input class="formField" type="text" name="alt_zip" id="alt_zip" value="{TPL_VAR_ALTZIP}" />
+					</td>
+					<td>
+						<label>{LANG_VAR_TELEPHONE} <span>*</span></label>
+						<input class="formField" type="text" name="alt_phone" id="alt_phone" value="{TPL_VAR_ALTPHONE}" />
+					</td>
+				</tr>
+			</table>
+			<!-- END TPL_ALTSHIP_BLK -->
+			</div>
+			<!--Neetika addedTPL_FREEPOST_BLK--> 
+			<!-- BEGIN TPL_FREEPOST_BLK -->
+			<div id="postage">
+			<!-- BEGIN TPL_SPECIALRATE_BLK -->
+				<h2>Postage Options</h2>
+				<p>Default postage method: {TPL_VAR_DEFAULT_POSTAGEMETHOD} {TPL_VAR_CURRENCY}<span id="postageprice">{TPL_VAR_DEFAULT_POSTAGEPRICE}</span></p>
+				<h4>Optional Postage Rates</h4>
+
+	           	<!-- BEGIN TPL_DEFAULTPOSTAGE_BLK -->
+						<p><input type="radio" name="ship_id" value="0" checked="checked" class="formRadio" />{TPL_VAR_DEFAULT_POSTAGEMETHOD} ({TPL_VAR_CURRENCY}<span id="postagepricedefault">{TPL_VAR_DEFAULT_POSTAGEPRICE}</span>)</p>
+	                   <p><input type="hidden" name="ship_method[0]" value="{TPL_VAR_DEFAULT_POSTAGEMETHOD}" /></p>
+	                   <p><input type="hidden" name="ship_total[0]" value="{TPL_VAR_DEFAULT_POSTAGEPRICE}" /></p>
+				<!-- END TPL_DEFAULTPOSTAGE_BLK -->
+			
+		        <!-- BEGIN TPL_POSTAGE_BLK -->
+	                    <p><input id="ship_id" type="radio" name="ship_id" value="{TPL_VAR_METHODID}" class="formRadio" {TPL_VAR_SELECTED} />{TPL_VAR_POSTAGEMETHOD} {TPL_VAR_CURRENCY}<span id="specialdelivery">{TPL_VAR_DISPLAYPRICE}</span>
+							<!-- BEGIN TPL_SPECIALPOSTAGE_BLK -->
+								+
+								{TPL_VAR_CURRENCY}{TPL_VAR_SPECIAL_POSTAGEPRICE}
+							<!-- END TPL_SPECIALPOSTAGE_BLK --></p>
+	                   	<input type="hidden" name="ship_method[{TPL_VAR_METHODID}]" value="{TPL_VAR_POSTAGEMETHOD}" />
+						</span>
+						</label><br />
+						<input type="hidden" name="ship_total[{TPL_VAR_METHODID}]" value="{TPL_VAR_POSTAGEPRICE}" />
+				<!-- END TPL_POSTAGE_BLK -->
+			<!-- END TPL_SPECIALRATE_BLK -->
+			</div>
+			<!-- END TPL_FREEPOST_BLK -->
+			<h2>Payment Method</h2>
+			<p>{TPL_VAR_MSG}</p>
+			<!-- BEGIN TPL_CREDITDEBITMAIN_BLK -->
+			<!-- BEGIN TPL_CREDITDEBITCARDS_BLK -->
+			<h3><input type="radio" class="formRadio" name="paymethod"  value="cc" checked="checked" id="cc" />{LANG_VAR_CREDITDEBIT}</h3>
+			<label>{LANG_VAR_SELECTCARDTYPE}</label>
+			<select name="cc_type" id="cc_type" class="formSelect">
+				<option value="">{LANG_VAR_SELECTCARDTYPE2}</option>
+				<!-- BEGIN TPL_CARDS_BLK -->
+				<option value="{TPL_VAR_VALUE}">{TPL_VAR_NAME}</option>
+			<!-- END TPL_CARDS_BLK -->
+			</select>
+			<table class="user">
+				<!-- BEGIN TPL_CARDSTYPE_BLK -->
+				<tr>
+					<td>
+						<label>{LANG_VAR_CARDHOLDERNAME}</label>
+						<input type="text" class="formField" name="cardholder_name" id="cardholder_name" />
+					</td>
+					<!-- END TPL_CARDSTYPE_BLK -->
+					<td>
+						<label>{LANG_VAR_CREDITDEBITNUM}</label>
+						<input type="text" class="formField" name="cc_number" id="cc_number" maxlength="25" size="25" autocomplete="off" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>{LANG_VAR_EXPIRY}</label>
+						<select name="cc_month" id="cc_month" class="formSelectMedium">
+							<option value="" selected="selected">{LANG_VAR_MONTH}</option>
+							<option value="01">01</option>
+							<option value="02">02</option>
+							<option value="03">03</option>
+							<option value="04">04</option>
+							<option value="05">05</option>
+							<option value="06">06</option>
+							<option value="07">07</option>
+							<option value="08">08</option>
+							<option value="09">09</option>
+							<option value="10">10</option>
+							<option value="11">11</option>
+							<option value="12">12</option>
+						</select>
+						<select name="cc_year" id="cc_year" class="formSelectMedium">
+							<option value="" selected='selected'>{LANG_VAR_YEAR}</option>
+							<!-- BEGIN TPL_CARDYEAR_BLK -->
+							<option value="{TPL_VAR_YEAR}">{TPL_VAR_YEAR}</option>
+							<!-- END TPL_CARDYEAR_BLK -->
+						</select>
+					</td>
+					<td>
+						<label>CV2 {LANG_VAR_3DIGIT}</label>
+						<input type="text" class="formFieldShort" name="cv2" id="cv2" maxlength="5" autocomplete="off" />
+						<p id="cv2"><img src="{TPL_VAR_SITEURL}graphics/site/mini_cvv2.gif" alt="CV2 Security Code" title="Last 3 digits on back of card" /></p>
+					</td>
+				</tr>
+			</table>
+			
+						<!-- BEGIN TPL_SC_STARTDATE_BLK -->
+			<input type="hidden" name="CSMerchantID" id="CSMerchantID" value="{TPL_VAR_CSMERCHANTID}" />
+			<input type="hidden" name="CSPass" id="CSPass" value="{TPL_VAR_CSPASSWORD}" />
+			<input type="hidden" name="CSBaseURL" id="CSBaseURL" value="{TPL_VAR_CSBASEURL}" />
+			<input type="hidden" name="CSPort" id="CSPort" value="{TPL_VAR_CSPORT}" />
+			<input name="FormMode" type="hidden" value="{TPL_VAR_NEXTFORMMODE}" />
+			<table class="user">
+				<tr>
+					<td>
+						<label>{LANG_VAR_CS_STARTDATE}</label>
+						<select name="cc_start_month" id="cc_start_month" class="formSelectMedium">
+							<option value="" selected="selected">{LANG_VAR_CS_MONTH}</option>
+							<option value="01">01</option>
+							<option value="02">02</option>
+							<option value="03">03</option>
+							<option value="04">04</option>
+							<option value="05">05</option>
+							<option value="06">06</option>
+							<option value="07">07</option>
+							<option value="08">08</option>
+							<option value="09">09</option>
+							<option value="10">10</option>
+							<option value="11">11</option>
+							<option value="12">12</option>
+						</select>
+						<select name="cc_start_year" id="cc_start_year" height="22" class="formSelectMedium">
+							<option value="" selected='selected'>{LANG_VAR_CS_YEAR}</option>
+							<!-- BEGIN TPL_CSCARDYEAR_BLK -->
+							<option value="{TPL_VAR_CS_YEAR}">{TPL_VAR_CS_YEAR}</option>
+							<!-- END TPL_CSCARDYEAR_BLK -->
+						</select>
+					</td>
+					
+				</tr>
+			</table>
+			
+			<!-- END TPL_SC_STARTDATE_BLK -->
+			<!-- BEGIN TPL_SOLOCARDS_BLK -->
+			<h3>Maestro/Switch/Solo {LANG_VAR_ONLY}</h3>
+			<table class="user">
+				<tr>
+					<td>
+						<label>{LANG_VAR_STARTDATE}</label>
+						<select name="cc_start_month" id="cc_start_month" class="formSelectMedium">
+							<option value="" selected="selected">{LANG_VAR_MONTH}</option>
+							<option value="01">01</option>
+							<option value="02">02</option>
+							<option value="03">03</option>
+							<option value="04">04</option>
+							<option value="05">05</option>
+							<option value="06">06</option>
+							<option value="07">07</option>
+							<option value="08">08</option>
+							<option value="09">09</option>
+							<option value="10">10</option>
+							<option value="11">11</option>
+							<option value="12">12</option>
+						</select>
+						<select name="cc_start_year" id="cc_start_year" height="22" class="formSelectMedium">
+							<option value="" selected='selected'>{LANG_VAR_YEAR}</option>
+							<!-- BEGIN TPL_SOLOCARDYEAR_BLK -->
+							<option value="{TPL_VAR_YEAR}">{TPL_VAR_YEAR}</option>
+							<!-- END TPL_SOLOCARDYEAR_BLK -->
+						</select>
+					</td>
+					<td>
+						<label><strong>or</strong> {LANG_VAR_ISSUENUMBER}</label>
+						<input type="text" class="formFieldShort" name="issuenumber" id="issuenumber" maxlength="2" size="4"/>
+					</td>
+				</tr>
+			</table>
+			<!-- END TPL_SOLOCARDS_BLK -->
+			<!-- END TPL_CREDITDEBITCARDS_BLK -->
+			<!-- BEGIN TPL_CARDBYPHONE_BLK -->
+			<h3><input id="cc_phone" type="radio" name="paymethod" class="formRadio" value="cc_phone" />{LANG_VAR_CREDITDEBITPHONE}</h3>
+			<p class="note">Call our Sales Team on {TPL_VAR_COMPPHONE} to pay for your order over the telephone.</p>
+			<!-- END TPL_CARDBYPHONE_BLK -->	
+
+			<!-- BEGIN TPL_CARDSAVEREDIRECT_BLK -->
+			
+			<h3><input id="cardsave_redirect" type="radio" name="paymethod" class="formRadio" value="cs_redirect" />{LANG_VAR_CARDSAVEREDIRECT}</h3>
+			<input type="hidden" name="MerchantID" id="MerchantID" value="{TPL_VAR_MERCHANTID}" />
+			<input type="hidden" name="CSRMerchantPass" id="CSRMerchantPass" value="{TPL_VAR_CSRPASSWORD}" />
+			<input type="hidden" name="CSRPreshared" id="CSRPreshared" value="{TPL_VAR_PERSHAREDKEY}" />
+			<input type="hidden" name="CallbackURL" id="CallbackURL" value="{TPL_VAR_CSRCALLBACK}" />
+			<input type="hidden" name="CV2Mandatory" value="true" />
+			<input type="hidden" name="Address1Mandatory" value="true" />
+			<input type="hidden" name="CityMandatory" value="true" />
+			<input type="hidden" name="PostCodeMandatory" value="true" />
+			<input type="hidden" name="StateMandatory" value="true" />
+			<input type="hidden" name="CountryMandatory" value="true" />
+			
+			<!-- END TPL_CARDSAVEREDIRECT_BLK -->
+			
+			<!-- END TPL_CREDITDEBITMAIN_BLK -->
+			<!-- BEGIN TPL_ECHECK_BLK -->
+			<h3><input id="eft" type="radio" name="paymethod" class="formRadio" value="eft" />{LANG_VAR_PAYBY} <abbr title="Electronic Funds Transfer">(EFT)</abbr></h3>
+			<table class="user">
+				<tr>
+					<td>
+						<label>{LANG_VAR_ACCOUNTNUM}</label>
+						<input type="text" class="formField" id="acct" name="acct" maxlength="30" />
+					</td>
+					<td>
+						<label>ABA {LANG_VAR_ACCOUNT}</label>
+						<input type="text" class="formField" id="aba" name="aba" maxlength="30" />
+					</td>
+				</tr>
+			</table>
+			<!-- END TPL_ECHECK_BLK -->	
+			<!-- BEGIN TPL_NOMETHOD_BLK2 -->
+			<input type="hidden" id="paymethods" name="paymethods" value='no' />
+			<!-- END TPL_NOMETHOD_BLK2 -->
+			<!-- BEGIN TPL_OTHER_BLK -->
+			<h3><input id="mail_pay" type="radio" name="paymethod" class="formRadio" value="mail" />{LANG_VAR_PAYBYCHEQUE}</h3>
+			<p>{LANG_VAR_SENDPAYMENTTO}</p>
+			<address>
+				<strong>{TPL_VAR_COMPANYCHEQUE}</strong><br />
+				{TPL_VAR_ADDRESSCHEQUE}<br />
+				{TPL_VAR_CITYCHEQUE}<br />
+				{TPL_VAR_STATE}<br />
+				{TPL_VAR_ZIPCHEQUE}<br />
+				{TPL_VAR_COUNTRY}<br />
+			</address>
+			<p><strong>V.A.T. Registration No.:</strong> {TPL_VAR_VATNUMBER}<br />
+			<strong>Company Registration No.: </strong>{TPL_VAR_REGISTERNUMBER}</p>
+			<p>{LANG_VAR_CHEQUEPAYMESS}</p>
+			<!-- END TPL_OTHER_BLK -->
+			<div class="billShipBlock">
+				<!-- BEGIN TPL_PAYPAL_BLK -->
+				<h3><input id="paypal" type="radio" name="paymethod" class="formRadio" value="paypal" checked="yes" />PayPal and Credit Cards</h3>
+				<p><img class="paymentGateway" src="/graphics/paypal.gif" alt="PayPal Logo." /> You will be taken to the <strong>PayPal</strong> website to make your payment.</p>
+				<!-- END TPL_PAYPAL_BLK -->
+			</div>
+			<div class="billShipBlock">
+				<!-- BEGIN TPL_SECPAY_BLK -->
+				<h3><input id="secpay" type="radio" name="paymethod" class="formRadio" value="secpay" />SECPay</h3>
+				<p><img class="paymentGateway" src="/graphics/secpay.gif" alt="SecPay Logo." />  You will be taken to the <strong>SecPay</strong> website to make your payment.</p>
+				<!-- END TPL_SECPAY_BLK -->
+			</div>
+			<div class="billShipBlock">
+				<!-- BEGIN TPL_WORLDPAY_BLK -->
+				<h3><input id="worldpay" type="radio" name="paymethod" class="formRadio" value="worldpay" />WorldPay</h3>
+				<p><img class="paymentGateway" src="/graphics/worldpay.gif" alt="WorldPay Logo." /> You will be taken to the <strong>WorldPay</strong> website to make your payment.</p>
+				<!-- END TPL_WORLDPAY_BLK -->
+			</div>
+			<div class="billShipBlock">
+				<!-- BEGIN TPL_HSBC_BLK -->
+				<h3><input id="hsbc" type="radio" name="paymethod" class="formRadio" value="hsbc" />HSBC</h3>
+				<p><img class="paymentGateway" src="/graphics/hsbc.gif" alt="HSBC Logo." /> You will be taken to the <strong>HSBC</strong> website to make your payment.</p>
+				<!-- END TPL_HSBC_BLK -->	
+			</div>
+			<div class="billShipBlock">
+				<!-- BEGIN TPL_BARCLAY_BLK -->	
+				<h3><input id="barclays" type="radio" name="paymethod" class="formRadio" value="barclay" />Barclays</h3>
+				<p><img class="paymentGateway" src="/graphics/barclays.gif" alt="Barclays Logo." /> You will be taken to the <strong>Barclays</strong> website to make your payment.</p>
+				<!-- END TPL_BARCLAY_BLK -->	
+			</div>
+			
+			<div class="billShipBlock">
+				<!-- BEGIN TPL_STOFF_BLK -->
+				<h3><input id="securetrading" type="radio" name="paymethod" class="formRadio" value="securetrading" />SecureTrading</h3>
+				<p><img class="paymentGateway" src="/graphics/securetrading.jpg" alt="SECURETRADING Verified" /> You will be taken to the <strong>SecureTrading</strong> website to make your payment.</p>
+				<!-- END TPL_STOFF_BLK -->
+			</div>
+				<!-- (BEGIN) SAGEPAY INTEGRATION -->
+            <div class="billShipBlock">
+				<!-- BEGIN TPL_SAGEPAYFORM_BLK -->
+				<h3><input id="sagepayform" type="radio" name="paymethod" class="formRadio" value="sagepayform" />Pay by Credit/Debit card using Sagepay</h3>
+				<p><img class="paymentGateway" src="/graphics/Sagepay.gif" alt="Sagepay Logo." /> You will be taken to the <strong>Sagepay</strong> website to make your payment.</p>
+				<!-- END TPL_SAGEPAYFORM_BLK -->
+			</div>
+			<!-- (END) SAGEPAY INTEGRATION -->
+			
+			<!-- BEGIN TPL_COD_BLK -->	
+			<h3><input id="cod" type="radio" name="paymethod" class="formRadio" value="cod" />{LANG_VAR_CASHONDELMESS} {TPL_VAR_CURRENCY}{TPL_VAR_CODPRICE}</h3>
+			<input type='hidden' name='codprice' value='{TPL_VAR_CODPRICE}' />
+					
+			<!-- END TPL_COD_BLK -->	
+		<div class="fo_discounts">	
+			<h2>{LANG_VAR_DISCOUNTHEADER}</h2>
+			<label>{LANG_VAR_DISCCODETXT}</label>
+			<input class="formField" id="discount" type="text" name="discount" maxlength="30" />
+			<label>{LANG_VAR_DISCCERTTXT}</label>
+			<input class="formField" id="giftcert" type="text" name="giftcert" maxlength="30" />
+			<!-- BEGIN TPL_MPOINTS_BLK -->
+			<h3>{LANG_VAR_YOURPOINTS}</h3>
+			<p>{LANG_VAR_YOUHAVE} <a href="{TPL_VAR_SITEURL}memberpoints/">{TPL_VAR_MPOINTS} {LANG_VAR_ACCUMULATED}</a> {LANG_VAR_INHISTORY}</p>
+			<h3>{LANG_VAR_WOULDYOU}</h3>
+			<label for="memberpoints" class="labelCheckbox">{LANG_VAR_YES}</label>
+			<!-- END TPL_MPOINTS_BLK -->
+		</div>	
+			<div class="module1">
+				<h3>Comments and Notes</h3><br />
+				<label>{LANG_VAR_SPECIALREQ}</label>
+				<textarea class="formField comments" id="comments" name="comments" rows="8" cols="35" onfocus="this.select()"></textarea>
+			</div>
+			<!-- BEGIN TPL_NEWSLETTER_BLK -->
+			<div class="module2">
+				<h3>{LANG_VAR_SIGNUPNEWS}</h3>
+				<label>Which newsletter format would you prefer?</label>
+				<select class="formSelect" name="mail_list">
+					<option id="html_mail" value="1">HTML {LANG_VAR_EMAILTXT}</option>
+					<option id="txt_mail" value="2">{LANG_VAR_PLAINEMAILTXT}</option>
+					<option id="not_sure" value="2">{LANG_VAR_NOTSURETXT}</option>
+					<option id="no_mail" value="0">{LANG_VAR_NOTHANKSTXT}</option>
+				</select>
+			</div>
+			<!-- END TPL_NEWSLETTER_BLK -->
+			<h2>Place Order</h2>
+			<p class="note">The next step allows you to review your order before it's processed</p>
+			<p><input id="terms_agree" type="checkbox" class="formCheckbox" name="terms_agree" value="1" />{LANG_VAR_IAGREE} <a href="{TPL_VAR_SITEURL}terms/" target="_blank">{LANG_VAR_TERMSCONDITIONS}</a>.</p>
+			<p><input class="formButton" type="button" onclick="javascript: history.go(-1);" value="Cancel Order" /> 
+			<input class="formButton" type="submit" value="Review Order" /></p>
+			
+		</fieldset>
+	</form>
+</div>
+<script type="text/javascript">
+if(document.ThisForm.bill_country_id.value=="" || document.ThisForm.bill_country_id.value<=0)	{
+			setbillstate({selbillcountid},2);
+		}
+		else
+		{
+		setbillstate(document.ThisForm.bill_country_id.value,2);
+		}
+		
+		for(var i=0;i<document.ThisForm.bill_state_id.options.length;i++)
+		{
+		if(document.ThisForm.bill_state_id.options[i].value == '{selbillstateid}')
+		document.ThisForm.bill_state_id.options[i].selected = true;
+		}
+</script>
+	
+<script type="text/javascript">
+	if(isdefined(document.ThisForm.ship_state_id))
+	{
+
+		if(document.ThisForm.ship_country_id.value=="" || document.ThisForm.ship_country_id.value<=0)
+		{
+				setshipstate({selshipcountid},1);
+		}
+		else
+		{
+				setshipstate(document.ThisForm.ship_country_id.value,2);
+		}
+							
+		for(var i=0;i<document.ThisForm.ship_state_id.options.length;i++)
+		{
+		if(document.ThisForm.ship_state_id.options[i].value == '{selshipstateid}')
+			document.ThisForm.ship_state_id.options[i].selected = true;
+		}
+	}
+	 scroll(0,0);
+</script>	

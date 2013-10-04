@@ -1,0 +1,171 @@
+<script  type="text/javascript">
+	<!--
+		numberoftimes = 0;
+		thetimer1 = 0;
+		thetimer2 = 0;
+		function incrementit() {
+			thetimer1 += 1;
+			thespacer = "";
+			if (thetimer1 > 59) {
+				thetimer2 += 1;
+				thetimer1 = 0;
+			}
+			if (thetimer1 < 10) {thespacer = "0";}
+				document.ThisForm.timer.value = thetimer2 + ":" + thespacer + thetimer1;
+				setTimeout('incrementit()',1000);
+		}
+		function onlyonce() {
+			document.ThisForm.submitbutton.value='Verifying...';
+			numberoftimes += 1;
+			if (numberoftimes > 1) { 
+				var themessage = "Please be patient. You have already submitted this form. Pressing submit multiple times will result in your account being billed multiple times. You will receive a response momentarily.";
+				if (numberoftimes == 3) {
+					themessage = "DO NOT PRESS SUBMIT MULTIPLE TIMES!!! YOUR ACCOUNT WILL BE BILLED EACH TIME YOU PRESS SUBMIT!!! Processing may take up to one minute.";
+				}
+				alert(themessage);
+				return false;
+			} else {
+				setTimeout('incrementit()',1000);
+				return true;
+			}
+		}
+	// -->
+</script>
+<div id="start"><!-- dont remove, one page checkout uses this div --></div>
+<h2 id="pageTitle">{LANG_VAR_REVIEWYOURORDER}</h2> 	
+<p class="message">{TPL_VAR_MESSAGE}</p>
+<div id="content"> 
+	<!-- BEGIN TPL_CART_BLK -->
+	<form action="{TPL_VAR_FORMURL}" method="post" name="ThisForm" id="ThisForm" onsubmit="return onlyonce();">
+		<table summary="Products in cart">
+			<tr>
+				<th>{LANG_VAR_QUANTITY}</th>
+				<th>{LANG_VAR_VIEWCARTIMAGES}</th>			
+				<th>{LANG_VAR_PRODUCT}</th>
+				<th>{LANG_VAR_PRICE}</th>
+				<th>{LANG_VAR_TOTAL}</th>
+			</tr>
+			<!-- BEGIN TPL_VAR_CARTPRODUCTS -->
+			<tr>
+				<td>{TPL_VAR_QTY}</td>
+				<td>{TPL_VAR_CARTIMAGE_TAG}</td>
+				<td><a href="{TPL_VAR_PRODUCTURL}">{TPL_VAR_TITLE} ({TPL_VAR_SKU})</a>
+				<br />{TPL_VAR_GIFTWRAP}
+				<!-- BEGIN TPL_KIT_BLK -->
+				{TPL_VAR_KITTITLE} ({TPL_VAR_KITSKU}) <br />
+				{TPL_VAR_KITOPTIONS}
+				<!-- END TPL_KIT_BLK -->
+				{TPL_VAR_OPTIONS}	
+				{TPL_VAR_CHOICES}
+				{TPL_VAR_CART_VOLDISCOUNT}
+				{TPL_VAR_BACKORDER}
+				{TPL_VAR_TAXABLE}
+				{TPL_VAR_FREESHIPMSG}
+				{TPL_VAR_SHIPNOTES}
+				</td>
+				<td><span class="price">{TPL_VAR_CURRENCY}{TPL_VAR_PRICE}</span></td>
+				<td><span class="price">{TPL_VAR_CURRENCY}{TPL_VAR_TOTAL}</span></td>
+			</tr>
+			<!-- END TPL_VAR_CARTPRODUCTS -->
+		</table>
+		<div class="module1 alt">
+		<h2>Payment Details</h2>
+			<h3>{LANG_VAR_BILLINGADDRESS}</h3>
+			<address>
+				{TPL_VAR_FIRSTNAME} {TPL_VAR_LASTNAME}<br />
+				{TPL_VAR_ADDRESS1}<br />
+				{TPL_VAR_ADDRESS2}<br />
+				{TPL_VAR_CITY}<br />
+				{TPL_VAR_BILLSTATE}<br />
+				{TPL_VAR_BILLCOUNTRY}<br />
+				{TPL_VAR_ZIP}<br />
+				{TPL_VAR_PHONE}<br />
+				{TPL_VAR_EMAIL}
+			</address>
+			<h3>{LANG_VAR_PAYMENTMETHOD}</h3>
+			<p>{TPL_VAR_PAYMENTMETHOD}</p>
+		</div>
+		<div class="module2 alt">
+			<h2>Delivery Details</h2>
+			<h3>{LANG_VAR_DELIVERYADDRESS}</h3>
+			<address>
+			<!-- BEGIN TPL_DELIVERY_BLK -->
+				{TPL_VAR_ALTNAME}<br />
+				{TPL_VAR_ALTADDR1}<br />
+				{TPL_VAR_ALTADDR2}<br />
+				{TPL_VAR_ALTCITY}<br />
+				{TPL_VAR_SHIPSTATE}<br />
+				{TPL_VAR_SHIPCOUNTRY}<br />
+				{TPL_VAR_ALTZIP}<br />
+				{TPL_VAR_ALTPHONE}<br />
+			<!-- END TPL_DELIVERY_BLK -->
+				{TPL_VAR_SAMEASBILLING}
+			</address>
+			<h3>{LANG_VAR_POSTAGEMETHOD}</h3>
+			<p>{TPL_VAR_POSTAGEMETHOD}</p>
+		</div>
+		<dl id="total">
+			<dt>{LANG_VAR_SUBTOTAL}</dt>
+			<dd>{TPL_VAR_CURRENCY}{TPL_VAR_SUBTOTAL}</dd>
+			<!-- BEGIN TPL_PROMODISCOUNTS_BLK -->
+			<dt>{TPL_VAR_PROMOTIONDESC}</dt>
+			<dd>{TPL_VAR_PDISCOUNTS}</dd>
+			<!-- END TPL_PROMODISCOUNTS_BLK -->
+			<!-- BEGIN TPL_VOLDISCOUNTS_BLK -->
+			<dt>{LANG_VAR_VOLUME}</dt>
+			<dd>-{TPL_VAR_CURRENCY}{TPL_VAR_VOLDISCOUNT}</dd>
+			<!-- END TPL_VOLDISCOUNTS_BLK -->
+			<!-- BEGIN TPL_CARTWEIGHT_BLK -->
+			<dt>{LANG_VAR_PRODUCTWEIGHT} ({TPL_VAR_WEIGHT} kg)</dt>
+			<dd>{TPL_VAR_CURRENCY}{TPL_VAR_WEIGHTPRICE}</dd>
+			<!-- END TPL_CARTWEIGHT_BLK -->
+			<!-- BEGIN TPL_USEDMEMBERPOINTS_BLK -->
+			<dt>{TPL_VAR_MPOINTSAVAIABLE} Member Points</dt>
+			<dd>-{TPL_VAR_CURRENCY}{TPL_VAR_MPOINTSPRICE}</dd>
+			<!-- END TPL_USEDMEMBERPOINTS_BLK -->
+			<!-- BEGIN TPL_POSTAGE_BLK -->
+			<dt>Postage method ({TPL_VAR_POSTAGEMETHOD})</dt>
+			<dd>{TPL_VAR_CURRENCY}{TPL_VAR_POSTAGEPRICE}</dd>
+			<!-- END TPL_POSTAGE_BLK -->
+			<!-- BEGIN TPL_COD_BLK -->
+			<dt>Cod Charge</dt>
+			<dd>{TPL_VAR_CURRENCY}{TPL_VAR_CODPRICE}</dd>
+			<!-- END TPL_COD_BLK -->
+			<!-- BEGIN TPL_DISCOUNT_BLK -->
+			<dt>Discount Code {TPL_VAR_DISCOUNTCODE}</dt>
+			<dd>-{TPL_VAR_CURRENCY}{TPL_VAR_DISCOUNTPRICE}</dd>
+			<!-- END TPL_DISCOUNT_BLK -->
+			<!-- BEGIN TPL_GIFTCERT_BLK -->
+			<dt>Gift Certificate {TPL_VAR_GIFTCODE}</dt>
+			<dd>-{TPL_VAR_CURRENCY}{TPL_VAR_GIFTCERTPRICE}</dd>
+			<!-- END TPL_GIFTCERT_BLK -->
+			<!-- BEGIN TPL_VAT_BLK -->
+			<dt>{TPL_VAR_SHIPCOUNTRY}: ({TPL_VAR_TAXNAME} @ {TPL_VAR_VAT}%)</dt>
+			<dd>{TPL_VAR_CURRENCY}{TPL_VAR_VATPRICE}</dd>
+			<!-- END TPL_VAT_BLK -->
+			<dt>Current Total</dt>
+			<dd>{TPL_VAR_CURRENCY}{TPL_VAR_CURRENTTOTAL}</dd>
+		</dl>
+		<!-- BEGIN TPL_MPOINTS_BLK -->
+		<p class="note">{LANG_VAR_ACCUMULATES} ({TPL_VAR_MPOINTS}) {LANG_VAR_MEMPOINTS}</p>
+		<!-- END TPL_MPOINTS_BLK -->
+		<p class="warning">Please do not stop the processing once the button is pressed.</p>
+		<p class="actions" style="display:block;">
+			<input type="hidden" name="CCNumber" value="{TPL_VAR_CCNUMBER}" />
+			<input type="hidden" name="CCType" value="{TPL_VAR_CCTYPE}" />
+			<input type="hidden" name="cv2" value="{TPL_VAR_CV2}" />
+			<input type="hidden" name="CCYear" value="{TPL_VAR_CCYEAR}" />
+			<input type="hidden" name="CCMonth" value="{TPL_VAR_CCMONTH}" />
+			<input type="hidden" name="StartYear" value="{TPL_VAR_STARTYEAR}" />
+			<input type="hidden" name="StartMonth" value="{TPL_VAR_STARTMONTH}" />
+			<input type="hidden" name="IssueNumber" value="{TPL_VAR_ISSUENUMBER}" />
+			<input type="hidden" name="AccountNumber" value="{TPL_VAR_ACCTNUMBER}" />
+			<input type="hidden" name="ABAccount" value="{TPL_VAR_ABA_ACCT}" />
+			<input type="hidden" name="txtTotalPrice" value="{TPL_VAR_CURRENTTOTAL}" />
+			<input type="text" name="timer" value="0:00" size="4" onfocus="this.blur();" class="formFieldShort" />
+			<input type="submit" name="submitbutton" value="Complete Order" style="display:block !important;" class="formButton" />
+		</p>
+	</form>
+	<!-- END TPL_CART_BLK -->
+</div>
+<div id="end"><!-- dont remove, one page checkout uses this div --></div>

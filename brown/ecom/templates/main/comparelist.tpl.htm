@@ -1,0 +1,47 @@
+<!-- patch 02 
+08-05-2009
+Loc Dinh
+-->
+<h2 id="pageTitle">My {TPL_VAR_COMPARELIST}</h2>	
+<div id="content">
+	<p>Hello  {TPL_VAR_USERNAME}, welcome to your {TPL_VAR_COMPARELIST}.</p>
+	<!-- BEGIN TPL_MSG_BLK -->
+	<p class="message">{TPL_VAR_MSG}</p>
+	<!-- END TPL_MSG_BLK -->
+	<!-- BEGIN TPL_MAINPRODUCT_BLK -->
+	<!-- BEGIN TPL_MAINPRODUCT_BLK -->
+	<form action="{TPL_VAR_COMPAREMODIFYURL}" method="post" name="ThisForm" id="ThisForm">
+		<table summary="Items in Comparison List">
+			<tr>
+				<th class="product">Product</th>
+				<th class="attributes">Attributes</th>
+				<th>RRP</th>
+				<th>Price</th>
+				<th class="remove">Remove</th>
+			</tr>
+			<!-- BEGIN TPL_PRODUCT_BLK -->
+			<input type="hidden" name="wishlistid[]" value="{TPL_VAR_ID}">
+			<tr>
+				<td>
+					<a href="{TPL_VAR_PRODUCTURL}" class="siteLink">{TPL_VAR_TITLE}</a><br />
+					<strong>Sku:</strong> {TPL_VAR_SKU}<br />
+					<strong>Supplier:</strong> {TPL_VAR_SUPPLIER}<br />
+				</td>
+				<td>
+					<!-- BEGIN TPL_ATTRIBUTEFIELD_BLK -->
+					<strong>{TPL_VAR_FILEDNAME}:</strong>{TPL_VAR_PREFIX}{TPL_VAR_FIELDVALUE}{TPL_VAR_SUFFIX}<br />
+					<!-- END TPL_ATTRIBUTEFIELD_BLK -->	
+				</td>
+				<td class="price">{TPL_VAR_PRICERRP}</td>
+				<td class="price">{TPL_VAR_PRICEMAIN}</td>
+				<td>
+					<input type="checkbox" class="formRadio" name="remove[{TPL_VAR_ID}]" value="{TPL_VAR_ID}" />
+				</td>
+			</tr>
+			
+		<!-- END TPL_PRODUCT_BLK -->
+		</table>
+		<input type="submit" name="update" value="Update Compare List" class="formButton"/>
+	</form>
+	<!-- END TPL_MAINPRODUCT_BLK -->
+</div>

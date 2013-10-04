@@ -1,0 +1,103 @@
+<h2 id="pageTitle">{TPL_VAR_HEADING}</h2>
+<div id="content">
+	<div id="contactDetails">
+		<address>
+			{TPL_VAR_COMPANY}
+			{TPL_VAR_ADDRESS}
+			{TPL_VAR_CITY}
+			{TPL_VAR_STATE}
+			{TPL_VAR_COUNTRY}
+			{TPL_VAR_ZIP}
+			{TPL_VAR_PHONE}
+		</address>
+		<p>
+			{TPL_VAR_VATNUMBER}<br />
+			{TPL_VAR_REGISTERNUMBER}
+		</p>
+	</div>
+	{TPL_VAR_TEXT}
+</div>
+<script language="Javascript" type="text/javascript"
+src="{TPL_VAR_SITEURL}jscript/contact.js">
+</script>
+<form class="global-form"
+action="{TPL_VAR_SITEURL}index.php?action=contactus.add" method="post"
+name="frmContact" id="frmContact" onsubmit="return submitContact(this);">
+	<!-- BEGIN TPL_MSG_BLK -->
+	<p>Sorry, your message could not be submitted due to following reasons:<br
+/>
+	{TPL_VAR_MSG}</p>
+	<!-- END TPL_MSG_BLK -->
+	<fieldset>
+		<legend>Contact Form</legend>
+		<p>All fields marked (<span>*</span>) are required</p>
+		<table class="user">
+			<tr>
+				<td>
+					<label for="sName">Name<span>*</span></label>
+					<input class="formField" type="text" name="sName" id="sName"
+value="{TPL_VAR_NAME}" maxlength="50" />
+				</td>
+				<td>
+					<label for="sEmail">Email Address <span>*</span></label>
+					<input class="formField" type="text" name="sEmail" id="sEmail"
+value="{TPL_VAR_EMAIL}" maxlength="50" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="sAddress1">Address 1 </label>
+					<input class="formField" type="text" name="sAddress1" id="sAddress1"
+value="{TPL_VAR_ADDRESS1}" maxlength="100"  />
+				</td>
+				<td>
+					<label for="sAddress2">Address 2 </label>
+					<input class="formField" type="text" name="sAddress2" id="sAddress2"
+value="{TPL_VAR_ADDRESS2}" maxlength="50" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="sWorkPhone">Phone</label>
+					<input class="formField" type="text" name="sWorkPhone" id="sWorkPhone"
+value="{TPL_VAR_CONTACTPHONE}" maxlength="20" />
+				</td>
+				<td>
+					<label for="sCountry">Country</label>
+					<select class="formSelect" id="sCountry" name="sCountry">
+						<!-- BEGIN BillCountry -->
+						<option value="{TPL_COUNTRY_NAME}"
+{TPL_VAR_SELECTED}>{TPL_COUNTRY_NAME}</option>
+						<!-- END BillCountry -->
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<label for="Comments">Request</label>
+					<textarea class="formField" id="Comments" name="sComments" rows="8"
+cols="35">{TPL_VAR_REQUEST}</textarea>
+				</td>
+			</tr>
+		</table>
+		<!-- BEGIN TPL_CAPTCHA_BLK -->
+		<table class="user">
+			<tr>
+				<td>
+					<label for="contactuscaptcha">Verification Code</label>
+					<img src="{TPL_VAR_SITEURL}captcha.php" alt="Captcha Image"  />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input class="formField" type="text" name="cap_key" id="cap_key"/>
+				</td>
+			</tr>
+		</table>
+		<!-- END TPL_CAPTCHA_BLK -->
+	</fieldset>
+	<input class="formButton" type="submit" name="subContact" id="subContact"
+value="Submit Request" />
+	<input class="formButton" type="reset" name="btnReset" id="btnReset"
+value="Reset" />
+</form>

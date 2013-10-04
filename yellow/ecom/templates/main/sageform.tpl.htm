@@ -1,0 +1,10 @@
+<form name="frm_sagepay" method="post" action="{TPL_VAR_PAYACTION}" />
+<input type="hidden" name="VPSProtocol" value="2.23" />
+<input type="hidden" name="TxType" value="{TPL_VAR_TRANSACTIONTYPE}" />
+<input type="hidden" name="Vendor" value="{TPL_VAR_VENDOR}" />
+<input type="hidden" name="Crypt" value="{TPL_VAR_CRYPT}" />
+<input type='submit' value='Pay with Sagepay' />
+</form>
+<script language="JavaScript">
+	document.frm_sagepay.submit();
+</script>

@@ -1,0 +1,1 @@
+put all themes here. Tradingeye will detect them automatically.

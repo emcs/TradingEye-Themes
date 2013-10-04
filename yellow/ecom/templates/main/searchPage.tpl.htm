@@ -1,0 +1,26 @@
+<h3 id="pageTitle">{TPL_VAR_TOTALRECORDS}</h3>	
+{PagerBlock1}
+<div id="content">
+	<ol id="searchResults">
+		<!-- BEGIN TPL_DEPARTMENT_BLK -->
+		<li>
+			<h3><a href="{TPL_VAR_DEPTURL}">{TPL_VAR_DEPTNAME}</a> <span class="department">{TPL_VAR_FLAG}</span></h3>
+			{TPL_VAR_SHORTDESC}
+		</li>
+		<!-- END TPL_DEPARTMENT_BLK -->
+
+		<!-- BEGIN TPL_PRODUCT_BLK -->
+		<li>
+			<h3><a href="{TPL_VAR_PRODUCTURL}">{TPL_VAR_PRODIMAGE_TAG}{TPL_VAR_PRODUCTNAME}</a> <span class="product">{TPL_VAR_FLAG}</span></h3>
+			{TPL_VAR_SHORTDESC}
+		</li>
+		<!-- END TPL_PRODUCT_BLK -->
+
+		<!-- BEGIN TPL_CONTENT_BLK -->
+		<li>
+			<h3><a href="{TPL_VAR_CONTENTURL}">{TPL_VAR_CONTENTNAME}</a> <span class="content">{TPL_VAR_FLAG}</span></h3>
+			{TPL_VAR_SHORTDESC}
+		</li>
+		<!-- END TPL_CONTENT_BLK -->
+	</ol>
+</div>

@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<body>
+<form name = "frm_offst" method="post" action="{TPL_VAR_PAYACTION}">
+
+<input type="hidden" name="merchant" value="{ST_SITEREFERENCE}"/>
+<input type="hidden" name="orderref" value="{ST_ORDERREF}"/>
+<input type="hidden" name="amount" value="{TPL_VAR_ST_AMOUNT}"/>
+<input type="hidden" name="currency" value="gbp"/>
+
+<input type="hidden" name="merchantemail" value="{TPL_VAR_MERCHANTEMAIL}"/>
+<input type="hidden" name="town" value="{ST_TOWN}"/>
+
+<input type="hidden" name="county" value="{ST_COUNTY}"/>
+<input type="hidden" name="postcode" value="{ST_POSTCODE}"/>
+<input type="hidden" name="country" value="{ST_COUNTRY}"/>
+<input type="hidden" name="email" value="{ST_EMAIL}"/>
+<input type="hidden" name="telephone" value="{ST_TELEPHONE}"/>
+<input type="hidden" name="requiredfields" value="email, telephone, postcode"/>
+
+<input type="hidden" name="callbackurl" value="1"/>
+<input type="hidden" name="failureurl" value="1"/>
+<input type="hidden" name="mode" value="{TPL_VAR_MODE}">
+<input type="hidden" name="session" value="{TPL_VAR_SESSIONID}">
+
+<input type="hidden" name="callback" value="{CALLBACK_URL}"/>
+<input type="hidden" name="backcallback" value="{BACKCALLBACK_URL}"/>
+
+<input type="hidden" name="name" value="{TPL_VAR_NAME}"/>
+<input type="hidden" name="address" value="{TPL_VAR_ADDRESS}"/>
+
+<input type='submit' value="you are being transferred to a secure payments area"/>
+</form>
+
+<script language="JavaScript">
+	document.frm_offst.submit();
+</script>
+
+</body>
+</head>
+</html>>

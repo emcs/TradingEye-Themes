@@ -1,0 +1,80 @@
+<h2 id="pageTitle">{LANG_VAR_CUSTOMERLOGIN}</h2>	
+<div id="content">
+	<!-- BEGIN TPL_MSG_BLK -->
+	<p class='message'>{TPL_VAR_MSG}</p>
+	<!-- END TPL_MSG_BLK -->
+	<script language="JavaScript" type="text/javascript">
+		<!--				
+		function isEmail(s){
+			var i = 1;
+			var sLength = s.length;
+			while ((i < sLength) && (s.charAt(i) != "@")){ i++ }
+			if ((i >= sLength) || (s.charAt(i) != "@")) return false;
+				else i += 2;
+			while ((i < sLength) && (s.charAt(i) != ".")){ i++ }
+			if ((i >= sLength - 1) || (s.charAt(i) != ".")) return false;
+				else return true;
+		}
+       	function validate_login_form(form){
+			if(form.email.value!=''){
+				if(isEmail(form.email.value)){	
+					if(form.password.value!=''){
+						return true;
+					} else {
+						alert("Please enter your password.");
+						form.password.focus();
+						return false;
+					}
+				} else {
+					alert("Please enter a valid email address.");
+					form.email.focus();
+				}
+			} else {
+				alert("Please enter your email address");
+				form.email.focus();
+				return false;
+			}
+		}
+		function validate_lost_pw(form){
+			if(form.email.value!=''){
+				if(isEmail(form.email.value)){
+					return true;
+				} else {
+					alert("Please enter a valid email address.");
+					form.email.focus();
+				}
+			} else {
+				alert("Please enter your email address");
+				form.email.focus();
+				return false;
+			}
+		}
+      //-->
+	</script>
+	<p><a href="{TPL_VAR_SIGNUPURL}">{LANG_VAR_NOTREGISTERED}</a></p>
+
+	<div class="module1">
+		<form class="global-form" name="login" action="{TPL_VAR_FORMURL1}" method="post" onsubmit="if(validate_login_form(this)){return true}else{return false}">
+			<fieldset>
+				<legend>{LANG_VAR_CUSTOMERLOGIN}</legend>
+				<label for="email">{LANG_VAR_EMAILADDRESS}</label>
+				<input type="text" name="email" id="email" class="formField" onfocus="if(this.value=='email address')this.value='';" onblur="if(this.value=='')this.value='email address';" value="{TPL_VAR_EMAIL}"  maxlength="50" />
+				<label for="password">{LANG_VAR_PASSWORD}</label>
+				<input type="password" name="password" id="password" class="formField" onfocus="if(this.value=='password')this.value='';" onblur="if(this.value=='')this.value='password';" value="{TPL_VAR_PASS}"  maxlength="30" />
+				<input class="formButton" name="login" type="submit" value="{LANG_VAR_CUSTOMERLOGIN}" />
+			</fieldset>
+		</form>
+	</div>
+
+	<div class="module2">
+		<form class="global-form" action="{TPL_VAR_FORMURL2}" name="lostpassword" method="post" onsubmit="if(validate_lost_pw(this)){return true}else{return false}">
+			<fieldset>
+				<legend>{LANG_VAR_LOSTPASSWORD}</legend>
+				<label for="lostemail">{LANG_VAR_EMAILADDRESS}</label>
+				<input type="text" name="email" id="lostemail" class="formField" onfocus="if(this.value=='email address')this.value='';" onblur="if(this.value=='')this.value='email address';" value="email address"  maxlength="50" />
+				<input class="formButton" name="send" type="submit" value="{LANG_VAR_SENDPASSWORD}" />
+			</fieldset>  
+		</form>
+	</div>
+
+</div>

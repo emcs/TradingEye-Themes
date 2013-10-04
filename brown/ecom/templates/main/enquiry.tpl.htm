@@ -1,0 +1,92 @@
+<script language="JavaScript" type="text/javascript">
+		function trim(s) {
+		while (s.substring(0,1) == ' ') {
+			s = s.substring(1,s.length);
+		}
+		while (s.substring(s.length-1,s.length) == ' ') {
+			s = s.substring(0,s.length-1);
+		}
+		return s;
+	}
+	function isNull(aStr)
+	{
+		var index;
+		for (index=0; index < aStr.length; index++)
+			if (aStr.charAt(index) != ' ')
+			return false;
+		return true;
+	}
+	function isEmail(s){
+			var i = 1;
+			var sLength = s.length;
+			while ((i < sLength) && (s.charAt(i) != "@")){ i++ }
+			if ((i >= sLength) || (s.charAt(i) != "@")) return false;
+				else i += 2;
+			while ((i < sLength) && (s.charAt(i) != ".")){ i++ }
+			if ((i >= sLength - 1) || (s.charAt(i) != ".")) return false;
+				else return true;
+		}
+		function validateForm(form){
+			if(isNull(trim(form.custname.value)))
+				{
+					alert("Please enter your name...");
+					form.custname.focus();
+					return false;
+				}
+			if(isNull(trim(form.email.value)))
+				{
+					alert("Please enter an email address...");
+						form.email.focus();
+						return false;
+				}
+			else
+				{
+					if(!(isEmail(trim(form.email.value))))
+					{
+						alert("Please enter a valid email address...");
+						form.email.focus();
+						return false;
+					}
+				}
+			if(form.sCountry.value == "-1"){
+				alert("Please select the country");
+				form.sCountry.focus();
+				return false;
+			}
+
+			return true;
+		}
+	
+</script>
+<h2 id="pageTitle">{TPL_VAR_PRODUCTNAME} ({TPL_VAR_SKU})</h2>
+	<div id="content">
+		<form class="global-form" name="ThisForm" action="{TPL_VAR_POSTURL}" method="post"  onsubmit="return validateForm(this)">
+		<input class="formField" type="hidden" name="productName" id="productName" value="{TPL_VAR_PRODUCTNAME}"/>
+		<input class="formField" type="hidden" name="sku" id="sku" value="{TPL_VAR_SKU}"/>
+		<input class="formField" type="hidden" name="seoTitle" id="seoTitle" value="{TPL_VAR_SEOTITLE}"/>
+		<fieldset>
+			<legend>Product Enquiry Form</legend>
+			<p>All fields marked (<span>*</span>) are required</p>
+			<label for="Name">Name <span>*</span></label>
+			<input class="formField" type="text" name="custname" id="custname" value=""  maxlength="30" />
+			<label for="email">Email Address <span>*</span></label>
+			<input class="formField" type="text" name="email" id="email"  value=""  maxlength="50" />
+			<label for="Address1">Address 1 </label>
+			<input class="formField" type="text" name="address1" id="address1" value=""  maxlength="60"  />
+			<label for="Address2">Address 2 </label>
+			<input class="formField" type="text" name="address2" id="address2" value=""  maxlength="60"  />
+			<label for="Phone">Phone</label>
+			<input class="formField" type="text" name="Phone" id="Phone"  value=""  maxlength="20" />
+			<label for="Country">Country <span>*</span></label>
+			<select class="formField" name="sCountry" id="sCountry">
+				<option value="-1">Select Country</option>
+				<!-- BEGIN TPL_COUNTRY_BLK -->
+				<option value="{TPL_COUNTRY_NAME}" >{TPL_COUNTRY_NAME}</option>
+				<!-- END TPL_COUNTRY_BLK -->
+			</select>
+			<label for="Comments">Comments</label>
+			<textarea class="formField" id="comments" name="comments" rows="8" cols="35"></textarea>
+		</fieldset>
+		<input class="formButton" type="submit" value="Submit Enquiry" />
+	</form>
+</div>  

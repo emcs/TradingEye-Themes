@@ -1,0 +1,551 @@
+<!-- Page modified on 19-04-07 -->
+<script language="JavaScript" type="text/javascript">
+
+	function getValue(frm, fieldname){
+		var field = eval("document." + frm + "."+fieldname);
+		if(isdefined(field)){
+			return field.value;
+		}else{
+			return false;
+		}
+	}
+
+	function trimchar(pstr)
+	{
+		var lenstr = pstr.length;
+		for(var i = 0 ; pstr.charAt(i) == " "; i++);
+		for(var j = pstr.length - 1; pstr.charAt(j)== " "; j--);
+		j++;
+		if (i > j)
+			pstr = "";
+		else
+			pstr = pstr.substring(i,j);
+		return pstr;
+	}
+
+	function mod10 (strNum) {
+	   var nCheck = 0;
+	   var nDigit = 0;
+	   var bEven = false;
+	   
+	   for (n = strNum.length - 1; n >= 0; n--)
+	   {
+		  var cDigit = strNum.charAt (n);
+		  if (isDigit (cDigit))
+		  {
+			 var nDigit = parseInt(cDigit, 10);
+			 if (bEven)
+			 {
+				if ((nDigit *= 2) > 9)
+				   nDigit -= 9;
+			 }
+			 nCheck += nDigit;
+			 bEven = ! bEven;
+		  }
+		  else if (cDigit != ' ' && cDigit != '.' && cDigit != '-')
+		  {
+			 return false;
+		  }
+	   }
+	   return (nCheck % 10) == 0;
+	}
+	
+	
+	function expired( month, year )
+	{
+		var now = new Date();
+		var expiresIn = new Date(year,month,0,0,0);
+		expiresIn.setMonth(expiresIn.getMonth()+1);
+		if( now.getTime() < expiresIn.getTime() ) return false;
+		return true;								
+	}
+	//29-05-06:RUS added this function to validate start date
+	function isBeforeNow(cardStartMonth, cardStartYear)
+	{
+		var now = new Date();
+		var startsIn = new Date(cardStartYear,cardStartMonth,0,0,0);
+		startsIn.setMonth(startsIn.getMonth()-1);
+		if(startsIn.getTime() < now.getTime() ) 
+		{
+			return false;
+		}
+		return true;
+	}
+
+	function validatefields(pstCardStartMonth,pstCardStartYear,pstIssuenumber) {
+		if (pstIssuenumber !="") { // filled in, so we need to verify
+			if(isNaN(parseInt(pstIssuenumber)))	{
+				alert("Sorry! Please enter a valid issue number.");
+				return false;
+			}else if(pstIssuenumber.length!=2) {
+				alert("Sorry! Please enter a valid issue number.");
+				return false;
+			}
+		}
+		if (pstCardStartMonth!="" && pstCardStartYear !="")
+		{ // filled in, so we need to verify
+				if (isBeforeNow(pstCardStartMonth, pstCardStartYear))
+				{	
+					alert("Sorry! The start date you have entered would make this card invalid.");
+					return false;
+				}
+		}
+		return true;	
+	}
+	
+	//29-05-06:RUS updated this function to add parameters for start date and issue number
+	function validateCard(cc_number,cardType,cardMonth,cardYear,cardStartMonth, cardStartYear, issuenumber, pstCardType, cv2) {
+		if( cc_number.length == 0 ) {				
+			alert("Please enter a valid card number.");
+			return false;				
+		}
+		for( var i = 0; i < cc_number.length; ++i ) {	
+			var c = cc_number.charAt(i);
+			if( c < '0' || c > '9' ) {
+				alert("Please enter a valid card number. Use only digits. do not use spaces or hyphens.");
+				return false;
+			}
+		}
+		var length = cc_number.length;
+			switch( cardType ) {
+			case 'm':
+			case 'MC':
+			case 'Mastercard':
+				if( length != 16 ) {
+					alert("Please enter a valid MasterCard number.");
+					return;
+				}
+				var prefix = parseInt( cc_number.substring(0,2));
+				if( prefix < 51 || prefix > 55) {
+					alert("Please enter a valid MasterCard Card number.");
+					return;
+				}
+			break;
+			case 'v':
+			case 'VISA':
+				if(length != 16 && length != 13) {
+					alert("Please enter a valid Visa Card number.");
+					return;
+				}
+				var prefix = parseInt( cc_number.substring(0,1));											
+				if( prefix != 4 ) {
+					alert("Please enter a valid Visa Card number.");
+					return;
+				}
+				// 26-06-06: DPI:GSM added validation for cv2
+				if(isNull(cv2) || !isNumeric(cv2)){
+					alert("Please enter a valid security code.");
+					return false;
+				}
+			break;
+			case 'a':											
+			case 'AMEX':
+				if( length != 15 ) {
+					alert("Please enter a valid American Express Card number.");
+					return;
+				}
+				var prefix = parseInt( cc_number.substring(0,2));											
+				if(prefix != 34 && prefix != 37 ) {
+					alert("Please enter a valid American Express Card number.");
+					return;
+				}
+				break;
+			case 'd':
+			case 'DISCOVER':
+				if( length != 16 ) {
+					alert("Please enter a valid Discover Card number.");
+					return;
+				}
+				var prefix = parseInt( cc_number.substring(0,4));											
+				if( prefix != 6011 ) {
+					alert("Please enter a valid Discover Card number.");
+					return;
+				}
+				break;
+			case 'DinnersClub':
+			if( length != 14 ) {
+				alert("Please enter a valid Dinners Club Card number.");
+				return;
+			}
+			var prefix = parseInt( cc_number.substring(0,3));											
+			if((prefix < 300 || prefix > 305) || (prefix != 36 && prefix != 38 )) {
+				alert("Please enter a valid Discover Card number.");
+				return;
+			}
+			break;
+		
+		}
+		if( !mod10( cc_number ) ) { 	
+			alert("Sorry! this is not a valid credit card number.");
+			return false;
+		}
+		
+		// 26-06-06: DPI:GSM added validation for cv2
+		if(isNull(cv2) || !isNumeric(cv2)){
+			alert("Please enter a valid security code.");
+			return false;
+		}
+
+		//29-05-06:RUS added this code to check the expiry date is not empty
+		if(cardMonth == "" || cardYear == "")
+		{
+			alert("Please enter the expiry date for this card.");
+			return false;
+		}
+		else
+		{
+			if( expired( cardMonth, cardYear ) ) {	
+				alert("Sorry! The expiry date you have entered would make this card invalid.");
+				return false;
+			}
+		}
+		//END	
+		
+		/*29-05-06:RUS added this code to check start date and/or issue number depending upon card type
+		if  card type is maestro/switch/solo*/
+		if (pstCardType == "SWITCH" || pstCardType == "Maestro" || pstCardType == "SOLO") 
+		{
+			if ((cardStartMonth !="" && cardStartYear !="") || issuenumber !="") 
+			{ 
+				if( validatefields(cardStartMonth,cardStartYear,issuenumber)){
+				 return true;
+				}
+				else {
+					return false;
+				}	
+			}
+			else
+			{
+				alert("Please enter an issue number or start date for this card.");
+				return false;
+			}
+		return true;			
+		}
+		else
+		{
+				if( validatefields(cardStartMonth,cardStartYear,issuenumber)){
+				 return true;
+				}
+				else {
+					return false;
+				}
+		}
+		return true;
+	}
+
+function getCKDRadio(radio) {
+	var selected = false;
+	var ckVal = "none";
+	if(radio.length)
+	{
+		for (var i = 0; i < radio.length; i++) 
+		{
+			if (radio[i].checked) 
+			{
+				selected = true;
+				ckVal = radio[i].value;
+				break;
+			}
+		}
+	}
+	else
+	{
+		selected = true;
+	}
+	<!-- BEGIN TPL_NOMETHOD_BLK1 -->
+	if(radio.paymethods.value=='no')
+	{
+		selected = true;
+		ckVal='notpay';
+	}
+	<!-- END TPL_NOMETHOD_BLK1 -->
+	if (selected == false)
+	{
+		alert("Please select a payment option.");
+	}
+	return ckVal;
+}
+
+
+function checkPAY(form){
+	if(getCKDRadio(form)!="none"){
+		var ckVal = getCKDRadio(form);
+		if(ckVal == "cc"){
+			if(form.cc_number.value != ""){
+
+			if(!isdefined(form.cc_type)){
+				cardType='norequired';
+			}else{
+				var cardType = form.cc_type[form.cc_type.selectedIndex].value;
+				}
+			if(cardType != "")
+			{
+				if(!isdefined(form.cc_start_month))
+				{
+					ccstartmonth="";
+					ccstartyear="";
+					issuenumber="";
+				}
+				else
+				{
+						ccstartmonth=form.cc_start_month.value;
+						ccstartyear=form.cc_start_year.value
+						issuenumber=trimchar(form.issuenumber.value);
+				}
+
+				if (validateCard(
+					form.cc_number.value,
+					cardType,
+					form.cc_month.options[form.cc_month.selectedIndex].value,
+					form.cc_year.options[form.cc_year.selectedIndex].value,
+					ccstartmonth,
+					ccstartyear,
+					issuenumber,cardType,
+					form.cv2.value
+					)) {
+						return true;
+					} else {
+						return false;
+					}
+		
+			} else {
+					alert("Please select a credit card type.");
+					form.cc_type.focus();
+					return false;
+				}
+			} else {
+				alert("Please enter a Credit Card Number");
+				form.cc_number.focus();
+				return false;
+			}
+		} 
+		else if(ckVal == "eft")
+		{
+			if(form.acct.value != "")
+			{
+				if(form.aba.value != "")
+				{
+					return true;
+				}
+				else 
+				{
+					alert("Please enter your ABA Account number.");
+					form.aba.focus();
+					return false;
+				}
+			}
+			else 
+			{
+				alert("Please enter Checking Account number.");
+				form.acct.focus();
+				return false;
+			}
+		} else return true;
+	} else return false;
+}
+
+
+  	function validateForm(form){
+	if(checkPAY(form)) return true;
+		else return false;
+}
+
+//END
+//-->
+</script>
+
+<h2 id="pageTitle">{LANG_VAR_PAYMENTMETHOD}</h2> 
+<p class="message">{TPL_VAR_MSG}</p>
+<div id="content">
+	<form class="global-form" action="{TPL_VAR_FORMURL}" method="post" name="ThisForm" id="ThisForm" onSubmit="if(validateForm(this)){return true}else{return false}">
+		<fieldset>
+			<!-- BEGIN TPL_CREDITDEBITMAIN_BLK -->	
+			<legend>{LANG_VAR_CREDITDEBIT}</legend>
+			<!-- BEGIN TPL_CREDITDEBITCARDS_BLK -->
+			<label for="cc">{LANG_VAR_CREDITDEBIT}</label>
+			<input type="radio" name="paymethod" value="cc" class="formRadio" checked="checked" id="cc" />
+			<!-- Start modification for strict Card Holder Validation with Protx -->
+			<label for="cardholder_name">{LANG_VAR_CARDHOLDERNAME}</label>
+			<input type="text" class="formField" name="cardholder_name" id="cardholder_name" />
+			<!--// End modification for strict Card Holder Validation with Protx -->
+			<!-- BEGIN TPL_CARDSTYPE_BLK -->
+			<label for="cc_type">{LANG_VAR_SELECTCARDTYPE}</label>
+			<select name="cc_type" id="cc_type" class="formField">
+				<option value="">{LANG_VAR_SELECTCARDTYPE2}</option>
+				<!-- BEGIN TPL_CARDS_BLK -->
+				<option value="{TPL_VAR_VALUE}">{TPL_VAR_NAME}</option>
+				<!-- END TPL_CARDS_BLK -->
+			</select>
+			<!-- END TPL_CARDSTYPE_BLK -->
+			<label for="cc_number">{LANG_VAR_CREDITDEBITNUM}</label>
+			<input type="text" class="formField" name="cc_number" id="cc_number" maxlength="25" size="25" autocomplete="off" />
+			<label for="cc_month">{LANG_VAR_EXPIRY}</label>
+			<select name="cc_month" id="cc_month" class="formFieldMedium">
+				<option value="" selected="selected">{LANG_VAR_MONTH}</option>
+				<option value="01">01</option>
+				<option value="02">02</option>
+				<option value="03">03</option>
+				<option value="04">04</option>
+				<option value="05">05</option>
+				<option value="06">06</option>
+				<option value="07">07</option>
+				<option value="08">08</option>
+				<option value="09">09</option>
+				<option value="10">10</option>
+				<option value="11">11</option>
+				<option value="12">12</option>
+			</select>		
+			<select name="cc_year" id="cc_year" class="formFieldMedium">
+				<option value="" selected='selected'>{LANG_VAR_YEAR}</option>
+				<!-- BEGIN TPL_CARDYEAR_BLK -->
+				<option value="{TPL_VAR_YEAR}">{TPL_VAR_YEAR}</option>
+				<!-- END TPL_CARDYEAR_BLK -->
+			</select>
+			<label for="cv2">CV2 {LANG_VAR_3DIGIT}</label>
+			<input type="text" class="formFieldMedium" name="cv2" id="cv2" maxlength="5" size="4" autocomplete="off" /><br /><img src="{TPL_VAR_SITEURL}graphics/site/mini_cvv2.gif" alt="CV2 Security Code" title="Last 3 digits on back of card" />
+			<!-- END TPL_CREDITDEBITCARDS_BLK -->	
+			<!-- BEGIN TPL_CARDBYPHONE_BLK -->
+			<label for="cc_phone">{LANG_VAR_CREDITDEBITPHONE}</label>
+			<input id="cc_phone" type="radio" name="paymethod" class="formRadio" value="cc_phone" />
+			<!-- END TPL_CARDBYPHONE_BLK -->
+			<!-- END TPL_CREDITDEBITMAIN_BLK -->
+
+			<!-- BEGIN TPL_SOLOCARDS_BLK -->
+			<h3>Maestro/Switch/Solo {LANG_VAR_ONLY}</h3>
+			<label for="issuenumber">{LANG_VAR_ISSUENUMBER}</label>
+			<input type="text" class="formFieldMedium" name="issuenumber" id="issuenumber" maxlength="2" size="4"/>
+			<label for="cc_start_month">{LANG_VAR_STARTDATE}</label>
+			<select name="cc_start_month" id="cc_start_month" class="formFieldMedium">
+				<option value="" selected="selected">{LANG_VAR_MONTH}</option>
+				<option value="01">01</option>
+				<option value="02">02</option>
+				<option value="03">03</option>
+				<option value="04">04</option>
+				<option value="05">05</option>
+				<option value="06">06</option>
+				<option value="07">07</option>
+				<option value="08">08</option>
+				<option value="09">09</option>
+				<option value="10">10</option>
+				<option value="11">11</option>
+				<option value="12">12</option>
+			</select>
+			<select name="cc_start_year" id="cc_start_year" height="22" class="formFieldMedium">
+				<option value="" selected='selected'>{LANG_VAR_YEAR}</option>
+				<!-- BEGIN TPL_SOLOCARDYEAR_BLK -->
+				<option value="{TPL_VAR_YEAR}">{TPL_VAR_YEAR}</option>
+				<!-- END TPL_SOLOCARDYEAR_BLK -->
+			</select>
+			<!-- END TPL_SOLOCARDS_BLK -->
+		</fieldset>
+
+		<!-- BEGIN TPL_ECHECK_BLK -->
+		<fieldset>
+			<legend>{LANG_VAR_PAYBY} E-Check <abbr title="Electronic Funds Transfer">(EFT)</abbr></legend>
+			<label for="eft">{LANG_VAR_PAYBY} E-Check <abbr title="Electronic Funds Transfer">(EFT)</abbr></label>
+			<input id="eft" type="radio" name="paymethod" class="formRadio" value="eft" />
+			<label for="eft_num">{LANG_VAR_ACCOUNTNUM}</label>
+			<input type="text" class="formField" id="acct" name="acct" maxlength="30"  />
+			<label for="aba">ABA {LANG_VAR_ACCOUNT}</label>
+			<input type="text" class="formField" id="aba" name="aba" maxlength="30" />
+		</fieldset>
+		<!-- END TPL_ECHECK_BLK -->
+
+		<!-- BEGIN TPL_NOMETHOD_BLK2 -->
+		<input type="hidden" id="paymethods" name="paymethods" value='no' />
+		<!-- END TPL_NOMETHOD_BLK2 -->
+
+		<!-- BEGIN TPL_PAYPAL_BLK -->
+		<fieldset>
+			<legend>PayPal</legend>
+			<label for="paypal" >{LANG_VAR_PAYUSING} PayPal.</label><br /><br /><img src="{TPL_VAR_SITEURL}graphics/site/cc-paypal.jpg" alt="PayPal Verified" />
+			<input id="paypal" type="radio" name="paymethod" class="formRadio" value="paypal" />
+		</fieldset>
+		<!-- END TPL_PAYPAL_BLK -->
+
+		<!-- BEGIN TPL_SECPAY_BLK -->
+		<fieldset>
+			<legend>SECPay</legend>
+			<label for="secpay">{LANG_VAR_PAYUSING} SECPay.</label><br /><br /><img src="{TPL_VAR_SITEURL}graphics/site/secpaysecuredlogo.jpg" alt="SECPay Verified" />
+			<input id="secpay" type="radio" name="paymethod" class="formRadio" value="secpay" />
+		</fieldset>
+		<!-- END TPL_SECPAY_BLK -->
+
+		<!-- BEGIN TPL_WORLDPAY_BLK -->
+		<fieldset>
+			<legend>WorldPay</legend>
+			<label for="worldpay">{LANG_VAR_PAYUSING} WorldPay.</label><br /><br /><img src="{TPL_VAR_SITEURL}graphics/site/worldpay.jpg" alt="Worldpay Verified" title="Worldpay Verified" />
+			<input id="worldpay" type="radio" name="paymethod" class="formRadio" value="worldpay" />
+		</fieldset>
+		<!-- END TPL_WORLDPAY_BLK -->
+
+		<!-- BEGIN TPL_HSBC_BLK -->
+		<fieldset>
+			<legend>HSBC</legend>
+			<label for="hsbc">{LANG_VAR_PAYUSING} HSBC.</label><br /><br /><img src="{TPL_VAR_SITEURL}graphics/site/hsbc.jpg" alt="HSBC Verified" />
+			<input id="hsbc" type="radio" name="paymethod" class="formRadio" value="hsbc" />
+		</fieldset>
+		<!-- END TPL_HSBC_BLK -->
+
+		<!-- BEGIN TPL_BARCLAY_BLK -->
+		<fieldset>
+			<legend>Barclays</legend>
+			<label for="barclay">{LANG_VAR_PAYUSING} Barclays.</label><br /><br /><img src="{TPL_VAR_SITEURL}graphics/site/barclay.jpg" alt="BARCLAYS Verified" />
+			<input id="barclays" type="radio" name="paymethod" class="formRadio" value="barclay" />
+		</fieldset>
+		<!-- END TPL_BARCLAY_BLK -->
+
+		<!-- BEGIN TPL_OTHER_BLK -->
+		<fieldset>
+			<legend>{LANG_VAR_OTHERPAYMETH}</legend>
+			<label for="mail_pay">{LANG_VAR_PAYBYCHEQUE}</label>
+			<input id="mail_pay" type="radio" name="paymethod" class="formRadio" value="mail" />
+			<address>{LANG_VAR_SENDPAYMENTTO}<br />
+				{TPL_VAR_COMPANY}<br />
+				{TPL_VAR_ADDRESS}<br />
+				{TPL_VAR_CITY}
+				{TPL_VAR_STATE}<br />
+				{TPL_VAR_ZIP}<br />
+				{TPL_VAR_COUNTRY}
+			</address>
+			<p>{TPL_VAR_VATNUMBER}<br />
+			{TPL_VAR_REGISTERNUMBER}</p>
+			<p class="note">{LANG_VAR_CHEQUEPAYMESS}</p> 
+		</fieldset>
+		<!-- END TPL_OTHER_BLK -->
+
+		<!-- BEGIN TPL_COD_BLK -->
+		<input type='hidden' name='codprice' value='{TPL_VAR_CODPRICE}' />
+		<label for="cod">{LANG_VAR_CASHONDELMESS} {TPL_VAR_CURRENCY}{TPL_VAR_CODPRICE}</label>
+		<input id="cod" type="radio" name="paymethod" value="cod" />
+		<!-- END TPL_COD_BLK -->
+
+		<fieldset>
+			<legend>{LANG_VAR_DISCOUNTHEADER}</legend>
+			<label for="disc_code">{LANG_VAR_DISCCODETXT}</label>
+			<input class="formField" id="discount" type="text" name="discount" onfocus="if(this.value=='discount code')this.value='';" onblur="if(this.value=='')this.value='discount code';" value="{LANG_VAR_DISCCODETXT}" maxlength="30"  />
+			<label for="gift_cert">{LANG_VAR_DISCCERTTXT}</label>
+			<input class="formField" id="giftcert" type="text" name="giftcert" onfocus="if(this.value=='gift certificate number')this.value='';" onblur="if(this.value=='')this.value='gift certificate number';" value="{LANG_VAR_DISCCERTTXT}"  maxlength="30" />
+			<label for="comments">{LANG_VAR_SPECIALREQ}</label>
+			<textarea class="formField" id="comments" name="comments" rows="8" cols="35" onfocus="this.select()">{LANG_VAR_SPECIALREQ}</textarea>
+		</fieldset>
+
+		<!-- BEGIN TPL_NEWSLETTER_BLK -->
+		<fieldset>
+			<legend>{LANG_VAR_SIGNUPNEWS}</legend>
+			<input id="html_mail" type="radio" name="mail_list" class="formRadio" value="1" checked />
+			<label for="html_mail"><abbr title="HyperText Markup Language">HTML</abbr> {LANG_VAR_EMAILTXT}</label><br />
+			<input id="txt_mail" type="radio" name="mail_list" class="formRadio" value="2" />
+			<label for="txt_mail">{LANG_VAR_PLAINEMAILTXT}</label><br />
+			<input id="not_sure" type="radio" name="mail_list" class="formRadio" value="2" />
+			<label for="not_sure">{LANG_VAR_NOTSURETXT}</label><br />
+			<input id="no_mail" type="radio" name="mail_list" class="formRadio" value="0" />
+			<label for="no_mail">{LANG_VAR_NOTHANKSTXT}</label><br />
+		</fieldset>
+		<!-- END TPL_NEWSLETTER_BLK -->
+		<p class="note">{LANG_VAR_REVIEWTXT}</p>
+		<p><input class="formButton" type="submit" value="{LANG_VAR_REVIEWORDER}" /></p>
+	</form>
+</div>
+
+		

@@ -1,0 +1,56 @@
+<h2 id="pageTitle">Dynamic Site Map</h2>	
+<div id="content">
+	<p>You can navigate your way around our site by clicking on the links below.</p>
+	<p><a href="{TPL_VAR_SITEMAPURL}">Refresh list</a></p>
+	<ul id="sitemap">
+		<!-- BEGIN TPL_MAINDEPARTMENT_BLK -->
+		<li>
+			<h3>Departments</h3>
+			<ul>
+				<li><a href="{TPL_VAR_SITEURL}">Home Page</a></li>
+				<!-- BEGIN TPL_DEPARTMENT_BLK -->
+					<li><a href="{TPL_VAR_DEPTURL}">{TPL_VAR_DEPTTITLE}</a></li>
+					<!-- BEGIN TPL_MAINSUBDEPT_BLK -->
+					<li><h3>Sub-departments</h3></li>
+						<!-- BEGIN TPL_SUBDEPT_BLK -->
+						<li><a href="{TPL_VAR_SUBDEPURL}">{TPL_VAR_SUBDEPTTITLE}</a></li>
+						<!-- END TPL_SUBDEPT_BLK -->
+					<!-- END TPL_MAINSUBDEPT_BLK -->	
+					<!-- BEGIN TPL_MAINSUBPRODUCT_BLK -->
+					<li><h3>Products</h3></li>
+						<!-- BEGIN TPL_SUBPRODUCT_BLK -->
+						<li><a href="{TPL_VAR_SUBPRODUCTURL}">{TPL_VAR_SUBPRODUCTTITLE}</a></li>
+						<!-- END TPL_SUBPRODUCT_BLK -->
+					<!-- END TPL_MAINSUBPRODUCT_BLK -->			
+					<!-- BEGIN TPL_MAINSUBCONTENT_BLK -->
+					<li><h3>Articles</h3></li>
+						<!-- BEGIN TPL_SUBCONTENT_BLK -->
+						<li><a href="{TPL_VAR_SUBCONTENTURL}">{TPL_VAR_SUBCONTENTTITLE}</a></li>
+						<!-- END TPL_SUBCONTENT_BLK -->
+					<!-- END TPL_MAINSUBCONTENT_BLK -->
+				<!-- END TPL_DEPARTMENT_BLK -->
+			</ul>
+		</li>
+		<!-- END TPL_MAINDEPARTMENT_BLK -->
+		<!-- BEGIN TPL_MENU_BLK -->
+		<li>
+			<h3>{TPL_VAR_MENUHEAD}</h3>
+			<ul>
+				<!-- BEGIN TPL_MENUITEM_BLK -->
+				<li><a href="{TPL_VAR_MENUURL}">{TPL_VAR_MENUTITLE}</a></li>
+				<!-- END TPL_MENUITEM_BLK -->
+			</ul>
+		</li>
+		<!-- END TPL_MENU_BLK -->
+		<!-- BEGIN TPL_MAINCONTENT_BLK -->
+		<li>
+			<h3>Content</h3>
+			<ul>
+				<!-- BEGIN TPL_CONTENT_BLK -->
+				<li><a href="{TPL_VAR_CONTENTURL}">{TPL_VAR_CONTENTTITLE}</a></li>
+				<!-- END TPL_CONTENT_BLK -->
+			</ul>
+		</li>
+		<!-- END TPL_MAINCONTENT_BLK -->
+	</ul>
+</div>

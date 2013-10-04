@@ -1,0 +1,177 @@
+<!--
+@Author	: dpivision.com
+@Email 	: info@dpivision.com
+@Company: dpivision.com  
+ -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>Supplier Mail</title>
+<style>
+	color:#555;
+	font: verdana;	
+	line-height:150%;
+	margin:0;
+	padding:0;
+}
+
+table{
+	width:720;
+	color:#555;
+	font: verdana;
+	margin:.5em 0;
+	line-height:150%;
+}
+.th{
+	border:1px solid #fff;
+	background:#ddd;
+	padding:5px;
+}
+.td{
+	background:#eee;
+	border:1px solid #fff;
+	padding:5px;
+	vertical-align:top;
+}
+
+
+/* ----- global links ----- */
+a:link, a:visited, a:active{
+	color:#275f81;
+	text-decoration:none;
+}
+a:hover{color:#555;}
+
+h2#pageTitle{
+	font-weight:bold;
+	padding:0;
+	margin:0;
+	margin-bottom:1em;
+	color:#275f81;
+	font-size:180%;
+}
+table .price{
+	color:#13689d;
+	font-size:110%;
+	font-weight:bold;
+}
+
+	</style>
+</head>
+<body>
+
+<table width="720" border="0" align="center" cellpadding="0" cellspacing="0" class="modules" id="content">
+  <tr> 
+    <td colspan="2">
+    <h2>    
+    	Invoice Number {TPL_VAR_INVOICE} - Order Date {TPL_VAR_ORDERDATE}    	
+    </h2>
+    </td>
+  </tr>
+  
+  <tr> 
+    <td width="50%" colspan="1"><p><strong>Supplier Email<br>
+        </strong>{TPL_VAR_SUPPLIEREMAIL}</p>
+      <p>&nbsp;</p>
+   </td>    
+  </tr>
+  <tr> 
+    <td width="50%"><p><strong>Order Status<br>
+        </strong>{TPL_VAR_ORDERSTATUS}</p>
+      <p>&nbsp;</p>
+   </td>
+    <td width="50%"><p><strong>Order Comments<br>
+        </strong>{TPL_VAR_COMMENTS}</p>
+      <p>&nbsp;</p>
+      </td>
+  </tr>
+  
+  <tr> 
+    <td valign="top"><p><strong>Billing Address<br>
+        </strong>{TPL_VAR_FIRSTNAME} {TPL_VAR_LASTNAME}<br />
+        {TPL_VAR_ADDRESS1}<br />
+        {TPL_VAR_ADDRESS2}<br />
+        {TPL_VAR_CITY}<br />
+        {TPL_VAR_BILLSTATE}<br />
+        {TPL_VAR_BILLCOUNTRY}<br />
+        {TPL_VAR_ZIP}<br />
+        {TPL_VAR_PHONE}<br />
+        {TPL_VAR_EMAIL} </p>
+		<p>&nbsp;</p>
+      </td>
+    <td valign="top"><p><strong>Delivery Address<br>
+        </strong> 
+        <!-- BEGIN TPL_DELIVERY_BLK -->      
+		{TPL_VAR_ALTNAME}<br>
+        {TPL_VAR_ALTADDR1}<br>
+        {TPL_VAR_ALTADDR2}<br>
+        {TPL_VAR_ALTCITY}<br>
+        {TPL_VAR_SHIPSTATE}<br>
+        {TPL_VAR_SHIPCOUNTRY}<br>
+        {TPL_VAR_ALTZIP}<br>
+        {TPL_VAR_ALTPHONE}<br>
+        <!-- END TPL_DELIVERY_BLK -->
+        {TPL_VAR_SAMEASBILLING}</p>
+      <p>&nbsp;</p></td>
+  </tr>
+  <tr> 
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>  
+  <!-- BEGIN TPL_CART_BLK -->
+  <tr> 
+    <td colspan="2"> <table summary="Products in cart" border="0" width="720">
+        <tr> 
+          <th class="th">Quantity</th>
+          <th class="th">Product</th>
+          <th class="th">Supplier Item Description</th>
+          <th class="th">Price</th>
+         
+        </tr>
+        <!-- BEGIN TPL_VAR_CARTPRODUCTS -->
+        <tr> 
+          <td align="center" class="td"><div align="left">{TPL_VAR_QTY}</div></td>
+          <td align="center" class="td"> <div align="left"><a href="{TPL_VAR_PRODUCTURL}">{TPL_VAR_TITLE} 
+              ({TPL_VAR_SKU})</a> <br />   
+              {TPL_VAR_GIFTWRAP} 
+              <!-- BEGIN TPL_KIT_BLK -->
+              {TPL_VAR_KITTITLE}<br />
+              {TPL_VAR_KITOPTIONS} 
+              <!-- END TPL_KIT_BLK -->
+              {TPL_VAR_OPTIONS} {TPL_VAR_CHOICES}        
+              {TPL_VAR_NOTES} </div></td>
+          <td class="td"><span align="left">{TPL_VAR_SUPPLIER_DES}({TPL_VAR_SUPPLIER_SKU})</span></td>     
+          <td class="td"><span class="price" align="center">{TPL_VAR_CURRENCY}{TPL_VAR_PRICE}</span></td>
+        </tr>
+        <!-- END TPL_VAR_CARTPRODUCTS -->
+      </table></td>
+  </tr>
+  <!-- END TPL_CART_BLK -->
+  
+  <tr> 
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr> 
+  
+  <tr>   
+    <td colspan="6">
+    <h2>
+    <strong><a href="{TPL_VAR_CONFIRMATION_LINK}">Please click here to confirm this order number {TPL_VAR_INVOICE}</a></strong>
+    </h2>
+    <br /><br />
+    </td>
+  </tr> 
+  
+  <!-- [DRK] -->
+  <tr> 
+    <td>
+	<address>
+		{TPL_VAR_COMPANY_DETAILS}
+	</address>
+	</td>
+    <td>&nbsp;</td>
+  </tr>
+  <!-- [/DRK] -->
+  <tr> 
+    <td colspan="2">&nbsp;</td>
+  </tr>
+</table>

@@ -1,0 +1,36 @@
+<html>
+<head>
+<title>Paypal</title>
+<script language="JavaScript">
+function OnLoadEvent(){
+	document.frm_paypal.submit();
+}
+</script>
+</head>
+<body OnLoad="OnLoadEvent();">
+<form name="frm_paypal" id="frm_paypal" action="{TPL_VAR_PAYACTION}" method="post">
+<input type="hidden" name="cmd" value="_xclick"/>
+<input type="hidden" name="business" value="{TPL_VAR_PAYPALID}"/>
+<input type="hidden" name="currency_code" value="{TPL_VAR_PAYCURRENCY}"/>
+<input type="hidden" name="return" value="{TPL_VAR_SITEURL}ecom/index.php?action=checkout.return"/>
+<input type="hidden" name="notify_url" value="{TPL_VAR_SITEURL}ecom/index.php?action=checkout.IPN&id={TPL_VAR_ITEMNUMBER}&phpsessid={TPL_VAR_SESSIONID}"/>
+<input type="hidden" name="item_name" value="{TPL_VAR_ITEMNAME}"/>
+<input type="hidden" name="custom" value="payreturn"/>
+<input type="hidden" name="item_number" value="{TPL_VAR_ITEMNUMBER}"/>
+<input type="hidden" name="invoice" value="{TPL_VAR_INVOICENUMBER}"/>
+<input type="hidden" name="rm" id="rm" value="2"/>
+<input type="hidden" name="amount" value="{TPL_VAR_GRANDTOTAL}"/>
+<input type="hidden" name="no_shipping" value="1"/>
+<input type="hidden" name="no_note" value="0"/>
+<input type="hidden" name="bn" value="TradingEye_ST">
+<input type="hidden" name="cancel_return" value="{TPL_VAR_SITEURL}ecom/index.php?action=checkout.billing&mode=cancel"/>
+</form>
+<center><p><br>
+<br>
+  <br>
+  <br>
+  Loading Please Wait...<br>
+  <br>
+  Your are being redirected to PayPal, please be patient, this may take a minute or so.</p></center>
+</body>
+</html>

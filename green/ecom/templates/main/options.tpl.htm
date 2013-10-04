@@ -1,0 +1,15 @@
+<!-- BEGIN TPL_MAINOPTIONS_BLK -->
+<h3>{LANG_VAR_OPTIONS}</h3>
+<!-- BEGIN TPL_OPTIONS_BLK -->
+<label for="{TPL_VAR_FIELDNAME}">{TPL_VAR_TITLE}{STAR}</label>
+<input type="hidden" name="orderoptionid_{TPL_VAR_PRODUCTID}_{TPL_VAR_OPTIONID}" value="{TPL_VAR_ORDEROPTIONID}" />
+<select class="{TPL_VAR_MANDATORY_CLASS} optionsAttached" name="{TPL_VAR_FIELDNAME}" id="{TPL_VAR_FIELDNAME}">
+	<!-- BEGIN TPL_OPTIONVALUE_BLK -->
+	<option value="{TPL_VAR_OPTID}" {TPL_VAR_SELECTED}>{TPL_VAR_OPTNAME}</option>		  
+	<!-- END TPL_OPTIONVALUE_BLK -->
+</select>
+<!-- BEGIN TPL_OPTIONIMG_BLK -->
+<a href="#" class="optionsAttachedLink" onclick="document.productDisplay.{TPL_VAR_FIELDNAME}[{TPL_VAR_ID}].selected=true;">{TPL_VAR_IMGURL}</a>
+<!-- END TPL_OPTIONIMG_BLK -->
+<!-- END TPL_OPTIONS_BLK -->
+<!-- END TPL_MAINOPTIONS_BLK -->

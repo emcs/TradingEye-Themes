@@ -1,0 +1,133 @@
+<script type="text/javascript" src="{TPL_VAR_REAL_PATH}jscript/common.js"></script>
+<h2 id="pageTitle">{TPL_VAR_DEPARTMENTTITLE}</h2>	
+	<!-- BEGIN TPL_MAINDEPTDESC_BLK -->
+		<div id="content">
+			{TPL_VAR_DEPARTMENTDESC}
+		</div>	
+	<!-- END TPL_MAINDEPTDESC_BLK -->
+
+	<!-- BEGIN TPL_MAINDEPT_BLK -->
+		<h2>Sub Departments</h2>
+		<ul id="navSubDept">
+			<!-- BEGIN TPL_DEPT_BLK -->
+			<li><a href="{TPL_VAR_DEPTURL}"><span>{TPL_VAR_TITLE}</span></a></li>
+			<!-- END TPL_DEPT_BLK -->
+		</ul>
+	<!-- END TPL_MAINDEPT_BLK -->
+
+<!-- BEGIN TPL_MAINPRODUCT_BLK -->       
+<h2>Products</h2> 
+<div id="productSort">	
+	<h3><a {TPL_VAR_OPTIONSELECTED} href="{TPL_VAR_SORTOPTIONURL}">Sort Options</a><!-- BEGIN TPL_SORTATTRIBUTETAB_BLK --><a {TPL_VAR_ATTRIBUTESELECTED} href="{TPL_VAR_ATTBDEPTURL}">Sort by Attributes</a><!-- END TPL_SORTATTRIBUTETAB_BLK --></h3>
+	<!-- BEGIN TPL_SORTOPTIONS_BLK -->
+	<div id="productSortOptions">
+		<form id="productSortForm" method="post" action="{TPL_VAR_DEPTURL}">
+			<div class="sortBlock">
+				<label>Sort Alphabetically</label>
+				<select name="alphasort" id="alphasort" class="formSelect" onclick="disableDrop('alphasort');">
+					<option value="0">Please select</option>
+					<option value="ASC" {TPL_VAR_ASC1}>A - Z</option>
+					<option value="DESC" {TPL_VAR_DESC1}>Z - A</option>
+				</select>
+			</div>
+			<div class="sortBlock">
+				<label>Sort by Price</label>
+				<select name="sortbyprice" id="sortbyprice" class="formSelect" onclick="disableDrop('sortbyprice');">
+					<option value="0">Please select</option>
+					<option value="ASC" {TPL_VAR_ASC2}>Lowest First</option>
+					<option value="DESC" {TPL_VAR_DESC2}>Highest First</option>
+				</select>
+			</div>
+			<div class="sortBlock">
+				<label>Products Per Page</label>
+				<select name="prodperpage" class="formSelect">
+					<option value="0">Please select</option>
+					<!-- BEGIN TPL_PRODPERPAGE_BLK -->	
+						<option value="{TPL_VAR_OPTVALUE}" {SELECT}>{TPL_VAR_OPTVALUE}</option>
+					<!-- END TPL_PRODPERPAGE_BLK -->
+				</select>
+			</div>
+			<div class="sortBlock">
+				<label>Product List View</label>
+				<select name="listview" class="formSelect">
+					<option>Full Details</option>
+					<option value="gridview" {TPL_VAR_IMGONLYSELECTED}>Grid View</option>
+				</select>
+			</div>
+			<input type="submit" value="Sort List" class="formButton" title="Sort List" />
+		</form>
+	</div>
+	<!-- END TPL_SORTOPTIONS_BLK -->
+	<!-- BEGIN TPL_SORTATTRIBUTE_BLK -->
+	<div id="productSortOptions">
+		<!-- BEGIN TPL_ATTRIBUTES_BLK -->
+		<h4>{TPL_VAR_ATTRIBUTETITLE}</h4>
+			<!-- BEGIN TPL_ATTRIBUTELINE_BLK -->
+			<dl>
+	            <dt>{TPL_VAR_ATTRIBUTEFIELD}:</dt>
+				<!-- BEGIN TPL_FIELDVALUES_BLK -->
+				<dd><a href="{TPL_VAR_SEARCHLINK}">{TPL_VAR_PREFIX}{TPL_VAR_ATTRIBUTEVALUE}{TPL_VAR_SUFFIX}</a> ({TPL_VAR_PRODQUANTITY})</dd>
+				<!-- END TPL_FIELDVALUES_BLK -->
+			</dl>
+	        <!-- END TPL_ATTRIBUTELINE_BLK -->
+		<!-- END TPL_ATTRIBUTES_BLK -->	
+	</div>
+	<!-- END TPL_SORTATTRIBUTE_BLK -->
+</div>
+{PagerBlock1}	
+<ul {TPL_VAR_PRODUCTCLASS}>
+<!-- BEGIN TPL_PRODUCT_BLK -->
+	<li>
+		<div class='top'>
+		<a href="{TPL_VAR_PRODUCTURL}"><p class="image" style="height:{TPL_VAR_IMAGE_HEIGHT}px;width:{TPL_VAR_IMAGE_WIDTH}px;">{TPL_VAR_IMG}</p></a>
+		{TPL_VAR_ONSALE}
+		<p class="price"><span class="hack">{TPL_VAR_CURRENCY}{TPL_VAR_PRICE} <!-- BEGIN TPL_RRPPRICE_BLK --> <span class="rrp">{TPL_VAR_RRP_AMOUNT}</span><!-- END TPL_RRPPRICE_BLK --></span></p> 
+		</div>
+		<div class='bottom'>
+			<h3><a href="{TPL_VAR_PRODUCTURL}">{TPL_VAR_TITLE}</a></h3>
+			<!-- BEGIN TPL_PDESC_BLK -->
+			<p class="desc">{TPL_VAR_DESC}</p>
+			<!-- END TPL_PDESC_BLK -->
+			<!-- BEGIN TPL_REVIEWRANK_BLK -->
+			{TPL_VAR_OVERALLRANK}
+			<!-- END TPL_REVIEWRANK_BLK -->
+			{TPL_VAR_ATTACHED_WISHLISTLINK}
+			{TPL_VAR_ATTACHED_COMPARELINK}
+		</div>
+		
+	</li>	
+		<!-- END TPL_PRODUCT_BLK -->
+</ul>
+<script type="text/javascript">
+$(window).load(function () {
+	var largest = 0;
+	jQuery('.products > li > .bottom').each(function(){
+		if(jQuery(this).height() > largest)
+		{
+			largest = jQuery(this).height();
+		}
+	});
+	jQuery('.products > li > .bottom').height(largest);
+	jQuery('.image > img').each(function(){
+		if(jQuery(this).width() > {TPL_VAR_IMAGE_WIDTH} && jQuery(this).width() > jQuery(this).height())
+		{
+			jQuery(this).width({TPL_VAR_IMAGE_WIDTH});
+		}
+		else if(jQuery(this).height() > {TPL_VAR_IMAGE_HEIGHT})
+		{
+			jQuery(this).height({TPL_VAR_IMAGE_HEIGHT});
+		}
+	});
+});
+</script>
+<!-- END TPL_MAINPRODUCT_BLK -->   
+<!-- BEGIN TPL_MAINCONTENT_BLK -->
+<div id="articles"> 
+	<h2>Latest News</h2> 
+	<ul>
+		<!-- BEGIN TPL_CONTENT_BLK -->
+		<li><a href="{TPL_VAR_CONTENTURL}"><span>{TPL_VAR_TITLE}</span></a></li>
+		<!-- END TPL_CONTENT_BLK -->
+	</ul>
+</div>  
+<!-- END TPL_MAINCONTENT_BLK -->

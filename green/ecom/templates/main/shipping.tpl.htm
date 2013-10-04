@@ -1,0 +1,42 @@
+<form class="global-form" action="{TPL_VAR_FORMURL}" method="post" name="ThisForm">
+	<h2 id="pageTitle">Postage information</h2>	
+	<div id="content">
+		<p><span class="red">Default Postage Method:</span>
+			{TPL_VAR_DEFAULT_POSTAGEMETHOD} {TPL_VAR_CURRENCY}{TPL_VAR_DEFAULT_POSTAGEPRICE}
+		</p>
+		<fieldset>
+			<legend>Select postage method</legend>
+				<table summary="Shipping options">
+				<tr>
+					<td class="first">
+					<!-- BEGIN TPL_DEFAULTPOSTAGE_BLK -->
+					<input type="radio" name="ship_id" value="0" checked="checked" class="formRadio" /> 
+					<label for="ship_method">{TPL_VAR_DEFAULT_POSTAGEMETHOD} 
+						<span class="orange">
+							{TPL_VAR_CURRENCY}{TPL_VAR_DEFAULT_POSTAGEPRICE}
+						</span>
+					</label><br />
+					<input type="hidden" name="ship_method[0]" value="{TPL_VAR_DEFAULT_POSTAGEMETHOD}" />
+					<input type="hidden" name="ship_total[0]" value="{TPL_VAR_DEFAULT_POSTAGEPRICE}" />
+					<!-- END TPL_DEFAULTPOSTAGE_BLK -->
+					<!-- BEGIN TPL_POSTAGE_BLK -->
+					<input id="ship_id" type="radio" name="ship_id" value="{TPL_VAR_METHODID}" class="formRadio" {TPL_VAR_SELECTED} />
+					<input type="hidden" name="ship_method[{TPL_VAR_METHODID}]" value="{TPL_VAR_POSTAGEMETHOD}" />
+					<label for="ship_method">{TPL_VAR_POSTAGEMETHOD} 
+						<span class="orange">
+							{TPL_VAR_CURRENCY}{TPL_VAR_DISPLAYPRICE}
+						<!-- BEGIN TPL_SPECIALPOSTAGE_BLK -->
+							+
+							{TPL_VAR_CURRENCY}{TPL_VAR_DEFAULT_POSTAGEPRICE}
+						<!-- END TPL_SPECIALPOSTAGE_BLK -->
+						</span>
+					</label><br />
+					<input type="hidden" name="ship_total[{TPL_VAR_METHODID}]" value="{TPL_VAR_POSTAGEPRICE}" />
+					<!-- END TPL_POSTAGE_BLK -->
+					</td>
+				</tr>
+				</table>
+				<input type="submit" id="continue" name="continue" value="Continue" class="formButton" />
+		</fieldset>
+	</div>
+</form>

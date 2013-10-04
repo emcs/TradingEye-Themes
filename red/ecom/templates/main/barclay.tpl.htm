@@ -1,0 +1,30 @@
+<form name="barclay_frm" method="post" action="https://secure2.epdq.co.uk/cgi-bin/CcxBarclaysEpdq.e">
+	{TPLVAR_ENCRYPTEDCODE}
+	<input type="hidden" name="returnurl" value="{CpiDirectResultUrl}">
+	<input type="hidden" name="merchantdisplayname" value="{TPL_VAR_SITENAME}">
+	<input type="hidden" name="bname" value="{TPL_VAR_FIRSTNAME}">
+	<input type="hidden" name="baddr1" value="{TPL_VAR_ADDRESS1}">
+	<input type="hidden" name="baddr2" value="{TPL_VAR_ADDRESS2}">
+	<input type="hidden" name="bcity" value="{TPL_VAR_CITY}">
+	<input type="hidden" name="bpostalcode" value="{TPL_VAR_ZIP}">
+	<input type="hidden" name="{TPL_BILLSTATE_ARGU}"  value="{TPL_VAR_BILLSTATE}">
+	<input type="hidden" name="bcountry" value="{TPL_VAR_BILLCOUNTRY}">
+	<input type="hidden" name="btelephonenumber" value="{TPL_VAR_PHONE}">
+	<input type="hidden" name="email" value="{TPL_VAR_EMAIL}">
+	<input type="hidden" name="saddr1" value="{TPL_VAR_ALTADDR1}">
+	<input type="hidden" name="saddr2" value="{TPL_VAR_ALTADDR2}">
+	<input type="hidden" name="scity" value="{TPL_VAR_ALTCITY}">
+	<input type="hidden" name="{TPL_SHIPSTATE_ARGU}"  value="{TPL_VAR_SHIPSTATE}">
+	<input type="hidden" name="scountry" value="{TPL_VAR_SHIPCOUNTRY}">
+	<input type="hidden" name="spostalcode" value="{TPL_VAR_ALTZIP}">
+	<input type="hidden" name="stelephonenumber" value="{TPL_VAR_ALTPHONE}">
+	<input type="hidden" name="testvariable" value="testvalue">
+	<input type="hidden" name="cpi_textcolor" value="#666666">
+	<input type="hidden" name="chargetype" value="Auth">
+	<input type="hidden" name="mode" value="{TPL_VAR_ITEMNUMBER}">
+	<input type="hidden" name="phpsessid" value="{TPL_VAR_SESSIONID}">
+	<input type="submit">
+</form>
+<script language="javascript" type="text/javascript">
+	document.barclay_frm.submit();
+</script>

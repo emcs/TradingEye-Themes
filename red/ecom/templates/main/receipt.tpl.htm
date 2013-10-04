@@ -1,0 +1,136 @@
+<script type="text/javascript">
+	//<!--
+	
+	function goURL(url)
+	{
+		window.location = url;	
+	}
+	
+	//-->
+</script>
+<h2 id="pageTitle">Invoice Number  {TPL_VAR_INVOICE} - Order Date {TPL_VAR_ORDERDATE}</h2> 					
+<div id="content">
+	<table summary="Products in cart">
+		<tr>
+			<th>Quantity</th>
+			<th>Product</th>
+			<th>Price</th>
+			<th>Total</th>
+		</tr>
+		<!-- BEGIN TPL_VAR_CARTPRODUCTS -->
+		<tr>
+			<td>{TPL_VAR_QTY}</td>
+			<td> <a href="{TPL_VAR_PRODUCTURL}">{TPL_VAR_TITLE} ({TPL_VAR_SKU})</a>
+			<br />{TPL_VAR_GIFTWRAP}
+			<!-- BEGIN TPL_KIT_BLK -->
+			{TPL_VAR_KITTITLE}<br />
+			{TPL_VAR_KITOPTIONS}
+			<!-- END TPL_KIT_BLK -->
+			{TPL_VAR_OPTIONS}	
+			{TPL_VAR_CHOICES}
+			{TPL_VAR_CART_VOLDISCOUNT}
+			{TPL_VAR_FREESHIPMSG}
+			{TPL_VAR_TAXABLE}
+			{TPL_VAR_NOTES}
+			</td>
+			<td><span class="price">{TPL_VAR_CURRENCY}{TPL_VAR_PRICE}</span></td>
+			<td><span class="price">{TPL_VAR_CURRENCY}{TPL_VAR_TOTAL}</span></td>
+		</tr>
+		<!-- END TPL_VAR_CARTPRODUCTS -->
+	</table>
+	<div class="module1 alt">
+		<h3>Order Status</h3>
+		<p>{TPL_VAR_ORDERSTATUS}</p>
+	</div>
+	<div class="module2 alt">
+		<h3>Order Comments</h3>
+		<p>{TPL_VAR_COMMENTS}</p>
+	</div>
+	<div class="module1 alt">
+		<h2>Payment Details</h2>
+		<h3>Billing  Address</h3>
+		<address>
+			{TPL_VAR_FIRSTNAME} {TPL_VAR_LASTNAME}<br />
+			{TPL_VAR_ADDRESS1}<br />
+			{TPL_VAR_ADDRESS2}<br />
+			{TPL_VAR_CITY}<br />
+			{TPL_VAR_BILLSTATE}<br />
+			{TPL_VAR_BILLCOUNTRY}<br />
+			{TPL_VAR_ZIP}<br />
+			{TPL_VAR_PHONE}<br />
+			{TPL_VAR_EMAIL}
+		</address>
+		<h3>Payment Method</h3>
+		<p>{TPL_VAR_PAYMENTMETHOD}</p>
+		
+		<h3>Auth Code</h3>
+		<p>{TPL_VAR_VAUTHCODE}</p>
+	</div>
+	<div class="module2 alt">
+		<h2>Delivery Details</h2>
+		<h3>Delivery Address</h3>
+		<!-- BEGIN TPL_DELIVERY_BLK -->
+		<address>
+			{TPL_VAR_ALTCOMPANY}<br />
+			{TPL_VAR_ALTNAME}<br />
+			{TPL_VAR_ALTADDR1}<br />
+			{TPL_VAR_ALTADDR2}<br />
+			{TPL_VAR_ALTCITY}<br />
+			{TPL_VAR_SHIPSTATE}<br />
+			{TPL_VAR_SHIPCOUNTRY}<br />
+			{TPL_VAR_ALTZIP}<br />
+			{TPL_VAR_ALTPHONE}<br />
+		</address>
+		<!-- END TPL_DELIVERY_BLK -->
+		{TPL_VAR_SAMEASBILLING}
+		<h3>Postage Method</h3>
+		<p>{TPL_VAR_POSTAGEMETHOD}</p>
+	</div>
+	<!-- BEGIN TPL_CART_BLK -->
+	<dl id="total">
+		<dt>Sub-Total</dt><dd>{TPL_VAR_CURRENCY}{TPL_VAR_SUBTOTAL}</dd>
+		<!-- BEGIN TPL_PROMODISCOUNTS_BLK -->
+		<dt>Promotion Discounts</dt>	<dd>-{TPL_VAR_CURRENCY}{TPL_VAR_PDISCOUNTS}</dd>
+		<!-- END TPL_PROMODISCOUNTS_BLK -->
+		<!-- BEGIN TPL_VOLDISCOUNTS_BLK -->
+		<dt>Volume Discount</dt>	<dd>-{TPL_VAR_CURRENCY}{TPL_VAR_VOLDISCOUNT}</dd>
+		<!-- END TPL_VOLDISCOUNTS_BLK -->
+		<!-- BEGIN TPL_MPOINTS_BLK -->
+		<dt>Reward Points</dt>	<dd>-{TPL_VAR_CURRENCY}{TPL_VAR_MPOINTS}</dd>
+		<!-- END TPL_MPOINTS_BLK -->
+		<!-- BEGIN TPL_POSTAGE_BLK -->
+		<dt>{TPL_VAR_POSTAGEMETHOD}</dt><dd>{TPL_VAR_POSTAGEPRICE}</dd>
+		<!-- END TPL_POSTAGE_BLK -->
+		<!-- BEGIN TPL_CARTWEIGHT_BLK -->
+		<dt>Product weight ({TPL_VAR_WEIGHT} kg)</dt>
+		<dd>{TPL_VAR_CURRENCY}{TPL_VAR_WEIGHTPRICE}</dd>
+		<!-- END TPL_CARTWEIGHT_BLK -->
+		<!-- BEGIN TPL_COD_BLK -->
+		<dt>Cod Charge</dt><dd>{TPL_VAR_CURRENCY}{TPL_VAR_CODPRICE}</dd>
+		<!-- END TPL_COD_BLK -->
+		<!-- BEGIN TPL_DISCOUNT_BLK -->
+		<dt>Discount Code</dt><dd>-{TPL_VAR_CURRENCY}{TPL_VAR_DISCOUNTPRICE}</dd>
+		<!-- END TPL_DISCOUNT_BLK -->
+		<!-- BEGIN TPL_GIFTCERT_BLK -->
+		<dt>Gift Certificate</dt><dd>-{TPL_VAR_CURRENCY}{TPL_VAR_GIFTCERTPRICE}</dd>
+		<!-- END TPL_GIFTCERT_BLK -->
+		<!-- BEGIN TPL_VAT_BLK -->
+		<dt>{TPL_VAR_SHIPCOUNTRY}:  ({TPL_VAR_TAXNAME} @ {TPL_VAR_VAT}%)</dt><dd>{TPL_VAR_CURRENCY}{TPL_VAR_VATPRICE}</dd>
+		<!-- END TPL_VAT_BLK -->
+		<dt>Current Total</dt><dd>{TPL_VAR_CURRENCY}{TPL_VAR_CURRENTTOTAL}</dd>
+		<!-- BEGIN TPL_EMPOINTS_BLK -->
+		<dt><br>Earned Reward Points</dt><dd><br>{TPL_VAR_EMPOINTS}</dd>
+		<!-- END TPL_EMPOINTS_BLK -->
+		<!-- BEGIN TPL_TMPOINTS_BLK -->
+		<dt>Reward Points Left</dt><dd>{TPL_VAR_TMPOINTS} = {TPL_VAR_CURRENCY}{TPL_VAR_TMPOINTS_PRICE}</dd>
+		<!-- END TPL_TMPOINTS_BLK -->
+	</dl>
+	<p class="print_invoice"><a href="#" onclick="window.print();return false">Print Invoice</a></p>
+	<!-- END TPL_CART_BLK -->
+</div>
+<address>
+	{TPL_VAR_COMPANY_DETAILS}
+</address>
+<p class="actions"><input name="mode" value="Back to My Account"
+	onclick="goURL('{TPL_VAR_MYACCOUNT_URL}')" type="button"
+	class="formButton" /></p>

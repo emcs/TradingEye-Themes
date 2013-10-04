@@ -1,0 +1,22 @@
+<form name="frm_worldpay" action="{TPL_VAR_PAYACTION}" method="POST">
+<input type="hidden" name="instId" value="{TPL_VAR_INSTID}">
+<input type="hidden" name="cartId" value="{TPL_VAR_INVOICE}">
+<input type="hidden" name="amount" value="{TPL_VAR_GRANDTOTAL}">
+<input type="hidden" name="currency" value="{TPL_VAR_PAYCURRENCY}">
+<input type="hidden" name="desc" value="{TPL_VAR_DESCRIPTION}">
+<input type="hidden" name="name" value="{TPL_VAR_FIRSTNAME} {TPL_VAR_LASTNAME}">
+<input type="hidden" name="address" value="{TPL_VAR_ADDRESS1} {TPL_VAR_ADDRESS2} {TPL_VAR_CITY} {TPL_VAR_BILLSTATE}">
+<input type="hidden" name="country" value="{TPL_VAR_BILLCOUNTRY}">
+<input type="hidden" name="postcode" value="{TPL_VAR_ZIP}">
+<input type="hidden" name="tel" value="{TPL_VAR_PHONE}">
+<input type="hidden" name="email" value="{TPL_VAR_EMAIL}">
+<input type="hidden" name="MC_action" value="checkout.process">
+<input type="hidden" name="MC_mode" value="{TPL_VAR_ORDERID}">
+<input type="hidden" name="MC_callback" value="{TPL_CALLBACK_URL}">
+<input type="hidden" name="MC_sessionid" value="{TPL_VAR_SESSIONID}">
+<input type="hidden" name="testMode" value="{WORLDPAY_TEST_MODE}">
+<input type="submit" value="Pay to worldpay">
+</form>
+<script language="JavaScript">
+	document.frm_worldpay.submit();
+</script>

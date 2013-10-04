@@ -1,0 +1,334 @@
+<h2 id="pageTitle">My Account</h2>
+<div id="content">
+	<script language="JavaScript" type="text/javascript">
+	function loadvalues()
+	{
+		stateName =  Array();
+		stateVal = Array();
+
+		stateName[-1] = Array();
+		stateVal[-1] = Array();
+		stateName[0] = Array();
+		stateVal[0] = Array();
+	<!-- BEGIN countryblk -->
+		stateName[{k}] = Array();
+		stateVal[{k}] = Array();
+		stateName[{k}][-1] = "Select below";
+		stateVal[{k}][-1] = "-1";
+		stateName[{k}][-1] = "Select below";
+		stateName[{k}][0] = "Others";
+		stateVal[{k}][0] = "0";
+	<!-- END countryblk -->
+
+		stateName[0][0] = "Others";
+		stateVal[0][0] = "0";
+
+	<!-- BEGIN stateblk -->
+		stateName[{i}][{j}] = "{stateName}"
+		stateVal[{i}][{j}] = "{stateVal}"
+	<!-- END stateblk -->
+
+	}
+
+	function setbillstate(index,fstatus)
+	{
+		loadvalues();
+		document.ThisForm.bill_state_id.length=1;
+
+		if(index>-1)
+		{
+		for(i=-1;i<stateName[index].length;i++)
+		{
+			document.ThisForm.bill_state_id.options[i+1]=new
+Option(stateName[index][i],stateVal[index][i]);
+		}
+
+		if(stateName[index].length==1)
+		{
+			document.ThisForm.bill_state_id.options[1].selected=true;
+		}
+
+		if(stateName[index].length>1)
+		{
+			document.getElementById("bill_state").style.background="#e8e8e8";
+			document.ThisForm.bill_state.value="";
+			document.ThisForm.bill_state.disabled=true;
+			document.getElementById("bill_state_id").style.background="#ffffff";
+			document.ThisForm.bill_state_id.disabled=false;
+			if(fstatus==2)
+			{
+				document.ThisForm.bill_state_id.focus();
+			}
+		}
+		else
+		{
+			document.getElementById("bill_state").style.background="#ffffff";
+			document.ThisForm.bill_state.disabled=false;
+			document.getElementById("bill_state_id").style.background="#e8e8e8";
+			document.ThisForm.bill_state_id.disabled=true;
+			if(fstatus==2)
+			{
+				document.ThisForm.bill_state.focus();
+			}
+		}
+		}
+
+	}
+
+
+		function isEmail(s){
+			var i = 1;
+			var sLength = s.length;
+			while ((i < sLength) && (s.charAt(i) != "@")){ i++ }
+			if ((i >= sLength) || (s.charAt(i) != "@")) return false;
+				else i += 2;
+			while ((i < sLength) && (s.charAt(i) != ".")){ i++ }
+			if ((i >= sLength - 1) || (s.charAt(i) != ".")) return false;
+				else return true;
+		}
+
+        function validateForm(form)
+		{
+
+			if(isNull(form.txtpassword.value)){
+				alert("Please enter a Password...");
+				form.txtpassword.focus();
+				return false;
+			}else if(form.verify_pw.value!=form.txtpassword.value){
+				alert("Your password does not verify. Please retype it.");
+				form.verify_pw.focus();
+				return false;
+			}
+
+
+			if(isNull(form.first_name.value) || form.first_name.value=='first name'){
+				alert("Please enter your First Name...");
+				form.first_name.focus();
+				return false;
+			}
+			if(isNull(form.last_name.value) || form.last_name.value=='last name'){
+				alert("Please enter your Last Name...");
+				form.last_name.focus();
+				return false;
+			}
+			if(!checkEmail(form.txtemail.value)){
+				alert("Please enter a valid Email Address...");
+				form.txtemail.focus();
+				return false;
+			}
+			if(isNull(form.address1.value) || form.address1.value=='address 1'){
+				alert("Please enter your Address 1...");
+				form.address1.focus();
+				return false;
+			}
+			if(isNull(form.city.value) || form.city.value=='city'){
+				alert("Please enter your City...");
+				form.city.focus();
+				return false;
+			}
+
+			index = form.bill_country_id.value;
+			if(stateName[index].length > 1){
+				if(isNull(form.bill_state_id.value) || form.bill_state_id.value == -1){
+				alert("Please select your County/State...");
+				form.bill_state_id.focus();
+				return false;
+				}
+			}else{
+					if(isNull(form.bill_state.value) || form.bill_state.value==''){
+					alert("Please enter your County/State...");
+					form.bill_state.focus();
+					return false;
+				  }
+				}
+
+			if(isNull(form.zip.value) || form.zip.value=='postcode/zip'){
+				alert("Please enter Postcode/Zip...");
+				form.zip.focus();
+				return false;
+			}
+			if(isNull(form.phone.value) || form.phone.value=='telephone'){
+				alert("Please enter your Telephone...");
+				form.phone.focus();
+				return false;
+			}
+			return true;
+		}
+         //-->
+	</script>
+	<form class="global-form" name="ThisForm"
+action="{TPL_VAR_SITEURL}user/index.php?action=user.insert" method="post"
+onsubmit="if(validateForm(this)){return true}else{return false}">
+	<fieldset>
+		<legend>Customer Registation Form</legend>
+		<p class="message">{TPL_VAR_MSG}</p>
+		<p>All fields marked (<span>*</span>) are required</p>
+		<table class="user">
+			<tr>
+				<td>
+					<label for="txtpassword">Password <span>*</span></label>
+					<input class="formField" type="password" name="txtpassword"
+id="txtpassword"  value="{TPL_VAR_PASS}" maxlength="30" />
+				</td>
+				<td>
+					<label for="verify_pw">Confirm Password <span>*</span></label>
+					<input class="formField" type="password" name="verify_pw"
+id="verify_pw" value="{TPL_VAR_CPASS}"  maxlength="30" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="company">Company</label>
+					<input class="formField" type="text" name="company" id="company"
+value="{TPL_VAR_COMPANY}"  maxlength="30" />
+				</td>
+				<td>
+					<label for="txtemail">Email Address <span>*</span></label>
+					<input class="formField" type="text" name="txtemail" id="txtemail"
+value="{TPL_VAR_EMAIL}"  maxlength="50" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="first_name">First Name <span>*</span></label>
+					<input class="formField" type="text" name="first_name" id="first_name"
+value="{TPL_VAR_FNAME}"  maxlength="30" />
+				</td>
+				<td>
+					<label for="last_name">Last Name <span>*</span></label>
+					<input class="formField" type="text" name="last_name" id="last_name"
+value="{TPL_VAR_LNAME}"  maxlength="30" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="address1">Address 1 <span>*</span></label>
+					<input class="formField" type="text" name="address1" id="address1"
+value="{TPL_VAR_ADDRESS1}"  maxlength="60" />
+				</td>
+				<td>
+					<label for="address2">Address 2</label>
+					<input class="formField" type="text" name="address2" id="address2"
+value="{TPL_VAR_ADDRESS2}"  maxlength="60" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="city">City <span>*</span></label>
+					<input class="formField" type="text" name="city" id="city"
+value="{TPL_VAR_CITY}"  maxlength="30" />
+				</td>
+				<td>
+					<label for="country">Country <span>*</span></label>
+					<select class="formField" id="country" name="bill_country_id"
+onchange="javascript:setbillstate(this.options[this.selectedIndex].value,2)"
+>
+						<!-- BEGIN BillCountry -->
+						<option value="{TPL_COUNTRY_VALUE}"
+{BILL_COUNTRY_SELECT}>{TPL_COUNTRY_NAME}</option>
+						<!-- END BillCountry -->
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="county">County/State <span>*</span></label>
+					<select class="formField" id="bill_state_id" name="bill_state_id">
+						<option></option>
+					</select>
+				</td>
+				<td>
+					<label for="county">County/State (Other)</label>
+					<input class="formField" type="text" name="bill_state"
+value="{BILL_STATE}" maxlength="50" size="12" id="bill_state"
+maxlength="50"  />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="zip">Postcode/Zip <span>*</span></label>
+					<input class="formField" type="text" name="zip" id="zip"
+value="{TPL_VAR_ZIP}" />
+				</td>
+				<td>
+					<label for="phone">Telephone <span>*</span></label>
+					<input class="formField" type="text" name="phone" id="phone"
+value="{TPL_VAR_PHONE}"  maxlength="20"  />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="homepage">Website</label>
+					<input class="formField" type="text" name="homepage" id="homepage"
+value="{TPL_VAR_HOMEPAGE}"  maxlength="70" />
+				</td>
+
+				<td >
+					<label for="homepage">You are</label>
+					<select class="formField" name="customertype" id="customertype">
+					<option value="normal">Normal customer</option>
+					<option value="trade">Trade customer</option>
+					</select>
+				</td>
+
+			</tr>
+		</table>
+		<!-- BEGIN TPL_CAPTCHA_BLK -->
+		<table class="user">
+			<tr>
+				<td>
+					<label for="signupcaptcha">Verification Code</label>
+					<img src="{TPL_VAR_SITEURL}captcha.php" alt="Captcha Image"  />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<input class="formField" type="text" name="cap_key" id="cap_key"/>
+				</td>
+			</tr>
+		</table>
+
+		<!-- END TPL_CAPTCHA_BLK -->
+
+	</fieldset>
+
+	<!-- BEGIN TPL_NEWSLETTER_BLK -->
+	<fieldset>
+		<legend>Sign up for our newsletter</legend>
+		<label>Which version of our newsletter would you prefer?</label>
+		<select class="formSelect" name="mail_list">
+			<option id="html_mail" name="mail_list" value="1" {TPL_VAR_CHECK1}>HTML
+Email</option>
+			<option id="txt_mail"name="mail_list" value="2" {TPL_VAR_CHECK2}>Plain
+Text Email</option>
+			<option id="not_sure"  name="mail_list" value="2" {TPL_VAR_CHECK2}>Not
+Sure - Send Plain Text</option>
+			<option id="no_mail" name="mail_list" value="0" {TPL_VAR_CHECK3}>No
+Thanks!</option>
+		</select>
+	</fieldset>
+	<!-- END TPL_NEWSLETTER_BLK -->
+	<input class="formButton" type="submit" name="smtCustomer" id="smtCustomer"
+value="Process Request" />
+</form>
+
+	<script>
+if(document.ThisForm.bill_country_id.value=="" ||
+document.ThisForm.bill_country_id.value<=0)
+		{
+		setbillstate({selbillcountid},2);
+		}
+		else
+		{
+		setbillstate(document.ThisForm.bill_country_id.value,2);
+		}
+
+		for(var i=0;i<document.ThisForm.bill_state_id.options.length;i++)
+		{
+		if(document.ThisForm.bill_state_id.options[i].value == '{selbillstateid}')
+		document.ThisForm.bill_state_id.options[i].selected = true;
+		}
+
+		</script>
+
+</div>

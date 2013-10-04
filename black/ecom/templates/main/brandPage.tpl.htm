@@ -1,0 +1,19 @@
+<h2 id="pageTitle">{TPL_VAR_TOTALRECORDS}</h2>
+<!-- BEGIN TPL_MAINPRODUCT_BLK -->
+<ul class="products">
+	<!-- BEGIN TPL_PRODUCT_BLK -->
+	<li>
+		<h3><a href="{TPL_VAR_PRODUCTURL}">{TPL_VAR_TITLE}</a></h3>
+		<p class="image"><a href="{TPL_VAR_PRODUCTURL}">{TPL_VAR_IMG}</a></p>
+		<!-- BEGIN TPL_REVIEW_BLK -->
+		{TPL_VAR_OVERALLRANK}
+		<!-- END TPL_REVIEW_BLK -->		
+		<p class="addWishlist"><a href="#">Add to Wishlist</a></p>
+		<p class="addCompare"><a href="#">Add to Compare</a></p>
+		{TPL_VAR_DESC}
+		{TPL_VAR_ONSALE}
+		<p class="price">{TPL_VAR_CURRENCY}{TPL_VAR_PRICE}</p>
+	</li>
+	<!-- END TPL_PRODUCT_BLK -->
+</ul>
+<!-- END TPL_MAINPRODUCT_BLK -->

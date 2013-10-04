@@ -1,0 +1,146 @@
+<script language="JavaScript" type="text/javascript">
+    <!--
+        function isEmail(s){
+            var i = 1;
+            var sLength = s.length;
+            while ((i < sLength) && (s.charAt(i) != "@")){ i++ }
+            if ((i >= sLength) || (s.charAt(i) != "@")) return false;
+                else i += 2;
+            while ((i < sLength) && (s.charAt(i) != ".")){ i++ }
+            if ((i >= sLength - 1) || (s.charAt(i) != ".")) return false;
+                else return true;
+        }
+        function validateNewCust(){
+		//alert('new');
+            if(document.newCustForm.email.value!=''){
+                if(isEmail(document.newCustForm.email.value)){
+                    return true;
+                } else {
+                    alert("Please enter a valid email address to lookup.");
+                    document.newCustForm.email.focus();
+                    return false;
+                }
+            } else {
+                alert("Please enter an email address to lookup.");
+                document.newCustForm.email.focus();
+                return false;
+            }
+        }
+
+		function validateLost()
+		{
+		//alert('Lost');
+            if(document.lostForm.email.value!='')
+			{
+                if(isEmail(document.lostForm.email.value))
+				{
+                    return true;
+                } 
+				else 
+				{
+                    alert("Please enter a valid email address.");
+                    document.lostForm.email.focus();
+                    return false;
+                }
+            }
+			else
+			{
+                alert("Please enter an email address.");
+                document.lostForm.email.focus();
+                return false;
+            }
+        }
+        function validateExist(){
+		//alert('old');
+            if(document.existCustForm.email.value!=''){
+                if(isEmail(document.existCustForm.email.value)){
+                    if(document.existCustForm.password.value!=''){
+                        return true;
+                    } else {
+                        alert("Please enter your password.");
+                        document.existCustForm.password.focus();
+                        return false;
+                    }
+                } else {
+                    alert("Please enter a valid email address to lookup.");
+                    document.existCustForm.email.focus();
+                    return false;
+                }
+            } else {
+                alert("Please enter an email address to lookup.");
+                document.existCustForm.email.focus();
+                return false;
+            }
+        }
+    //-->
+</script>
+<!-- BEGIN TPL_CUSTOMER_BLK -->
+<h2 id="pageTitle">{LANG_VAR_CHECOUTLOGIN}</h2> 
+<div id="content"> 
+	<!-- BEGIN TPL_MSG_BLK -->
+	<p class="message">{TPL_VAR_MSG}</p>
+	<!-- END TPL_MSG_BLK -->
+	<p>If you have previously registered on our site, then just enter your email address and password below to access your account.</p>
+	<p id="customerReg"><a href="{TPL_VAR_SITEURL}/ecom/index.php?action=checkout.billing">New Customer?</a></p>
+	<form class="global-form" action="{TPL_VAR_FORMURL}" method="post" name="newCustForm" id="newCustForm" onsubmit="return validateNewCust();" >
+		<fieldset>
+			<legend>Customer Login</legend>
+			<div class="module1">
+				<label>{LANG_VAR_EMAILADDRESS}</label>
+				<input class="formField" type="text" name="email" id="email" onfocus="if(this.value=='email address')this.value='';" onblur="if(this.value=='')this.value='email address';" value="email address"  maxlength="50" />
+			</div>
+			<div class="module2">
+				<label for="password">{LANG_VAR_PASSWORD}</label>
+				<input class="formField" type="password" name="password" id="password" onfocus="if(this.value=='password')this.value='';" onblur="if(this.value=='')this.value='password';" value="{TPL_VAR_PASS}"  maxlength="30"  />
+			</div>
+			<p><input type="submit" class="formButton" value="{LANG_VAR_CONTINUE}" /></p>
+			<p><a href="{TPL_VAR_LINKLOST}">Forgot your password?</a></p>
+			<input type="hidden"  name="sessionid" value="{SESSIONID}" />
+
+<!--
+			<label for="email">{LANG_VAR_EMAILADDRESS}</label>
+			<input class="formField" type="text" name="email" id="email" onfocus="if(this.value=='email address')this.value='';" onblur="if(this.value=='')this.value='email address';" value="email address"  maxlength="50" />
+			<input type="submit" class="formButton" value="{LANG_VAR_CONTINUE}" />
+			<input type="hidden"  name="sessionid" value="{SESSIONID}" />
+-->
+
+		</fieldset>
+	</form>
+
+<!--
+	<p>{LANG_VAR_IFREGISTERED}</p>
+	<form class="global-form" action="{TPL_VAR_FORMURL1}" method="post" name="existCustForm" id="existCustForm" onsubmit="return validateExist();">
+		<fieldset>
+			<legend>{LANG_VAR_REGISTEREDCUS}</legend>
+			<label for="email2">{LANG_VAR_EMAILADDRESS}</label>
+			<input class="formField" type="text" name="email" id="email2" onfocus="if(this.value=='email address')this.value='';" onblur="if(this.value=='')this.value='{LANG_VAR_EMAILADDRESS}';" value="{TPL_VAR_EMAIL}"    maxlength="50" />
+			<label for="password">{LANG_VAR_PASSWORD}</label>
+			<input class="formField" type="password" name="password" id="password" onfocus="if(this.value=='password')this.value='';" onblur="if(this.value=='')this.value='password';" value="{TPL_VAR_PASS}"  maxlength="30"  />
+			<input type="submit" class="formButton" value="{LANG_VAR_CUSTOMERLOGIN}" />
+			<input type="hidden"  name="sessionid" value="{SESSIONID}" />
+			<input type="checkbox" name="save_info" id="save_info" value="1" title="Save my login information" />
+			<label for="save_info">{LANG_VAR_SAVELOGIN}</label><br />
+			<p><a href="{TPL_VAR_LINKLOST}">{LANG_VAR_FORGOTPASSWORD}</a></p>
+		</fieldset>
+	</form>
+-->
+
+</div>
+
+<!-- END TPL_CUSTOMER_BLK -->
+
+<!-- BEGIN TPL_LOSTPASS_BLK -->
+<h2 id="pageTitle">{LANG_VAR_FORGOTPASSWORD}</h2>	
+<p class="message">{TPL_VAR_MSG}</p>
+<div id="content">
+	<form class="global-form" action="{TPL_VAR_FORMURL2}" method="post" name='lostForm' onsubmit="return validateLost();">
+		<fieldset>
+			<legend>{LANG_VAR_LOSTPASSWORDMESS}</legend>
+			<label for="lostemail">{LANG_VAR_EMAILADDRESS}</label>
+			<input class="formField" type="text" name="email" id="lostemail" onfocus="if(this.value=='email address')this.value='';" onblur="if(this.value=='')this.value='email address';" value="{LANG_VAR_EMAILADDRESS}"  maxlength="50" />
+			<input class="formButton" type="submit" value="{LANG_VAR_SENDPASSWORD}" />
+			<p>{LANG_VAR_PROCEEDNEW} <a href="{TPL_VAR_LINKNEW}">{LANG_VAR_NEWCUSTOMERS} ></a></p>
+		</fieldset>
+	</form>
+</div>
+<!-- END TPL_LOSTPASS_BLK -->

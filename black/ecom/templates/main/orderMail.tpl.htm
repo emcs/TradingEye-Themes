@@ -1,0 +1,267 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>Mail</title>
+<style>
+body{
+	color:#555;
+	font: verdana;	
+	line-height:150%;
+	margin:0;
+	padding:0;
+}
+
+table{
+	width:720;
+	color:#555;
+	font: verdana;
+	margin:.5em 0;
+	line-height:150%;
+}
+.th{
+	border:1px solid #fff;
+	background:#ddd;
+	padding:5px;
+}
+.td{
+	background:#eee;
+	border:1px solid #fff;
+	padding:5px;
+	vertical-align:top;
+}
+
+
+/* ----- global links ----- */
+a:link, a:visited, a:active{
+	color:#275f81;
+	text-decoration:none;
+}
+a:hover{color:#555;}
+
+h2#pageTitle{
+	font-weight:bold;
+	padding:0;
+	margin:0;
+	margin-bottom:1em;
+	color:#275f81;
+	font-size:180%;
+}
+table .price{
+	color:#13689d;
+	font-size:110%;
+	font-weight:bold;
+}
+
+	</style>
+</head>
+<body>
+
+<table width="720" border="0" align="center" cellpadding="0" cellspacing="0" class="modules" id="content">
+  <tr> 
+    <td colspan="2"><h2><a href="{TPL_VAR_RECIEPTURL}" id="pageTitle">Invoice Number {TPL_VAR_INVOICE} - Order Date {TPL_VAR_ORDERDATE}</a></h2></td>
+  </tr>
+  <tr> 
+    <td width="50%"><p><strong>Order Status<br>
+        </strong>{TPL_VAR_ORDERSTATUS}</p>
+      <p>&nbsp;</p>
+      </td>
+    <td width="50%"><p><strong>Order Comments<br>
+        </strong>{TPL_VAR_COMMENTS}</p>
+      <p>&nbsp;</p>
+      </td>
+  </tr>
+  <tr> 
+    <td><p><strong>Payment Method<br>
+        </strong>{TPL_VAR_PAYMENTMETHOD}</p>
+      <p>&nbsp;</p>
+      </td>
+    <td><p><strong>Postage Method<br>
+        </strong>{TPL_VAR_POSTAGEMETHOD}</p>
+      <p>&nbsp;</p>
+      </td>
+  </tr>
+  <tr> 
+    <td valign="top"><p><strong>Billing Address</strong><br/>
+		{TPL_VAR_COMPANY}<br />
+        {TPL_VAR_FIRSTNAME} {TPL_VAR_LASTNAME}<br/>
+        {TPL_VAR_ADDRESS1}<br />
+        {TPL_VAR_ADDRESS2}<br />
+        {TPL_VAR_CITY}<br />
+        {TPL_VAR_BILLSTATE}<br />
+        {TPL_VAR_BILLCOUNTRY}<br />
+        {TPL_VAR_ZIP}<br />
+        {TPL_VAR_PHONE}<br />
+        {TPL_VAR_EMAIL} </p>
+		<p>&nbsp;</p>
+      </td>
+    <td valign="top"><p><strong>Delivery Address<br>
+        </strong> 
+        <!-- BEGIN TPL_DELIVERY_BLK --> 
+		{TPL_VAR_ALTCOMPANY}<br>
+		{TPL_VAR_ALTNAME}<br>
+        {TPL_VAR_ALTADDR1}<br>
+        {TPL_VAR_ALTADDR2}<br>
+        {TPL_VAR_ALTCITY}<br>
+        {TPL_VAR_SHIPSTATE}<br>
+        {TPL_VAR_SHIPCOUNTRY}<br>
+        {TPL_VAR_ALTZIP}<br>
+        {TPL_VAR_ALTPHONE}<br>
+        <!-- END TPL_DELIVERY_BLK -->
+        {TPL_VAR_SAMEASBILLING}</p>
+      <p>&nbsp;</p></td>
+  </tr>
+  <tr> 
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <!-- BEGIN TPL_CART_BLK -->
+  <tr> 
+    <td colspan="2"> <table summary="Products in cart" border="0" width="720">
+        <tr> 
+          <th class="th">Quantity</th>
+          <th class="th">Product</th>
+          <th class="th">Price</th>
+          <th class="th">Total</th>
+        </tr>
+        <!-- BEGIN TPL_VAR_CARTPRODUCTS -->
+        <tr> 
+          <td align="center" class="td"><div align="left">{TPL_VAR_QTY}</div></td>
+          <td align="center" class="td"> <div align="left"><a href="{TPL_VAR_PRODUCTURL}">{TPL_VAR_TITLE} 
+              ({TPL_VAR_SKU})</a> <br />
+              {TPL_VAR_GIFTWRAP} 
+              <!-- BEGIN TPL_KIT_BLK -->
+              {TPL_VAR_KITTITLE}<br />
+              {TPL_VAR_KITOPTIONS} 
+              <!-- END TPL_KIT_BLK -->
+              {TPL_VAR_OPTIONS} {TPL_VAR_CHOICES} {TPL_VAR_CART_VOLDISCOUNT} {TPL_VAR_FREESHIPMSG} 
+              {TPL_VAR_TAXABLE} {TPL_VAR_NOTES} 
+			  <!-- BEGIN TPL_DOWNLOAD_BLK -->
+				{TPL_VAR_FILELINK}
+			  <!-- END TPL_DOWNLOAD_BLK -->
+			  </div></td>
+          <td class="td"><span class="price" align="center">{TPL_VAR_CURRENCY}{TPL_VAR_PRICE}</span></td>
+          <td class="td"><span class="price" align="center">{TPL_VAR_CURRENCY}{TPL_VAR_TOTAL}</span></td>
+        </tr>
+        <!-- END TPL_VAR_CARTPRODUCTS -->
+      </table></td>
+  </tr>
+  <tr> 
+    <td colspan="2"><table width="100%" border="0" align="left" cellpadding="0" cellspacing="0">
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr> 
+          <td width="30%"><strong>Sub-Total</strong></td>
+          <td width="20%"><div align="right">{TPL_VAR_CURRENCY}{TPL_VAR_SUBTOTAL}</div></td>
+          <td width="50%">&nbsp;</td>
+        </tr>
+        <!-- BEGIN TPL_PROMODISCOUNTS_BLK -->
+        <tr> 
+          <td><strong>Promotion Discounts</strong></td>
+          <td><div align="center">-{TPL_VAR_CURRENCY}{TPL_VAR_PDISCOUNTS}</div></td>
+          <td>&nbsp;</td>
+        </tr>
+        <!-- END TPL_PROMODISCOUNTS_BLK -->
+        <!-- BEGIN TPL_VOLDISCOUNTS_BLK -->
+        <tr> 
+          <td><strong>Volume Discount</strong></td>
+          <td>-{TPL_VAR_CURRENCY}{TPL_VAR_VOLDISCOUNT}</td>
+          <td>&nbsp;</td>
+        </tr>
+        <!-- END TPL_VOLDISCOUNTS_BLK -->
+        <!-- BEGIN TPL_MPOINTS_BLK -->
+        <tr> 
+          <td><strong>Member Points</strong></td>
+          <td><div align="right">-{TPL_VAR_CURRENCY}{TPL_VAR_MPOINTS}</div></td>
+          <td>&nbsp;</td>
+        </tr>
+        <!-- END TPL_MPOINTS_BLK -->
+        <!-- BEGIN TPL_POSTAGE_BLK -->
+        <tr> 
+          <td><strong>{TPL_VAR_POSTAGEMETHOD}</strong></td>
+          <td><div align="right">{TPL_VAR_POSTAGEPRICE}</div></td>
+          <td>&nbsp;</td>
+        </tr>
+        <!-- END TPL_POSTAGE_BLK -->
+        <!-- BEGIN TPL_CARTWEIGHT_BLK -->
+        <tr> 
+          <td><strong>Product weight ({TPL_VAR_WEIGHT} kg)</strong></td>
+          <td><div align="right">{TPL_VAR_CURRENCY}{TPL_VAR_WEIGHTPRICE}</div></td>
+          <td>&nbsp;</td>
+        </tr>
+        <!-- END TPL_CARTWEIGHT_BLK -->
+        <!-- BEGIN TPL_COD_BLK -->
+        <tr> 
+          <td><strong>Cod Charge</strong></td>
+          <td><div align="right">{TPL_VAR_CURRENCY}{TPL_VAR_CODPRICE}</div></td>
+          <td>&nbsp;</td>
+        </tr>
+        <!-- END TPL_COD_BLK -->
+        <!-- BEGIN TPL_DISCOUNT_BLK -->
+        <tr> 
+          <td><strong>Discount Code</strong></td>
+          <td>-{TPL_VAR_CURRENCY}{TPL_VAR_DISCOUNTPRICE}</td>
+          <td>&nbsp;</td>
+        </tr>
+        <!-- END TPL_DISCOUNT_BLK -->
+        <!-- BEGIN TPL_GIFTCERT_BLK -->
+        <tr> 
+          <td><strong>Gift Certificate</strong></td>
+          <td>-{TPL_VAR_CURRENCY}{TPL_VAR_GIFTCERTPRICE}</td>
+          <td>&nbsp;</td>
+        </tr>
+        <!-- END TPL_GIFTCERT_BLK -->
+        <!-- BEGIN TPL_VAT_BLK -->
+        <tr> 
+          <td> <strong>{TPL_VAR_SHIPCOUNTRY}: ({TPL_VAR_TAXNAME} @ {TPL_VAR_VAT}%)</strong></td>
+          <td><div align="right">{TPL_VAR_CURRENCY}{TPL_VAR_VATPRICE}</div></td>
+          <td>&nbsp;</td>
+        </tr>
+        <!-- END TPL_VAT_BLK -->
+        <tr> 
+          <td><strong>Current Total</strong></td>
+          <td><div align="right">{TPL_VAR_CURRENCY}{TPL_VAR_CURRENTTOTAL}</div></td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr> 
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <!-- BEGIN TPL_EMPOINTS_BLK -->
+        <tr> 
+          <td><strong>Earned Member Points</strong></td>
+          <td><div align="right">{TPL_VAR_EMPOINTS}</div></td>
+          <td>&nbsp;</td>
+        </tr>
+        <!-- END TPL_EMPOINTS_BLK -->
+        <!-- BEGIN TPL_TMPOINTS_BLK -->
+        <tr> 
+          <td><strong>Reward Points Left</strong></td>
+          <td><div align="right">{TPL_VAR_TMPOINTS} = {TPL_VAR_CURRENCY}{TPL_VAR_TMPOINTS_PRICE}</div></td>
+          <td>&nbsp;</td>
+        </tr>
+        <!-- END TPL_TMPOINTS_BLK -->
+        <tr> 
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+      </table></td>
+  </tr>
+  <!-- END TPL_CART_BLK -->
+  <!-- [DRK] -->
+  <tr> 
+    <td>
+<address>
+	{TPL_VAR_COMPANY_DETAILS}
+</address>
+</td>
+    <td>&nbsp;</td>
+  </tr>
+  <!-- [/DRK] -->
+  <tr> 
+    <td colspan="2">&nbsp;</td>
+  </tr>
+</table>

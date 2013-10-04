@@ -1,0 +1,253 @@
+<script language="JavaScript" type="text/javascript">
+	function test_options(){
+		var i;
+		var a = document.getElementsByClassName('mandatory');
+		for(i=0;i<a.length;i++){
+			if(a[i].options[a[i].options.selectedIndex].value == ""){
+				alert("You need to select the mandatory product options marked with *.");
+				return false;
+			}
+		}
+	}
+	function BigImageChange(thenewimage)
+	{
+		jQuery(".zoomImg").attr("src",thenewimage);
+		jQuery("#productlargeimage").attr("src",thenewimage);
+	}
+	$(document).ready(function(){
+		var test = $("#productlargeimage").wrap('<span class="imagezoom_wrapper"></span>').css('display', 'block').parent().zoom();
+	});
+</script>
+<script type="text/javascript" src="{TPL_VAR_REAL_PATH}jscript/common.js"></script>
+
+<div id="content">
+	<div id="product">
+		<div id="imagezoom" class="image">
+				<img src="{TPL_VAR_IMGPATH}" itemprop="image" id='productlargeimage' align="left" style="width: 250px;"/>
+			<!-- BEGIN TPL_IMAGE_GALLERY_BLK -->
+			<ul id="imgGallery">
+				<li>
+					<a href='javascript:BigImageChange("{TPL_VAR_IMGPATH}");'>
+						<img width='100' height='100' src="{TPL_VAR_REAL_PATH}libs/timthumb.php?src={TPL_VAR_IMGPATH}&h=100&w=100&zc=1"/>
+					</a>
+				</li>
+				<!-- BEGIN TPL_IMAGE_LIST_BLK -->
+				<li>
+					<a href='javascript:BigImageChange("{TPL_VAR_THUMBNAILIMAGE}");'>
+						<img src="{TPL_VAR_REAL_PATH}libs/timthumb.php?src={TPL_VAR_THUMBNAILIMAGE}&h=100&w=100&zc=1"/>
+					</a>
+				</li>
+				<!-- END TPL_IMAGE_LIST_BLK -->
+			</ul>
+			<!-- END TPL_IMAGE_GALLERY_BLK -->
+		</div>
+		<div class="info">
+			<form id="productDisplay" action="{TPL_VAR_CARTLINK}" method="post" name="productDisplay">
+				<h2 id="pageTitle">{TPL_VAR_PRODUCTTITLE}</h2>
+				<!-- BEGIN TPL_PDETAILS_BLK -->
+				
+				<!-- BEGIN TPL_ONSALELBL_BLK -->
+				{TPL_VAR_ONSALE}
+				<!-- END TPL_ONSALELBL_BLK --><p class="price">{TPL_VAR_CURRENCY}{TPL_VAR_PRICEMAIN}</p>
+				<div class="item-description" itemprop="description">{TPL_VAR_LONGDESCMAIN}</div>
+				<!-- END TPL_PDETAILS_BLK -->
+				<!-- BEGIN TPL_KIT_BLK -->
+				<h3>Items in Package:</h3>
+				<!-- BEGIN TPL_KITELEMENT_BLK -->
+				<p><a href="{TPL_VAR_KITELEMENT_URL}">{TPL_VAR_KITELEMENT}</a> x {TPL_VAR_QTY}</p>
+				{TPL_VAR_OPTIONS}
+				<!-- END TPL_KITELEMENT_BLK -->
+				<!-- END TPL_KIT_BLK -->
+				{TPL_VAR_MAINOPTIONS}
+				{TPL_VAR_MAINCHOICES}
+				<!-- BEGIN TPL_BASKET_BLK -->
+				<label for="quantity">{LANG_VAR_QTY}</label>
+				<input class="formFieldShort" type="text" name="qty" id="quantity" maxlength="3" value="1" size="3" onfocus="this.select()" />
+			<br style='clear:both;'/>
+				<input class="formButton" value="{LANG_VAR_ADDTOBASKET}" type="submit" onclick="return test_options()"/>
+				<!-- END TPL_BASKET_BLK -->
+				{TPL_VAR_FREEPOSTAGE}
+				{TPL_VAR_SHIPNOTES}
+				<input type="hidden" name="mode" value="add" />
+				<input type="hidden" name="productid" value="{TPL_VAR_MAINID}" />
+				<br style='clear:both;'/>
+				<div class='addwishcompare'>
+			<!-- BEGIN TPL_WISHLIST_BLK -->
+			<p id="addWishlist"><a href="{TPL_VAR_WISHLISTLINK}">{LANG_VAR_ADDWISHLIST}</a></p>
+			<!-- END TPL_WISHLIST_BLK -->
+			<!-- BEGIN TPL_COMPARE_BLK -->
+			<p id="addComparison"><a href="{TPL_VAR_COMPARELINK}">Add to Comparison List</a></p>
+			<!-- END TPL_COMPARE_BLK -->
+			</div>
+			<br style='clear:both;'/>
+				<!-- BEGIN TPL_REVIEWRANK_BLK -->
+				{TPL_VAR_OVERALLRANK}
+				<!-- END TPL_REVIEWRANK_BLK -->
+				<!-- BEGIN TPL_SUPPLIERIMG_BLK -->
+				<p>{TPL_VAR_SUPPLIERIMAGE}</p>
+				<!-- END TPL_SUPPLIERIMG_BLK -->
+				<!-- BEGIN TPL_RRPLBL_BLK -->
+				<p class="rrp">{TPL_VAR_RRP}</p>
+				<!-- END TPL_RRPLBL_BLK -->
+				<!-- BEGIN TPL_QTY_BLK -->
+				<p>Quantity available: {TPL_VAR_QTY}</p>
+				<!-- END TPL_QTY_BLK -->
+				{TPL_VAR_VOLDISCOUNTS}
+			</form>
+			  <br />
+              <!-- AddThis Button BEGIN -->
+<div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_twitter"></a>
+<a class="addthisclass" target="_blank" href="javascript:window.location ='https://plus.google.com/share?url=' + window.location;"><img src="https://www.gstatic.com/images/icons/gplus-32.png" style="float:left;"></a>
+<a class="addthis_button_email"></a>
+<a class="addthis_counter addthis_bubble_style"></a>
+</div>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4f748f481735d1d4"></script>
+<!-- AddThis Button END -->
+			<!-- BEGIN TPL_ENQUIRY_BLK -->
+			<form name="frmenquire" action="{TPL_VAR_ENQUIRYLINK}" method="post">
+				<input type="hidden" name="id" value="{TPL_VAR_ID}" />
+				<input type="submit" value="{LANG_VAR_ENQUIRENOW}" class="formButton" />
+			</form>
+			<!-- END TPL_ENQUIRY_BLK -->
+		</div>
+	</div>
+
+</div>
+<!-- BEGIN TPL_MAINCONTENT_BLK -->
+<div id="articles">
+	<h2>{LANG_VAR_LATESTNEWS}</h2>
+	<ul>
+		<!-- BEGIN TPL_CONTENT_BLK -->
+		<li><a href="{TPL_VAR_CONTENTURL}"><span>{TPL_VAR_TITLE}</span></a></li>
+		<!-- END TPL_CONTENT_BLK -->
+	</ul>
+</div>
+<!-- END TPL_MAINCONTENT_BLK -->
+<!-- BEGIN TPL_ATTRIBUTETABLE_BLK -->
+<table id="productAttributes">
+	<thead>
+		<tr>
+			<th colspan="2">{TPL_VAR_ATTRIBUTETITLE}</th>
+		</tr>
+	</thead>
+	<tbody>
+		<!-- BEGIN TPL_ATTRIBUTEFIELD_BLK -->
+		<tr>
+			<th class="first">{TPL_VAR_FILEDNAME}</th>
+			<td>{TPL_VAR_PREFIX}{TPL_VAR_FIELDVALUE}{TPL_VAR_SUFFIX}</td>
+		</tr>
+		<!-- END TPL_ATTRIBUTEFIELD_BLK -->
+	</tbody>
+</table>
+<!-- END TPL_ATTRIBUTETABLE_BLK -->
+<!-- BEGIN TPL_MAINPRODUCT_BLK -->
+<div class="products">
+	<h2>{LANG_VAR_MAYWESUGGEST}</h2>
+	<ul class="products recommended">
+		<!-- BEGIN TPL_PRODUCT_BLK -->
+		<li>
+		<div class='top'>
+		<a href="{TPL_VAR_PRODUCTURL}"><p class="image" style="height:{TPL_VAR_IMAGE_HEIGHT}px;width:{TPL_VAR_IMAGE_WIDTH}px;">{TPL_VAR_IMG}</p></a>
+		{TPL_VAR_ONSALE}
+		<p class="price"><span class="hack">{TPL_VAR_CURRENCY}{TPL_VAR_PRICE} <!-- BEGIN TPL_RRPPRICE_BLK --> <span class="rrp">{TPL_VAR_RRP_AMOUNT}</span><!-- END TPL_RRPPRICE_BLK --></span></p> 
+		</div>
+		<div class='bottom'>
+			<h3><a href="{TPL_VAR_PRODUCTURL}">{TPL_VAR_TITLE}</a></h3>
+			<!-- BEGIN TPL_PDESC_BLK -->
+			<p class="desc">{TPL_VAR_DESC}</p>
+			<!-- END TPL_PDESC_BLK -->
+			<!-- BEGIN TPL_REVIEWRANK_BLK -->
+			{TPL_VAR_OVERALLRANK}
+			<!-- END TPL_REVIEWRANK_BLK -->
+			{TPL_VAR_ATTACHED_WISHLISTLINK}
+			{TPL_VAR_ATTACHED_COMPARELINK}
+		</div>
+		
+		</li>
+		<!-- END TPL_PRODUCT_BLK -->
+	</ul>
+<script type="text/javascript">
+$(window).load(function () {
+	var largest = 0;
+	jQuery('.products > li > .bottom').each(function(){
+		if(jQuery(this).height() > largest)
+		{
+			largest = jQuery(this).height();
+		}
+	});
+	jQuery('.products > li > .bottom').height(largest);
+	jQuery('.image > img').each(function(){
+		if(jQuery(this).width() > {TPL_VAR_IMAGE_WIDTH} && jQuery(this).width() > jQuery(this).height())
+		{
+			jQuery(this).width({TPL_VAR_IMAGE_WIDTH});
+		}
+		else if(jQuery(this).height() > {TPL_VAR_IMAGE_HEIGHT})
+		{
+			jQuery(this).height({TPL_VAR_IMAGE_HEIGHT});
+		}
+	});
+});
+</script>
+</div>
+<!-- END TPL_MAINPRODUCT_BLK -->
+<!-- BEGIN TPL_REVIEWCONTAINER_BLK -->
+<div id="reviewcontainer">
+	<!-- BEGIN TPL_REVIEWLINK_BLK -->
+	<h2>{LANG_VAR_CUSTOMERREVIEWS}</h2>
+	<p id="writeReview"><a href="{TPL_VAR_REVIEWFORM}">{TPL_VAR_LBLREVIEW}</a></p>
+	<!-- END TPL_REVIEWLINK_BLK -->
+	<!-- BEGIN TPL_REVIEW_BLK -->
+	<div id="reviews">
+		{TPL_VAR_RANK}
+		<h3>{TPL_VAR_TITLE}</h3>
+		<p>{TPL_VAR_COMMENT}</p>
+		{TPL_VAR_DELETE_REVIEWURL}
+		{TPL_VAR_BY}
+		<p class="reviewDate"><strong>Submitted on:</strong> {TPL_VAR_DATE}</p>
+		<!-- BEGIN TPL_LINK_BLK -->
+		<p>Was this review helpful? <a href="{TPL_VAR_HELPURL}">Yes</a> / <a href="{TPL_VAR_NOHELPURL}">No</a></p>
+		<!-- END TPL_LINK_BLK -->
+	</div>
+	<!-- END TPL_REVIEW_BLK -->
+	<!-- BEGIN TPL_REVIEWFORM_BLK -->
+	<h2>Write Your Own Review</h2>
+	<form class="global-form" action="{TPL_VAR_REVIEWPOST}" method="post">
+		<dl id="reviewForm">
+			<dt><input type="hidden" name="productid" value="{TPL_VAR_MAINID}" /></dt>
+			<dd><input type="hidden" name="seotitle" value="{TPL_VAR_SEOTITLE}" /></dd>
+			<dt><label for="title">Review Title</label></dt>
+			<dd><input class="formFieldMedium" type="text" name="title" id="title" onFocus="if(this.value=='review title')this.value='';" onBlur="if(this.value=='')this.value='review title';" value="review title"  maxlength='40' /></dd>
+			<dt><label for="rank">Ranking</label></dt>
+			<dd>
+				<select class="formSelect" id="rank" name="rank">
+					<option value="1" selected="selected">1/10</option>
+					<option value="2">2/10</option>
+					<option value="3">3/10</option>
+					<option value="4">4/10</option>
+					<option value="5">5/10</option>
+					<option value="6">6/10</option>
+					<option value="7">7/10</option>
+					<option value="8">8/10</option>
+					<option value="9">9/10</option>
+					<option value="10">10/10</option>
+				</select>
+			</dd>
+			<dt><label for="comment">Your Review</label></dt>
+			<dd><textarea class="textarea" id="comment" name="comment" rows="5" cols="30" onFocus="this.select()">Your review</textarea></dd>
+		</dl>
+		<p>
+			<label for="checkbox">Show my Name</label>
+			<input type="checkbox" class="formRadio" id="display" name="display" value="1" />
+		</p>
+		<input type="submit" class="formButton" value="Add Review" />
+	</form>
+	<!-- END TPL_REVIEWFORM_BLK -->
+</div>
+<!-- END TPL_REVIEWCONTAINER_BLK -->
+<div id="hideGalleryInput">
+	<!-- BEGIN TPL_HIDDEN_BLK -->
+	{TPL_VAR_HIDDEN}
+	<!-- END TPL_HIDDEN_BLK -->
+</div>

@@ -1,0 +1,315 @@
+<h2 id="pageTitle">My Account</h2>	
+<div id="content" class="userAcc">
+	<ul id="navSubDept">
+		<li><a href="{TPL_VAR_UPDATEURL}"><span>Update Information</span></a></li>
+		<li><a href="{TPL_VAR_LOGOUTURL}"><span>Logout</span></a></li>
+		<li><a href="{TPL_VAR_CHANGEPASSURL}"><span>Change Password</span></a></li>
+	</ul>
+
+	<SCRIPT LANGUAGE="JavaScript" TYPE="text/javascript">
+	function loadvalues()
+	{
+		stateName =  Array();
+		stateVal = Array();
+		
+		stateName[-1] = Array();
+		stateVal[-1] = Array();
+		stateName[0] = Array();
+		stateVal[0] = Array();
+	<!-- BEGIN countryblk -->
+		stateName[{k}] = Array();
+		stateVal[{k}] = Array();
+		stateName[{k}][-1] = "Select below";
+		stateVal[{k}][-1] = "-1";
+		stateName[{k}][-1] = "Select below";
+		stateName[{k}][0] = "Others";
+		stateVal[{k}][0] = "0";
+	<!-- END countryblk -->
+
+		stateName[0][0] = "Others";
+		stateVal[0][0] = "0";
+		
+	<!-- BEGIN stateblk -->
+		stateName[{i}][{j}] = "{stateName}"
+		stateVal[{i}][{j}] = "{stateVal}"
+	<!-- END stateblk -->
+	
+	}
+
+	function setbillstate(index,fstatus)
+	{
+		loadvalues();
+		document.ThisForm.bill_state_id.length=1;
+
+		if(index>-1)
+		{
+		for(i=-1;i<stateName[index].length;i++)
+		{
+			document.ThisForm.bill_state_id.options[i+1]=new Option(stateName[index][i],stateVal[index][i]);
+		}		
+
+		if(stateName[index].length==1)
+		{
+			document.ThisForm.bill_state_id.options[1].selected=true;
+		}
+
+		if(stateName[index].length>1)
+		{
+			document.getElementById("bill_state").style.background="#E8E8E8";
+			document.ThisForm.bill_state.value="";
+			document.ThisForm.bill_state.disabled=true;
+			document.getElementById("bill_state_id").style.background="#FFFFFF";
+			document.ThisForm.bill_state_id.disabled=false;
+			if(fstatus==2)
+			{
+				document.ThisForm.bill_state_id.focus();
+			}
+		}
+		else
+		{
+			document.getElementById("bill_state").style.background="#FFFFFF";
+			document.ThisForm.bill_state.disabled=false;
+			document.getElementById("bill_state_id").style.background="#E8E8E8";
+			document.ThisForm.bill_state_id.disabled=true;
+			if(fstatus==2)
+			{
+				document.ThisForm.bill_state.focus();
+			}
+		}
+		}
+
+	}
+
+	</script>
+	<!-- BEGIN TPL_CURRENTINFO_BLK -->	
+	<p class="message">{TPL_VAR_MSG}</p>  
+	<h2>Current Information</h2>
+	<div class="module1">
+		<p><strong>{TPL_VAR_FNAME} {TPL_VAR_LNAME}</strong><br />
+		{TPL_VAR_ADDRESS1}<br />
+		{TPL_VAR_ADDRESS2}<br />
+		{TPL_VAR_CITY}<br />
+		{TPL_VAR_STATE}{TPL_VAR_STATENAME}<br />
+		{TPL_VAR_ZIP}<br />
+		{TPL_VAR_COUNTRY}</p>
+	</div>
+	<div class="module2">
+		<p><strong>Email:</strong> <a href="mailto:{TPL_VAR_EMAIL}">{TPL_VAR_EMAIL}</a><br />
+		<strong>Phone:</strong> {TPL_VAR_PHONE}<br />
+		<strong>Website:</strong> <a href="{TPL_VAR_HOMEPAGE}" target="_blank">{TPL_VAR_HOMEPAGE}</a><br />
+		<strong>Email List:</strong> {TPL_VAR_NEWSLETTER}<br />
+		<strong>Signup Date:</strong> {TPL_VAR_SIGNUPDATE}</p>
+	</div>
+	<!-- BEGIN TPL_ORDERLISTMAIN_BLK -->
+	<table class="vol-disc" summary="Order History">
+		<tr>
+			<th>Order Date</th>
+			<th>Invoice</th>
+			<th>Status</th>
+			<th>Details</th>
+		</tr>
+		<!-- BEGIN TPL_ORDERLIST_BLK -->
+		<tr>
+			<td class="first">{TPL_VAR_ORDERDATE}</td>
+			<td> {TPL_VAR_INVOICE}</td>
+			<td> {TPL_VAR_STATUS}</td>
+			<td><a href="{TPL_DETAILS_LINK}">details</a></td>
+		</tr>
+		<!-- END TPL_ORDERLIST_BLK -->
+	</table>
+	<!-- END TPL_ORDERLISTMAIN_BLK -->
+
+	<!-- END TPL_CURRENTINFO_BLK -->
+
+	<!-- BEGIN TPL_EDITACCOUNT_BLK -->
+
+	<script language="JavaScript" type="text/javascript">
+        <!--
+		/*function changeState(c){
+			if((c!="United States")&&(c!="Canada")){
+				document.ThisForm.state.options[1].selected = true;
+				disableField(document.ThisForm.state,true);
+			} else {
+				disableField(document.ThisForm.state,false);
+				document.ThisForm.state.options[0].selected = true;
+			}
+		}
+	
+		function disableField(field,stat) {
+			field.disabled = stat;
+		}*/		
+		
+		function isEmail(s){
+			var i = 1;
+			var sLength = s.length;
+			while ((i < sLength) && (s.charAt(i) != "@")){ i++ }
+			if ((i >= sLength) || (s.charAt(i) != "@")) return false;
+				else i += 2;
+			while ((i < sLength) && (s.charAt(i) != ".")){ i++ }
+			if ((i >= sLength - 1) || (s.charAt(i) != ".")) return false;
+				else return true;
+		}
+				
+        function validateForm(form){
+			
+
+			if(isNull(form.first_name.value) || form.first_name.value=='first name'){
+				alert("Please enter your First Name...");
+				form.first_name.focus();
+				return false;
+			}
+			if(isNull(form.last_name.value) || form.last_name.value=='last name'){
+				alert("Please enter your Last Name...");
+				form.last_name.focus();
+				return false;
+			}
+			if(!checkEmail(form.email.value)){
+				alert("Please enter a valid Email Address...");
+				form.email.focus();
+				return false;
+			}
+			if(isNull(form.address1.value) || form.address1.value=='address 1'){
+				alert("Please enter your Address 1...");
+				form.address1.focus();
+				return false;
+			}
+			if(isNull(form.city.value) || form.city.value=='city'){
+				alert("Please enter your City...");
+				form.city.focus();
+				return false;
+			}
+			index = form.bill_country_id.value;
+			if(stateName[index].length > 1){
+				if(isNull(form.bill_state_id.value) || form.bill_state_id.value == -1){
+				alert("Please select your County/State...");
+				form.bill_state_id.focus();
+				return false;
+				}
+			}else{
+					if(isNull(form.bill_state.value) || form.bill_state.value==''){
+					alert("Please enter your County/State...");
+					form.bill_state.focus();
+					return false;
+				  }
+				}
+
+			if(isNull(form.zip.value) || form.zip.value=='postcode/zip'){
+				alert("Please enter Postcode/Zip...");
+				form.zip.focus();
+				return false;
+			}
+			if(isNull(form.phone.value) || form.phone.value=='telephone'){
+				alert("Please enter your Telephone...");
+				form.phone.focus();
+				return false;
+			}
+			return true;
+		}
+         //-->
+	</script>
+
+	<form class="global-form" name="ThisForm" action="{TPL_VAR_SITEURL}user/index.php?action=user.update" method="post"  onsubmit="if(validateForm(this)){return true}else{return false}">
+		<fieldset>
+			<legend>Update Information</legend>
+			<p class="message">{TPL_VAR_MSG}</p>  
+			<p>All fields marked (<span>*</span>) are required</p>
+			<label for="company">Company</label>
+			<input class="formField" type="text" name="company" id="company" value="{TPL_VAR_COMPANY}"  maxlength="50" />
+			<label for="first_name">First Name <span>*</span></label>
+			<input class="formField" type="text" name="first_name" id="first_name" value="{TPL_VAR_FNAME}"  maxlength="30" />
+			<label for="last_name">Last Name <span>*</span></label>
+			<input class="formField" type="text" name="last_name" id="last_name" value="{TPL_VAR_LNAME}"  maxlength="30" />
+			<label for="email">Email Address <span>*</span></label>
+			<input class="formField" type="text" name="email" id="email" value="{TPL_VAR_EMAIL}"  maxlength="50" />
+			<label for="address1">Address 1 <span>*</span></label>
+			<input class="formField" type="text" name="address1" id="address1" value="{TPL_VAR_ADDRESS1}"  maxlength="60" />
+			<label for="address2">Address 2</label>
+			<input class="formField" type="text" name="address2" id="address2" value="{TPL_VAR_ADDRESS2}"  maxlength="60" />
+			<label for="city">City <span>*</span></label>
+			<input class="formField" type="text" name="city" id="city" value="{TPL_VAR_CITY}"  maxlength="50" />
+			<label for="country">Country</label>
+			<select class="formField" id="country" name="bill_country_id" onchange="javascript:setbillstate(this.options[this.selectedIndex].value,2)">
+				<!-- BEGIN BillCountry -->
+				<option value="{TPL_COUNTRY_VALUE}" {BILL_COUNTRY_SELECT}>{TPL_COUNTRY_NAME}</option>
+				<!-- END BillCountry -->
+			</select>
+			<label for="county">County/State</label>
+			<select class="formField" id="bill_state_id" name="bill_state_id">
+				<option ></option>
+			</select>
+			<label for="county">County/State (Other)</label>
+			<input class="formField" type="text" name="bill_state" value="{TPL_VAR_STATENAME}" maxlength="50" size="12" id="bill_state" />
+			<label for="zip">Postcode/Zip <span>*</span></label>
+			<input class="formField" type="text" name="zip" id="zip" value="{TPL_VAR_ZIP}"  maxlength="20"  />
+			<label for="phone">Telephone <span>*</span></label>
+			<input class="formField" type="text" name="phone" id="phone" value="{TPL_VAR_PHONE}"  maxlength="20"  />
+			<label for="homepage">Website</label>
+			<input class="formField" type="text" name="homepage" id="homepage" value="{TPL_VAR_HOMEPAGE}"  maxlength="80" />
+		</fieldset>
+
+		<!-- BEGIN TPL_NEWSLETTER_BLK -->
+		<fieldset>
+			<legend>Sign up for our newsletter</legend>
+			<label>Which version of our newsletter would you prefer?</label>
+			<select class="formSelect" name="mail_list">
+				<option id="html_mail"  value="1" {TPL_VAR_CHECK1}>HTML Email</option>
+				<option id="txt_mail" value="2" {TPL_VAR_CHECK2}>Plain Text Email</option>
+				<option id="not_sure" value="2" {TPL_VAR_CHECK2}>Not Sure - Send Plain Text</option>
+				<option id="no_mail"  value="0" {TPL_VAR_CHECK3}>No Thanks!</option>
+			</select>
+		</fieldset>
+		<!-- END TPL_NEWSLETTER_BLK -->
+		<input class="formButton" type="submit" name="smtCustomer" id="smtCustomer" value="Process Request" />
+
+	</form>
+	<script>
+		if(document.ThisForm.bill_country_id.value=="" || document.ThisForm.bill_country_id.value<=0)
+		{
+			setbillstate({selbillcountid},2);
+		}
+			else
+		{
+			setbillstate(document.ThisForm.bill_country_id.value,2);
+		}
+			for(var i=0;i<document.ThisForm.bill_state_id.options.length;i++)
+		{
+			if(document.ThisForm.bill_state_id.options[i].value == '{selbillstateid}')
+			document.ThisForm.bill_state_id.options[i].selected = true;
+		}
+
+	</script>
+<!-- END TPL_EDITACCOUNT_BLK -->		
+
+<!-- BEGIN TPL_CHANGEPASS_BLK -->
+	
+	<script language="JavaScript" type="text/javascript">
+		<!--
+		function validateForm(form){
+			if(isNull(form.password.value)){
+				alert("Please enter a Password...");
+				form.password.focus();
+				return false;
+			}else if(form.verify_pw.value!=form.password.value){
+				alert("Your password does not verify. Please retype it.");
+				form.verify_pw.focus();
+				return false;
+			}
+			return true;
+			}
+		//-->
+	</script>
+			
+	<form class="global-form" action="{TPL_VAR_SITEURL}user/index.php?action=user.updatePass" method="POST" name="ThisForm" onSubmit="if(validateForm(this)){return true}else{return false}">
+		<p class="message">{TPL_VAR_MSG}</p>  
+		<fieldset>
+			<legend>Change Password</legend>
+			<label for="password">New Password <span>*</span>
+			<input class="formField" type="Password" name="password" value="" maxlength="50" />
+			<label for="verify_pw">Verify New Password <span>*</span>
+			<input class="formField" type="Password" name="verify_pw" value="" maxlength="50" />
+			<input type="submit" value="Modify Password" name="smtPassChange" id="smtPassChange" class="formButton" />
+		</fieldset>
+	</form>
+
+	<!-- END TPL_CHANGEPASS_BLK -->
+</div>

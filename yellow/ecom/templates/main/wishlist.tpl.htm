@@ -1,0 +1,105 @@
+<script language="JavaScript" type="text/javascript">
+  function isEmail(s){
+	var i = 1;
+	var sLength = s.length;
+	while ((i < sLength) && (s.charAt(i) != "@")){ i++ }
+	if ((i >= sLength) || (s.charAt(i) != "@")) return false;
+		else i += 2;
+	while ((i < sLength) && (s.charAt(i) != ".")){ i++ }
+	if ((i >= sLength - 1) || (s.charAt(i) != ".")) return false;
+		else return true;
+}
+  function validate(){
+    if((isEmail(document.frmParam.email.value))&&(document.frmParam.email.value!='' && document.frmParam.email.value!='add email')){
+	} else {
+	  alert("Please enter a valid email address...");
+	  document.frmParam.email.focus();
+	  return false;
+	}
+  }
+  function validate2(){
+    if((document.ThisFormWishList.comment.value!='' && document.ThisFormWishList.comment.value!='message')){
+	} else {
+	  alert("Please enter a message to be sent to your list...");
+	  document.ThisFormWishList.comment.focus();
+	  return false;
+	}
+	
+  }
+</script>
+
+<h2 id="pageTitle">My {TPL_VAR_WISHLIST}</h2>	
+<div id="content">
+	<p>Hello  {TPL_VAR_USERNAME}, welcome to your {TPL_VAR_WISHLIST}.</p>
+	<p class="message">{TPL_VAR_MSG}</p>
+
+
+	<!-- BEGIN TPL_MAINPRODUCT_BLK -->
+	<form action="{TPL_VAR_WISHLISTMODIFYURL}" method="post" name="ThisForm" id="ThisForm">
+		<table summary="Items in wish list">
+			<tr>
+				<th class="qty">Quantity</th>
+				<th>Product</th>
+				<th class="remove">Remove</th>
+			</tr>
+			<!-- BEGIN TPL_PRODUCT_BLK -->
+			<input type="hidden" name="wishlistid[]" value="{TPL_VAR_ID}">
+			<tr>
+				<td>
+					<label for="qtya">Quantity</label>
+					<input type="text" name="quantity[]"  id="quantity[]" value="{TPL_VAR_QTY}" class="formFieldShort" maxlength="3" size="3" onfocus="this.select()" />
+				</td>
+				<td><a href="{TPL_VAR_PRODUCTURL}" class="siteLink">{TPL_VAR_TITLE}</a></td>
+				<td class="remove">
+					<input type="checkbox" class="formRadio" name="remove[{TPL_VAR_ID}]" value="1" />
+				</td>
+			</tr>
+			<!-- END TPL_PRODUCT_BLK -->
+		</table>
+		<input type="submit" name="update" value="Update Wish List" class="formButton"/>
+	</form>
+
+
+	<h2>Manage my Wish List subscriptions</h2>
+	<!-- END TPL_MAINPRODUCT_BLK -->
+
+	<!-- BEGIN TPL_ADDWISHEMAIL_BLK -->
+	<div class="module1">
+		<form action="{TPL_VAR_ADDEMAIL}" method="post" onsubmit="return validate();" name="frmParam">
+			<h3>Add New Wish List Subscriber</h3>
+			<p>To add an email address to your subscribed members list, type in the email address below and press the &#8216;Add Email&#8217; button.</p>
+			<label for="email">Add email address</label>
+			<input class="formField" type="text" id="email" name="email" onfocus="if(this.value=='add email')this.value='';" onblur="if(this.value=='')this.value='add email';" value="add email"  maxlength="50"  />
+			<input type="submit" class="formButton" value="Add Email" />
+		</form>
+	</div>
+	<!-- END TPL_ADDWISHEMAIL_BLK -->
+
+	<!-- BEGIN TPL_MAINWISHLIST_BLK -->
+	<div class="module2">
+		<h3>Current Wish List Subscribers</h3>
+		<p>Below is a list a people currently subscribed to your wish list. To remove select the email and press the &#8216;Remove Email&#8217; button.</p>
+		<form action="{TPL_VAR_REMOVE_EMAIL}" method="post">
+			<label for="emailid">Remove email address</label>
+			<select name="emailid" id="emailid" class="formField">
+				<!-- BEGIN TPL_WISHLIST_BLK -->
+				<option value="{TPL_VAR_EMAILID}">{TPL_VAR_EMAIL}</option>
+				<!-- END TPL_WISHLIST_BLK -->
+			</select>
+			<input type="submit" value="Remove Email" class="formButton" />
+		</form>
+	</div>
+	<!-- END TPL_MAINWISHLIST_BLK -->
+
+	<!-- BEGIN TPL_SENDWISHEMAIL_BLK -->
+	<h3>Send Wish List</h3>
+	<p>To send a copy of your wish list to your subscribed email list, type a message in the text area below and press the &#8216;Send Wish List&#8217; button. Your wish list will be sent to your list of email addresses.</p>
+	<form action="{TPL_VAR_SEND_EMAIL}" method="post" name="ThisFormWishList" id="ThisFormWishList" onsubmit="return validate2();">
+		<label for="comment">Type your message here</label>
+		<textarea class="formField" cols="40" rows="8" name="comment" id="comment" onfocus="this.select()"></textarea>
+		<input type="submit" class="formButton" value="Send Wish List" />
+	</form>
+	<!-- END TPL_SENDWISHEMAIL_BLK -->
+
+
+</div>

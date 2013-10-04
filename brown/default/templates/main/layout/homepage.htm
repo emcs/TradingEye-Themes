@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<title>{TPL_VAR_METATITLE}</title>
+	<meta name="description" content="{TPL_VAR_METADESCRIPTION}" />
+	<meta name="keywords" content="{TPL_VAR_METAKEYWORDS}" />
+	<meta name="title" content="{TPL_VAR_METATITLE}" />
+	<meta http-equiv="Content-Type" content="{TPL_VAR_CENCODING}" />
+	<meta http-equiv="Content-Language" content="en-gb" />
+	<meta name="robots" content="all" />
+	<meta name="Revisit-After" content="7 days" />
+	<meta http-equiv="imagetoolbar" content="false" />
+	<meta name="MSSmartTagsPreventParsing" content="true" />
+	<meta name="author" content="EMCS Ltd" />
+	<link rel="shortcut icon" href="{TPL_VAR_REAL_PATH}favicon.ico" type="image/x-icon" />
+	<link rel="stylesheet" type="text/css" href="{TPL_VAR_THEME_PATH}petrol.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="{TPL_VAR_REAL_PATH}css/inline_editor.css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="{TPL_VAR_REAL_PATH}css/print.css" media="print" />
+	<!--[if IE 6]><link rel="stylesheet" type="text/css" href="{TPL_VAR_REAL_PATH}css/ie6-hover.css" media="screen" /><![endif]-->
+	<script language="Javascript" type="text/javascript" src="{TPL_VAR_REAL_PATH}jscript/validations.js"></script>
+	<link rel="stylesheet" type="text/css" href="{TPL_VAR_REAL_PATH}css/lightbox.css" media="screen" />
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/prototype/1.7.0.0/prototype.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/scriptaculous/1.9.0/scriptaculous.js?load=effects,builder"></script>
+	<script type="text/javascript" src="{TPL_VAR_REAL_PATH}jscript/lightbox.js"></script>
+	<script type="text/javascript" src="{TPL_VAR_REAL_PATH}jscript/common.js"></script>
+	<script src="{TPL_VAR_REAL_PATH}jscript/cookies.js"></script>
+    <script language="javascript" type="text/javascript">
+	var dateObject=new Date();
+	</script>
+	<style>
+		#sidebar {
+			padding-top:429px;
+		}
+		#content {
+			position:relative;
+			left:-235px;
+		}
+		ul.products {
+			position:relative;
+			top:-46px;
+		}
+		#mid div.inner {
+			margin-top:0px;
+		}
+	</style>	
+</head>
+<body id="homepage">
+	<!-- BEGIN TPL_VAR_INLINE_EDITOR_BLK -->
+	<div id="inline_editor">
+		<p class="hideMenu"><a href="#" onclick="document.getElementById('inline_editor').id = 'inline_editor_hidden'; return false;">Hide Side Menu</a></p>
+		<dl class="inline_menu">
+			<dt id="builder">Editor</dt>
+			<dd><a href="{TPL_VAR_EDITLINK}">Edit This Page</a></dd>
+			<dd><a href="{TPL_VAR_ADMINURL}" target="_top">Load Admin</a></dd>
+			<dd><a href="{TPL_VAR_ADMINLOGOUT}" target="_top">Admin Logout</a></dd>
+			<dd><a href="javascript:history.go(-1)" target="_top">Previous Page</a></dd>
+			<dd><a href="{TPL_VAR_ASSOCIATE_PRODUCTLINK}" target="_top">Associate Product</a></dd>
+			<dd><a href="{TPL_VAR_ASSOCIATE_ARTICLELINK}" target="_top">Associate Article</a></dd>
+		</dl>
+		<p id="show_menu"><a href="#" onclick="document.getElementById('inline_editor_hidden').id = 'inline_editor'; return false;"><span>Show Menu</span></a></p>
+	</div>
+	<!-- END TPL_VAR_INLINE_EDITOR_BLK -->
+	<p id="skip">[<a href="#main">skip to main content</a>]</p>
+	<div id="container">
+		<div class="inner">
+			<div id="header">
+				<div class="inner">
+					<div id="info">
+						<p id="basket"><a href="{TPL_VAR_CARTLINK}">{LANG_VAR_ITEMSINBASKET}: {TPL_VAR_TOTALQTY} {LANG_VAR_TOTAL}: {TPL_VAR_CURRENCY}{TPL_VAR_GRANDTOTAL}</a></p>
+					</div>
+				</div>	
+			</div>
+			<div id="mid">
+				<div class="inner">
+					<p id="breadcrumbs">{LANG_VAR_YOUAREHERE} <a href="{TPL_VAR_HOMEURL}">Home</a>{TPL_VAR_BREDCRUMBS}</p>
+					<div id="main">
+						<div class="inner">
+						{TPL_VAR_BODY}
+						</div>
+					</div><div id="sidebar">
+						{TPL_VAR_LEFT}
+					</div>
+					<!-- end side -->
+				</div>
+			</div>
+			<div id="footer">
+				<div class="inner">
+					<ul>
+						<li class="first"><a href="{TPL_VAR_ACCESSIBILITY}">Accessibility Statement</a></li>
+						<li><a href="{TPL_VAR_CONDITIONS}">Terms &amp; Conditions</a></li>
+						<li><a href="{TPL_VAR_PRIVACY}">Privacy Policy</a></li>
+						<li><a href="{TPL_VAR_CONTACTUS}">Contact Us</a></li>
+						<li><a href="{TPL_VAR_SITEMAP}">Site Map</a></li>
+						<!-- BEGIN TPL_ARTICLERSS_BLK -->
+						<li><a href="{TPL_VAR_ARTICLERSS}">Article RSS feed</a></li>
+						<!-- END TPL_ARTICLERSS_BLK -->
+						<!-- BEGIN TPL_PRODUCTRSS_BLK -->
+						<li><a href="{TPL_VAR_PRODUCTRSS}">Product RSS feed</a></li>
+						<!-- END TPL_PRODUCTRSS_BLK -->
+						<li>Powered by <a href="http://www.tradingeye.com/" target="_blank">Tradingeye</a>. &copy; <script type="text/javascript">
+document.write(dateObject.getFullYear()); 
+</script> <a href="{TPL_VAR_CONTACTUS}">{TPL_VAR_SITENAME}</a>.</li></ul>
+				</div>	
+			</div>	
+		</div>
+		<div id="push">&nbsp;</div>
+	</div>
+	<div id="extra">
+	</div>
+	
+<script type="text/javascript">
+function cookiesDirectiveScriptWrapper(){
+		{TPL_VAR_GOOGLEANALYTICS}
+}
+</script>
+<script type="text/javascript">
+	cookiesDirective('bottom',5,'action/cms/privacy','Google Analytics');
+</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<h2 id="pageTitle">{TPL_VAR_PRODUCTNAME}</h2>	
+<div id="content">
+	{TPL_VAR_LONGDESC}		
+	<p id="pageAuthor"><em>Last Updated: {TPL_VAR_DATE}</em></p>
+</div>
+<!-- BEGIN TPL_MAINPRODUCT_BLK -->
+<div class="products">
+	<h2>May we suggest</h2>
+	<ul>
+		<!-- BEGIN TPL_PRODUCT_BLK -->
+		<li>		<div class='top'>		<a href="{TPL_VAR_PRODUCTURL}"><p class="image" style="height:{TPL_VAR_IMAGE_HEIGHT}px;width:{TPL_VAR_IMAGE_WIDTH}px;">{TPL_VAR_IMG}</p></a>		{TPL_VAR_ONSALE}		<p class="price"><span class="hack">{TPL_VAR_CURRENCY}{TPL_VAR_PRICE} <!-- BEGIN TPL_RRPPRICE_BLK --> <span class="rrp">{TPL_VAR_RRP_AMOUNT}</span><!-- END TPL_RRPPRICE_BLK --></span></p> 		</div>		<div class='bottom'>			<h3><a href="{TPL_VAR_PRODUCTURL}">{TPL_VAR_TITLE}</a></h3>			<!-- BEGIN TPL_PDESC_BLK -->			<p class="desc">{TPL_VAR_DESC}</p>			<!-- END TPL_PDESC_BLK -->			<!-- BEGIN TPL_REVIEWRANK_BLK -->			{TPL_VAR_OVERALLRANK}			<!-- END TPL_REVIEWRANK_BLK -->			{TPL_VAR_ATTACHED_WISHLISTLINK}			{TPL_VAR_ATTACHED_COMPARELINK}		</div>				</li>								
+		<!-- END TPL_PRODUCT_BLK -->
+	</ul><script type="text/javascript">$(window).load(function () {	var largest = 0;	jQuery('.products > li > .bottom').each(function(){		if(jQuery(this).height() > largest)		{			largest = jQuery(this).height();		}	});	jQuery('.products > li > .bottom').height(largest);	jQuery('.image > img').each(function(){		if(jQuery(this).width() > {TPL_VAR_IMAGE_WIDTH} && jQuery(this).width() > jQuery(this).height())		{			jQuery(this).width({TPL_VAR_IMAGE_WIDTH});		}		else if(jQuery(this).height() > {TPL_VAR_IMAGE_HEIGHT})		{			jQuery(this).height({TPL_VAR_IMAGE_HEIGHT});		}	});});</script>
+</div>
+<!-- END TPL_MAINPRODUCT_BLK -->	  
+<!-- BEGIN TPL_MAINCONTENT_BLK -->
+<div id="articles"> 
+	<h2>Latest News</h2> 
+	<ul>
+		<!-- BEGIN TPL_CONTENT_BLK -->
+		<li><a href="{TPL_VAR_CONTENTURL}"><span>{TPL_VAR_TITLE}</span></a></li>
+		<!-- END TPL_CONTENT_BLK -->
+	</ul>
+</div>  
+<!-- END TPL_MAINCONTENT_BLK -->

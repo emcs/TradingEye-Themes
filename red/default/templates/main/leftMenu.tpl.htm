@@ -1,0 +1,91 @@
+<div class="inner">
+	<div class='sidebaritemcontainer'><h3 id="searchTitle">Search</h3>
+	<form style='padding-left:0px;' id="search" method="post" name="search" action="{TPL_VAR_SEARCHURL}">
+		<label for="searchKeyword">{LANG_VAR_SEARCHLABEL}</label>
+		<input class='myinput' type="text" name="mode" id="searchKeyword" onfocus="if(this.value=='Search')this.value='';" onblur="if(this.value=='')this.value='Search';" value="{LANG_VAR_SEARCHLABEL}" maxlength="50" />
+		<select id="adv" class='myinput' name="adv">
+			<option value="SearchAll">Entire site</option>
+			<option value="products">Product</option>
+			<option value="department">Department</option>
+			<option value="content">Content</option>
+		</select>
+		<input type="submit" name="go" id="searchSubmit" value="Search" />
+	</form></div>
+	<!--  BEGIN TPL_SHOPBYBRAND_BLK -->
+	<div class='sidebaritemcontainer'><h3 id="shopbyBrandTitle">Shop By Brand</h3>
+	<form style='padding-left:0px;' id="brand" method="post" name="brand" action="{TPL_VAR_BRANDURL}" onsubmit="return checkform(this);">
+		<select class="myinput" id="shopByBrand" name="mode">
+			<option value="0">--Select Brand--</option>
+		<!-- BEGIN TPL_BRAND_BLK -->
+			<option value="{TPL_VAR_BRANDID}">{TPL_VAR_SUPPLIER}</option>
+			<!-- END TPL_BRAND_BLK -->
+		</select>
+		<input type="submit" name="go" id="brandSubmit" value="Submit" />
+	</form></div>
+	<!--  END TPL_SHOPBYBRAND_BLK -->
+	<h3 id="navDeptTitle">{LANG_VAR_DEPARTMENTHEADER}</h3>
+	<ul id="{TPL_VAR_TREECLASS}" class="menu">
+		<li class="first"><a href="{TPL_VAR_HOMEURL}" {TPL_VAR_HOMECLASS} title="Home Page"><span>{LANG_VAR_HOMEPAGE}</span></a></li>	
+		<!-- BEGIN TPL_DEPARTMENT_BLK -->
+		<li><a href="{TPL_VAR_DEPTURL}" {TPL_VAR_DEPTCLASS}><span>{TPL_VAR_DNAME}</span></a>
+			<!-- BEGIN TPL_SUB_DEPARTMENT_MAIN_BLK1 -->
+			<ul class="navSub">
+				<!-- BEGIN TPL_SUB_DEPARTMENT_BLK1 -->
+				<li><a href="{TPL_VAR_DEPTURL1}" {TPL_VAR_DEPTCLASS1}><span>{TPL_VAR_DNAME1}</span></a>
+					<!-- BEGIN TPL_SUB_DEPARTMENT_MAIN_BLK2 -->
+					<ul class="navSub">
+						<!-- BEGIN TPL_SUB_DEPARTMENT_BLK2 -->
+						<li><a href="{TPL_VAR_DEPTURL2}" {TPL_VAR_DEPTCLASS2}><span>{TPL_VAR_DNAME2}</span></a></li>
+						<!-- END TPL_SUB_DEPARTMENT_BLK2 -->		
+					</ul>
+					<!-- END TPL_SUB_DEPARTMENT_MAIN_BLK2 -->
+				</li>
+				<!-- END TPL_SUB_DEPARTMENT_BLK1 -->
+			</ul>
+			<!-- END TPL_SUB_DEPARTMENT_MAIN_BLK1 -->
+		</li>		
+		<!-- END TPL_DEPARTMENT_BLK -->
+	</ul>
+	<!-- BEGIN TPL_TREEMENU_BLK -->
+	<script type="text/javascript" src="{TPL_VAR_HOMEURL}jscript/menu.js">
+		leftmenu.createMenu("leftmenu", true)
+	</script>
+<!-- END TPL_TREEMENU_BLK -->
+	<h3 id="navToolsTitle">{LANG_VAR_MYTOOLS}</h3>
+	<ul id="navTools">
+		<li class="first"><a href="{TPL_VAR_MYACCOUNT}" {TPL_VAR_ACTCLASS}><span>{LANG_VAR_MYACCOUNT}</span></a></li>
+		<!-- BEGIN TPL_WISHLINK_BLK -->
+		<li><a href="{TPL_VAR_WISHLIST}" {TPL_VAR_WISHLISTCLASS}><span>{LANG_VAR_MYWISHLIST}</span></a></li>
+		<!-- END TPL_WISHLINK_BLK -->
+		<!-- BEGIN TPL_COMPARE_BLK -->
+		<li><a href="{TPL_VAR_COMPARE}"><span>My Comparison List</span></a></li>
+		<!-- END TPL_COMPARE_BLK -->
+		<li><a href="{TPL_VAR_VIEWCART}" {TPL_VAR_VIEWCARTCLASS}><span>{LANG_VAR_VIEWBASKET}</span></a></li>
+		<li><a href="{TPL_VAR_SIGNUP}" {TPL_VAR_SIGNUPCLASS}><span>{TPL_VAR_LABEL}</span></a></li>
+	</ul>
+	<!-- BEGIN TPL_MENUHEAD_BLK -->
+	<div class='sidebaritemcontainer'><h3 class="navStaticTitle">{TPL_VAR_MENUHEAD}</h3>
+	<ul class="navStatic">
+		<!-- BEGIN TPL_MENU_BLK -->
+		<li><a href="{TPL_VAR_LINK}" {TPL_VAR_HREFATTRIBUTES} target="{TPL_VAR_METHOD}"><span>{TPL_VAR_MENUTITLE}</span></a></li>
+		<!-- END TPL_MENU_BLK -->
+	</ul></div>
+	<!-- END TPL_MENUHEAD_BLK -->
+	<!-- BEGIN TPL_NEWSLETTER_BLK -->
+	<div class='sidebaritemcontainer'><h3 id="newsletterTitle">Newsletter Signup</h3>
+	<form style='padding-left:0px;' id="newsletter" method="post" name="news" action="{TPL_VAR_NEWSLETTER}" >
+		<label for="newsletterEmail">Newsletter</label>
+		<input class='myinput' type="text" name="news" id="newsletterEmail" maxlength="50" onfocus="if(this.value=='Email')this.value='';" onblur="if(this.value=='')this.value='Email';" value="Email" />
+		<input type="submit" name="go" id="newsletterSubmit" value="Signup" />
+	</form></div>
+	<!-- END TPL_NEWSLETTER_BLK -->
+	<!-- BEGIN TPL_MAINRECENT_BLK -->
+	<div class='sidebaritemcontainer'><h3 id="recentlyViewedTitle">Recently Viewed Items</h3>
+	<ul id="recentlyViewed">
+		<!-- BEGIN TPL_RECENT_BLK -->
+		<li><a href="{TPL_VAR_PRODUCTURL}"><span>{TPL_VAR_PRODUCTTITLE}</span></a></li>
+		<!-- END TPL_RECENT_BLK -->
+	</ul></div>
+	<!-- END TPL_MAINRECENT_BLK -->
+	
+</div>

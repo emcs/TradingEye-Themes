@@ -1,0 +1,38 @@
+<form name="frm_secpay" method="post" action="{TPL_VAR_PAYACTION}">
+<input type="hidden" name="merchant" value="{TPL_VAR_MERCHANT}">
+<input type="hidden" name="trans_id" value="{TPL_VAR_INVOICE}">
+<input type="hidden" name="currency" value="{TPL_VAR_PAYCURRENCY}">
+<input type="hidden" name="amount" value="{TPL_VAR_GRANDTOTAL}">
+<input type="hidden" name="options" value="dups=false,cb_post=true,test_status={SECPAY_MODE}">
+<input type="hidden" name="md_flds" value="trans_id:amount:callback">
+<input type="hidden" name="callback" value="{CALLBACK_URL}">
+<input type="hidden" name="backcallback" value="{BACKCALLBACK_URL}">
+<input type="hidden" name="digest" value="{TPL_VAR_DIGEST_CALCULATED}">
+<input type="hidden" name="cb_flds" value="sessionFld:mode">
+<input type="hidden" name="sessionFld" value="{TPL_VAR_SESSIONID}">
+<input type="hidden" name="mode" value="{TPL_VAR_ITEMNUMBER}">
+<input type="hidden" name="bill_name" value="{TPL_VAR_FIRSTNAME} {TPL_VAR_LASTNAME}">
+<input type="hidden" name="bill_company" value="{TPL_VAR_COMPANY}">
+<input type="hidden" name="bill_addr_1" value="{TPL_VAR_ADDRESS1}">
+<input type="hidden" name="bill_addr_2" value="{TPL_VAR_ADDRESS2}">
+<input type="hidden" name="bill_city" value="{TPL_VAR_CITY}">
+<input type="hidden" name="bill_state" value="{TPL_VAR_BILLSTATE}">
+<input type="hidden" name="bill_country" value="{TPL_VAR_BILLCOUNTRY}">
+<input type="hidden" name="bill_post_code" value="{TPL_VAR_ZIP}	">
+<input type="hidden" name="bill_tel" value="{TPL_VAR_PHONE}">
+<input type="hidden" name="bill_email" value="{TPL_VAR_EMAIL}">
+<input type="hidden" name="ship_name" value="{TPL_VAR_ALTNAME}">
+<input type="hidden" name="ship_addr_1" value="{TPL_VAR_ALTADDR1}">
+<input type="hidden" name="ship_addr_2" value="{TPL_VAR_ALTADDR2}">
+<input type="hidden" name="ship_city" value="{TPL_VAR_ALTCITY}">
+<input type="hidden" name="ship_state" value="{TPL_VAR_SHIPSTATE}">
+<input type="hidden" name="ship_country" value="{TPL_VAR_SHIPCOUNTRY}">
+<input type="hidden" name="ship_post_code" value="{TPL_VAR_ALTZIP}">
+<input type="hidden" name="ship_tel" value="{TPL_VAR_ALTPHONE}">
+<input type="hidden" name="ship_email" value="{TPL_VAR_EMAIL}">
+<input type="hidden" name="mail_merchants" value="{TPL_VAR_MERCHANTEMAIL}">
+<input type='submit' value='Pay with SECPay' >
+</form>
+<script language="JavaScript">
+	document.frm_secpay.submit();
+</script>
